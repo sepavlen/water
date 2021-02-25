@@ -14,6 +14,8 @@ Route::prefix('dashboard')
         Route::get('/', 'backend\DashboardController@index')
             ->name('dashboard');
         Route::get('/users', 'backend\UserController@index')->name('dashboard.users');
+        Route::get('/users/create', 'backend\UserController@create')->name('dashboard.user.create');
+        Route::post('/users/create', 'backend\UserController@save')->name('dashboard.user.create');
         Route::get('/machine', 'backend\MachineController@machine')->name('dashboard.machine');
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
     });

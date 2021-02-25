@@ -26,9 +26,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <button id="sample_editable_1_new" class="btn sbold green"> Добавить нового пользователя
+                                    <a href="{{ route('dashboard.user.create') }}" id="sample_editable_1_new" class="btn sbold green"> Добавить нового пользователя
                                         <i class="fa fa-plus"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -40,107 +40,31 @@
                             <th> Email</th>
                             <th> Роль</th>
                             <th> Статус</th>
-                            <th> Редактирвать</th>
+                            <th> Действие</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="odd gradeX">
-                            <td> shuxer</td>
-                            <td>
-                                <a href="mailto:shuxer@gmail.com"> shuxer@gmail.com </a>
-                            </td>
-                            <td class="center"> Администратор</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td class="text-center">
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> looper</td>
-                            <td>
-                                <a href="mailto:looper90@gmail.com"> looper90@gmail.com </a>
-                            </td>
-                            <td class="center"> Администратор</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> userwow</td>
-                            <td>
-                                <a href="mailto:userwow@yahoo.com"> userwow@yahoo.com </a>
-                            </td>
-                            <td class="center"> Менеджер</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> user1wow</td>
-                            <td>
-                                <a href="mailto:userwow@gmail.com"> userwow@gmail.com </a>
-                            </td>
-                            <td class="center"> Менеджер</td>
-                            <td>
-                                <span class="label label-sm label-danger"> Заблокирован </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> restest</td>
-                            <td>
-                                <a href="mailto:userwow@gmail.com"> test@gmail.com </a>
-                            </td>
-                            <td class="center"> Менеджер</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> foopl</td>
-                            <td>
-                                <a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-                            </td>
-                            <td class="center"> Менеджер</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td> weep</td>
-                            <td>
-                                <a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-                            </td>
-                            <td class="center"> Менеджер</td>
-                            <td>
-                                <span class="label label-sm label-success"> Активный </span>
-                            </td>
-                            <td>
-                                <span class="fa fa-edit"> </span>
-                            </td>
-                        </tr>
+                        @if ($users)
+                            @foreach($users as $user)
+                                <tr class="odd gradeX">
+                                    <td> {{ $user->name }}</td>
+                                    <td>
+                                        <a href="mailto:shuxer@gmail.com">{{ $user->email }} </a>
+                                    </td>
+                                    <td class="center"> {{ \App\src\helpers\UserHelper::getRole($user->role) }}</td>
+                                    <td>
+                                        {!! \App\src\helpers\UserHelper::getStatus($user->status) !!}
+                                    </td>
+                                    <td class="text-center custom-icons">
+                                        <span class="fa fa-edit"> </span>
+                                        <span class="fa fa-times"> </span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-
-
 @endsection

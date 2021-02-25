@@ -12,13 +12,18 @@ class User extends Authenticatable
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCKED = 2;
 
+    const ROLE_ADMIN = 1;
+    const ROLE_MANAGER = 2;
+
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'status', 'role'
     ];
 
     /**
