@@ -52,6 +52,16 @@
         font-size: 25px;
         cursor: pointer;
     }
+    .custom-icons a{
+        display: block;
+        margin-top: 10px;
+    }
+    .custom-icons .fa-edit:hover{
+        color: #0b94ea;
+    }
+    .custom-icons .fa-times:hover{
+        color: #ea0b0b;
+    }
 </style>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">

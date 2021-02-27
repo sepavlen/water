@@ -5,6 +5,7 @@ namespace App\src\services;
 
 use App\src\repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -25,9 +26,18 @@ class UserService
         $request->validate($this->getRules(), $this->getMessages());
     }
 
+    public function userValidateUpdate (Request $request)
+    {
+        $request->validate($this->getRulesUpdate($request->user_id), $this->getMessages());
+    }
+
     public function save (Request $request)
     {
-        return $this->repository->save($request);
+        $user = $this->repository->getUserOrCreate(['id' => $request->user_id]);
+        $user->fill($request->except(['password']));
+        if ($request->password)
+            $user->password = Hash::make($request->password);
+        return $this->repository->save($user);
     }
 
     public function getUsers ()
@@ -35,11 +45,29 @@ class UserService
         return $this->repository->getAllUsers();
     }
 
+    public function getModel ()
+    {
+        return $this->repository->getUser();
+    }
+
+    public function getUserById ($id)
+    {
+        return $this->repository->getUserByParams(['id' => $id]);
+    }
+
     public function getRules ()
     {
         return [
             'password' => 'required|min:6|confirmed',
             'email' => 'required|email|unique:users',
+        ];
+    }
+
+    public function getRulesUpdate ($user_id)
+    {
+        return [
+            'password' => 'nullable|min:6|confirmed',
+            'email' => 'required|email|unique:users,email,' . $user_id,
         ];
     }
 

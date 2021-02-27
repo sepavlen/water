@@ -5,6 +5,7 @@ namespace App\src\repositories;
 
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -22,14 +23,21 @@ class UserRepository
 
     public function getAllUsers ()
     {
-        return $this->getUser()->all();
+        return $this->getUser()->where('id', "<>", Auth::id())->get();
+    }
+
+    public function getUserOrCreate ($id)
+    {
+        if ($id){
+            $user = $this->getUserByParams(['id' => $id]);
+            if ($user)
+                return $user;
+        }
+        return $this->getUser();
     }
     
-    public function save (Request $request) 
+    public function save ($user)
     {
-        $user = $this->getUser();
-        $user->fill($request->all());
-        $user->password = Hash::make($request->password);
         return $user->save();
     }
 }

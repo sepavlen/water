@@ -17,6 +17,22 @@
     <!-- BEGIN PAGE TITLE-->
     <h3 class="page-title"> Список пользователей
     </h3>
+    @if (session('success'))
+        <div class="col-sm-12">
+            <div class="alert  alert-success" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
+    @if (session('errors'))
+        <div class="alert alert-danger">
+            <button class="close" data-close="alert"></button>
+            {{ session('errors') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -33,6 +49,7 @@
                             </div>
                         </div>
                     </div>
+                    @if (count($users))
                     <table class="table table-striped table-bordered table-hover ">
                         <thead>
                         <tr>
@@ -44,7 +61,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if ($users)
                             @foreach($users as $user)
                                 <tr class="odd gradeX">
                                     <td> {{ $user->name }}</td>
@@ -56,14 +72,16 @@
                                         {!! \App\src\helpers\UserHelper::getStatus($user->status) !!}
                                     </td>
                                     <td class="text-center custom-icons">
-                                        <span class="fa fa-edit"> </span>
-                                        <span class="fa fa-times"> </span>
+                                        <a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}"><span class="fa fa-edit"> </span></a>
+                                        <a href="{{ route('dashboard.user.delete', ['id' => $user->id]) }}" onclick="return confirm('Вы уверены?')"><span class="fa fa-times"> </span></a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
                         </tbody>
                     </table>
+                    @else
+                        Нет пользователей!
+                    @endif
                 </div>
             </div>
         </div>
