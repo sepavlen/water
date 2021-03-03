@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\src\services\UserService;
 use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-
-    use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
@@ -32,20 +29,58 @@ class LoginController extends Controller
     {
         $this->service = $service;
         $this->middleware('guest')->except('logout');
+    } 
+    
+    public function login ()
+    {
+        return view('auth.login');
+    }
+    
+    public function authenticate (Request $request) 
+    {
+        $this->validateLogin($request);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $request->remember)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->with([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
-//    protected function validateLogin(Request $request)
-//    {
-//        $request->validate([
-//            $this->username() => 'required|string|exists:users',
-//            'password' => 'required|string',
-//        ]);
-//
-//        $user = $this->service->getUserByEmail($request->email);
-//
-//        if (password_verify($request->password, $user->password) && $user->status == User::STATUS_BLOCKED){
-//            $this->sendFailedLoginResponse($request);
-//        }
-//    }
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request,[
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ], [
+            'email.required' => "Поле Email не может быть пустым!",
+            'password.required' => "Поле Password не может быть пустым!",
+        ]);
+
+        $user = $this->service->getUserByEmail($request->email);
+
+        if ($user->status == User::STATUS_BLOCKED){
+            return back()->with([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
 
 }

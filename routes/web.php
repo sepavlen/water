@@ -7,6 +7,9 @@ Route::get('/', function () {
     return redirect('dashboard');
 })->middleware('auth');
 
+Route::get('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/login', 'Auth\LoginController@authenticate');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::prefix('dashboard')
     ->middleware(['auth'])
@@ -25,4 +28,3 @@ Route::prefix('dashboard')
 
 //Route::get('/add.php', 'HomeController@index')->name('home');
 
-Auth::routes();
