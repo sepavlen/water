@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306/water</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@heroku" uuid="85858ae9-8c8d-4a79-9dcc-f00df8cf0d20">
-      <driver-ref>mysql.8</driver-ref>
+    <data-source source="LOCAL" name="postgres@heroku" uuid="37372bf6-9d19-4781-9f54-128aa5a9407a">
+      <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://eu-cdbr-west-03.cleardb.net:3306/heroku_96c37c26d9ab9f5</jdbc-url>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d9odj3eua29nsj</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
