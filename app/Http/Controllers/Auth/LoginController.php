@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         $user = $this->service->getUserByEmail($request->email);
 
-        if ($user->status == User::STATUS_BLOCKED){
+        if ($user && $user->status == User::STATUS_BLOCKED){
             return back()->with([
                 'email' => 'The provided credentials do not match our records.',
             ]);
