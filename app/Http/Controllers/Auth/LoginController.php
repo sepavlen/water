@@ -34,18 +34,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|string|exists:users',
-            'password' => 'required|string',
-        ]);
-
-        $user = $this->service->getUserByEmail($request->email);
-
-        if (password_verify($request->password, $user->password) && $user->status == User::STATUS_BLOCKED){
-            $this->sendFailedLoginResponse($request);
-        }
-    }
+//    protected function validateLogin(Request $request)
+//    {
+//        $request->validate([
+//            $this->username() => 'required|string|exists:users',
+//            'password' => 'required|string',
+//        ]);
+//
+//        $user = $this->service->getUserByEmail($request->email);
+//
+//        if (password_verify($request->password, $user->password) && $user->status == User::STATUS_BLOCKED){
+//            $this->sendFailedLoginResponse($request);
+//        }
+//    }
 
 }
