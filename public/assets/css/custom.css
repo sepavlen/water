@@ -1,0 +1,53 @@
+.page-sidebar .page-sidebar-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+    border-top: none;
+    color: #b4bcc8;
+}
+
+.page-header.navbar {
+    background-color: #282A3C;
+}
+
+.form-group-custom {
+    width: 80%;
+}
+
+.custom-select {
+    width: 200px;
+}
+
+.custom-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    border-bottom: none !important;
+    border-left: none !important;
+}
+
+.custom-icons span {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.custom-icons a {
+    display: block;
+    margin-top: 10px;
+}
+
+.custom-icons .fa-edit:hover {
+    color: #0b94ea;
+}
+
+.custom-icons .fa-times:hover {
+    color: #ea0b0b;
+}
+
+.custom_bth{
+    padding: 7px 10px!important;
+    border-radius: 5px!important;
+}
+.label-success{
+    background: #41C5DD!important;
+    padding: 3px 5px!important;
+    border-radius: 3px!important;
+}

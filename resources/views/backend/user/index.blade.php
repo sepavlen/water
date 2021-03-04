@@ -41,8 +41,8 @@
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="btn-group">
-                                    <a href="{{ route('dashboard.user.create') }}" id="sample_editable_1_new" class="btn sbold green"> Добавить нового пользователя
+                                <div class="btn btn-group" >
+                                    <a href="{{ route('dashboard.user.create') }}" id="sample_editable_1_new" class="btn custom_bth sbold green"> Добавить нового пользователя
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </div>

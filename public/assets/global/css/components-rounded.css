@@ -8,7 +8,7 @@ General reset
 /* Set default body */
 body {
   color: #34495e;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 0px !important;
   margin: 0px !important;
   direction: "ltr";
@@ -844,7 +844,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300; }
 
 h1 {
@@ -966,7 +966,7 @@ Utilities
   display: none !important; }
 
 .primary-font {
-  font-family: "Open Sans", sans-serif !important; }
+  font-family: "Poppins", sans-serif !important; }
 
 .bold {
   font-weight: 700 !important; }
@@ -5989,7 +5989,7 @@ Charts and statistics
   overflow: hidden;
   height: 300px;
   width: 100%;
-  font-family: "Open Sans", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
   font-size: 14px; }
 
 /***
@@ -7455,7 +7455,7 @@ Customized Bootstrap Labels
   font-weight: 300;
   padding: 3px 6px 3px 6px;
   color: #fff;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Poppins", sans-serif; }
   .label.label-sm {
     font-size: 13px;
     padding: 2px 5px 2px 5px; }
@@ -13475,7 +13475,7 @@ Light Table
     font-weight: 600;
     font-size: 13px;
     color: #93a2a9;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
     border: 0;
     border-bottom: 1px solid #F2F5F8; }
   .table.table-light > tbody > tr:last-child > td {

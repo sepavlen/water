@@ -1821,10 +1821,10 @@ iframe[src="about:blank"] {
   font-size: 12px;
   white-space: nowrap;
   font-weight: 600;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Poppins", sans-serif; }
 
 .select2-container--bootstrap .select2-selection {
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Poppins", sans-serif; }
 
 .select2-dropdown {
   z-index: 10060; }
@@ -1921,13 +1921,13 @@ Morris Charts
   font-weight: 400;
   font-size: 15px;
   color: #7D8C9D;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Poppins", sans-serif; }
 
 .morris-hover.morris-default-style .morris-hover-point {
   text-align: left;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Poppins", sans-serif; }
 
 /***
 iCheck
