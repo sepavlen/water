@@ -32,7 +32,7 @@
             <div class="form-actions">
                 <button type="submit" class="btn green uppercase">Login</button>
                 <label class="rememberme check">
-                    <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}/>Remember </label>
+                    <input type="checkbox" id="remember" style="margin-right: 4px;" name="remember" {{ old('remember') ? 'checked' : '' }}/>Remember </label>
 
             </div>
 

@@ -46,7 +46,7 @@
 
 <div class="logo">
     <a href="index.html">
-        <img src="/assets/pages/img/logo-big.png" alt=""/> </a>
+        <img src="/assets/global/img/logo-big.png" alt=""/> </a>
 </div>
 
 

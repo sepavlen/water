@@ -48,8 +48,8 @@ class LoginController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors([
-            'error' => 'Неверный логин или пароль!',
+        return back()->withInput()->withErrors([
+            \Error::class => 'Неверный логин или пароль!',
         ]);
     }
 
@@ -67,7 +67,7 @@ class LoginController extends Controller
 
         if ($user && $user->status == User::STATUS_BLOCKED){
             return back()->withErrors([
-                'error' => 'У Вас нет доступа!',
+                \Error::class => 'У Вас нет доступа!',
             ]);
         }
     }
