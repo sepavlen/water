@@ -51,3 +51,9 @@
     padding: 3px 5px!important;
     border-radius: 3px!important;
 }
+.alert-success{
+    border-radius: 4px!important;
+}
+button.close{
+    margin-top: 5px!important;
+}

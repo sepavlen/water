@@ -18,13 +18,11 @@
     <h3 class="page-title"> Список пользователей
     </h3>
     @if (session('success'))
-        <div class="col-sm-12">
-            <div class="alert  alert-success" role="alert">
-                {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert  alert-success" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     @if (session('errors'))
@@ -41,8 +39,9 @@
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="btn btn-group" >
-                                    <a href="{{ route('dashboard.user.create') }}" id="sample_editable_1_new" class="btn custom_bth sbold green"> Добавить нового пользователя
+                                <div class="btn btn-group">
+                                    <a href="{{ route('dashboard.user.create') }}" id="sample_editable_1_new"
+                                       class="btn custom_bth sbold green"> Добавить нового пользователя
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </div>
@@ -50,17 +49,17 @@
                         </div>
                     </div>
                     @if (count($users))
-                    <table class="table table-striped table-bordered table-hover ">
-                        <thead>
-                        <tr>
-                            <th> Имя пользователя</th>
-                            <th> Email</th>
-                            <th> Роль</th>
-                            <th> Статус</th>
-                            <th> Действие</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                        <table class="table table-striped table-bordered table-hover ">
+                            <thead>
+                            <tr>
+                                <th> Имя пользователя</th>
+                                <th> Email</th>
+                                <th> Роль</th>
+                                <th> Статус</th>
+                                <th> Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             @foreach($users as $user)
                                 <tr class="odd gradeX">
                                     <td> {{ $user->name }}</td>
@@ -72,13 +71,16 @@
                                         {!! \App\src\helpers\UserHelper::getStatus($user->status) !!}
                                     </td>
                                     <td class="text-center custom-icons">
-                                        <a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}"><span class="fa fa-edit"> </span></a>
-                                        <a href="{{ route('dashboard.user.delete', ['id' => $user->id]) }}" onclick="return confirm('Вы уверены?')"><span class="fa fa-times"> </span></a>
+                                        <a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}"><span
+                                                    class="fa fa-edit"> </span></a>
+                                        <a href="{{ route('dashboard.user.delete', ['id' => $user->id]) }}"
+                                           onclick="return confirm('Вы уверены?')"><span
+                                                    class="fa fa-times"> </span></a>
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                     @else
                         Нет пользователей!
                     @endif
