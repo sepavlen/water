@@ -25,4 +25,15 @@ class UserHelper
         ];
         return $roles[$key];
     }
+
+    public static function convertForSelect ($users)
+    {
+        $array = [];
+        if ($users) {
+            foreach ($users as $user) {
+                $array[$user['id']] = $user['email'] . " ({$user['name']})";
+            }
+        }
+        return $array;
+    }
 }

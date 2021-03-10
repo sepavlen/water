@@ -21,9 +21,14 @@ class UserRepository
         return $this->getUser()->where($params)->first();
     }
 
-    public function getAllUsers ()
+    public function getUsers ()
     {
         return $this->getUser()->where('id', "<>", Auth::id())->get();
+    }
+
+    public function getAllUsers ()
+    {
+        return User::all();
     }
 
     public function getUserOrCreate ($id)

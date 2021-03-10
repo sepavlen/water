@@ -55,26 +55,36 @@
                         @csrf
                         <div class="form-group form-group-custom">
                             <label for="default" class="control-label">Имя пользователя:</label>
-                            <input value="@if (old('name')){{old('name')}}@else{{$user->name}}@endif" name="name" type="text" class="form-control"
+                            <input value="@if (old('name')){{old('name')}}@else{{$user->name}}@endif" name="name"
+                                   type="text" class="form-control"
                                    placeholder="Имя">
                         </div>
                         <div class="form-group form-group-custom">
                             <label for="default" class="control-label"><span class="text-danger">*</span> Email </label>
-                            <input name="email" type="email" class="form-control" value="@if (old('email')){{old('email')}}@else{{$user->email}}@endif"
+                            <input name="email" type="email" class="form-control"
+                                   value="@if (old('email')){{old('email')}}@else{{$user->email}}@endif"
                                    placeholder="Email">
                         </div>
                         <div class="form-group form-group-custom custom-select">
                             <label class="control-label"><span class="text-danger">*</span> Статус </label>
                             <select name="status" class="bs-select form-control">
-                                <option  @if($user->status == \App\User::STATUS_ACTIVE) selected @endif value="{{ \App\User::STATUS_ACTIVE }}">Активный</option>
-                                <option @if($user->status == \App\User::STATUS_BLOCKED) selected @endif value="{{ \App\User::STATUS_BLOCKED }}">Заблокирован</option>
+                                <option @if($user->status == \App\User::STATUS_ACTIVE) selected
+                                        @endif value="{{ \App\User::STATUS_ACTIVE }}">Активный
+                                </option>
+                                <option @if($user->status == \App\User::STATUS_BLOCKED) selected
+                                        @endif value="{{ \App\User::STATUS_BLOCKED }}">Заблокирован
+                                </option>
                             </select>
                         </div>
                         <div class="form-group form-group-custom custom-select">
                             <label class="control-label"><span class="text-danger">*</span> Роль </label>
                             <select name="role" class="bs-select form-control">
-                                <option @if($user->role == \App\User::ROLE_ADMIN) selected @endif value="{{ \App\User::ROLE_ADMIN }}">Админ</option>
-                                <option @if($user->role == \App\User::ROLE_MANAGER) selected @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер</option>
+                                <option @if($user->role == \App\User::ROLE_ADMIN) selected
+                                        @endif value="{{ \App\User::ROLE_ADMIN }}">Админ
+                                </option>
+                                <option @if($user->role == \App\User::ROLE_MANAGER) selected
+                                        @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер
+                                </option>
                             </select>
                         </div>
                         <div class="form-group form-group-custom custom-select">
@@ -88,7 +98,8 @@
                             <input name="password_confirmation" type="password" class="form-control">
                         </div>
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
-                        <input type="submit" value="@if ($user->exists) Редактировать @else Создать @endif" class="btn btn-circle green btn-sm">
+                        <input type="submit" value="@if ($user->exists) Редактировать @else Создать @endif"
+                               class="btn btn-circle green btn-sm">
                     </form>
                 </div>
             </div>

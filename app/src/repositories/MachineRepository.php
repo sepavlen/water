@@ -24,7 +24,7 @@ class MachineRepository
 
     public function getAllMachines ()
     {
-        return $this->getMachine()->where('id', "<>", Auth::id())->get();
+        return $this->getMachine()->all();
     }
 
     public function getMachineOrCreate ($id)

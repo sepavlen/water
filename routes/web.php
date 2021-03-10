@@ -22,7 +22,14 @@ Route::prefix('dashboard')
         Route::get('/users/edit/{id}', 'backend\UserController@edit')->name('dashboard.user.edit');
         Route::post('/users/update', 'backend\UserController@update')->name('dashboard.user.update');
         Route::get('/users/delete/{id}', 'backend\UserController@destroy')->name('dashboard.user.delete');
+
         Route::get('/machine', 'backend\MachineController@machine')->name('dashboard.machine');
+        Route::get('/machine/create', 'backend\MachineController@create')->name('dashboard.machine.create');
+        Route::post('/machine/create', 'backend\MachineController@save')->name('dashboard.machine.create');
+        Route::post('/machine/edit/{id}', 'backend\MachineController@edit')->name('dashboard.machine.edit');
+        Route::post('/machine/update', 'backend\MachineController@update')->name('dashboard.machine.update');
+        Route::post('/machine/delete/{id}', 'backend\MachineController@delete')->name('dashboard.machine.delete');
+
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
     });
 

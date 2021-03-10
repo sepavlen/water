@@ -42,6 +42,11 @@ class UserService
 
     public function getUsers ()
     {
+        return $this->repository->getUsers();
+    }
+
+    public function getAllUsers ()
+    {
         return $this->repository->getAllUsers();
     }
 

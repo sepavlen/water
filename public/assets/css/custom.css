@@ -57,3 +57,7 @@
 button.close{
     margin-top: 5px!important;
 }
+
+.form-control-max-content{
+    min-width: max-content;
+}
