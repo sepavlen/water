@@ -58,54 +58,55 @@
                         {{ Form::label('unique_number', 'Уникальный номер:', ['class' => 'control-label']) }}
                         {{ Form::text('unique_number', $machine->unique_number, [
                             'class' => 'form-control',
-                            'placeholder' => '#123123',
+                            'placeholder' => '123123',
                             ]) }}
                     </div>
                     <div class="form-group form-group-custom">
                         {{ Form::label('address', 'Адрес:', ['class' => 'control-label']) }}
-                        {{ Form::text('address', $machine->address, [
+                        {{ Form::textarea('address', $machine->address, [
                             'class' => 'form-control',
                             'placeholder' => 'Адрес',
+                            'rows' => '5',
                         ]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('user_id', 'Владелец:', ['class' => 'control-label']) }}
                         {{ Form::select('user_id', \App\src\helpers\UserHelper::convertForSelect($users), null, [
                                 'class' => 'form-control form-control-max-content',
                         ]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('price', 'Цена:', ['class' => 'control-label']) }}
-                        {{ Form::number('price', $machine->price, ['class' => 'form-control', 'placeholder' => 'Цена',]) }}
+                        {{ Form::number('price', $machine->price, ['class' => 'form-control', 'step' => '0.1', 'min' => '0.1', 'placeholder' => 'Цена',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('status', 'Статус:', ['class' => 'control-label']) }}
                         {{ Form::select('status', [
                             \App\src\entities\Machine::STATUS_ACTIVE => 'Активный',
                             \App\src\entities\Machine::STATUS_BLOCKED => 'Заблокирован',
                         ], $machine->status, ['class' => 'form-control']) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('water_up', 'Верхний уровень (в литрах):', ['class' => 'control-label']) }}
                         {{ Form::number('water_up', $machine->water_up, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('water_down', 'Нижний уровень (в литрах):', ['class' => 'control-label']) }}
                         {{ Form::number('water_down', $machine->water_up, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('max_banknotes', 'Максимум купюр:', ['class' => 'control-label']) }}
                         {{ Form::number('max_banknotes', $machine->max_banknotes, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('max_coins', 'Максимум монет:', ['class' => 'control-label']) }}
                         {{ Form::number('max_coins', $machine->max_coins, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('timing_connect', 'Выход на связь: (в минутах)', ['class' => 'control-label']) }}
                         {{ Form::number('timing_connect', $machine->timing_connect, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select">
+                    <div class="form-group form-group-custom custom-select-medium">
                         {{ Form::label('calibration', 'Калибровка:', ['class' => 'control-label']) }}
                         {{ Form::number('calibration', $machine->calibration, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
@@ -116,8 +117,37 @@
                             <span class="caption-subject font-green bold uppercase">Дополнительная информация</span>
                         </div>
                     </div>
+                    <br>
+                    <div class="form-group form-group-custom custom-select-medium">
+                        {{ Form::label('contacts', 'Контакты арендодателя:', ['class' => 'control-label']) }}
+                        {{ Form::textarea('lender_contacts', $machine->lender_contacts, [
+                            'class' => 'form-control', 'rows' => '5',
+                         ]) }}
+                    </div>
+                    <div class="form-group form-group-custom custom-select-medium">
+                        {{ Form::label('lender_address', 'Адрес арендодателя:', ['class' => 'control-label']) }}
+                        {{ Form::textarea('lender_address', $machine->lender_address, [
+                            'class' => 'form-control', 'rows' => '5',
+                            ]) }}
+                    </div>
+                    <div class="form-group form-group-custom custom-select-medium">
+                        {{ Form::label('rent_price', 'Стоимость аренды:', ['class' => 'control-label']) }}
+                        {{ Form::number('lender_price', $machine->lender_price, ['class' => 'form-control', 'placeholder' => '',]) }}
+                    </div>
+                    <div class="form-group form-group-custom custom-select-medium">
+                        {{ Form::label('rent_description', ' Краткое описание:', ['class' => 'control-label']) }}
+                        {{ Form::textarea('lender_description', $machine->lender_description, [
+                            'class' => 'form-control', 'rows' => '7',
+                            ]) }}
+                    </div>
+{{--                    {{ Form::hidden('id', $machine->id ) }}--}}
 
-                    {{ Form::close() }}</div>
+                    {{ Form::button('submit', [
+                        'type' => 'submit',
+                        'class' => 'btn btn-circle green btn-sm'
+                    ]) }}
+                    {{ Form::close() }}
+                </div>
             </div>
         </div>
 

@@ -50,9 +50,9 @@
                         <table class="table table-striped table-bordered table-hover ">
                             <thead>
                             <tr>
-                                <th> Имя пользователя</th>
-                                <th> Email</th>
-                                <th> Роль</th>
+                                <th> Владелец</th>
+                                <th> Номер автомата</th>
+                                <th> Адрес</th>
                                 <th> Статус</th>
                                 <th> Действие</th>
                             </tr>
@@ -60,18 +60,16 @@
                             <tbody>
                             @foreach($machines as $machine)
                                 <tr class="odd gradeX">
-                                    <td> {{ $machine->name }}</td>
+                                    <td> {{ $machine->user->email }} ({{ $machine->user->name }})</td>
+                                    <td>{{ $machine->unique_number }}</td>
+                                    <td>{{ $machine->address }}</td>
                                     <td>
-                                        <a href="mailto:shuxer@gmail.com">{{ $machine->email }} </a>
-                                    </td>
-                                    <td class="center"> {{ \App\src\helpers\UserHelper::getRole($machine->role) }}</td>
-                                    <td>
-                                        {!! \App\src\helpers\UserHelper::getStatus($machine->status) !!}
+                                        {!! \App\src\helpers\MachineHelper::getStatus($machine->status) !!}
                                     </td>
                                     <td class="text-center custom-icons">
-                                        <a href="{{ route('dashboard.user.edit', ['id' => $machine->id]) }}"><span
+                                        <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
                                                     class="fa fa-edit"> </span></a>
-                                        <a href="{{ route('dashboard.user.delete', ['id' => $machine->id]) }}"
+                                        <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
                                            onclick="return confirm('Вы уверены?')"><span
                                                     class="fa fa-times"> </span></a>
                                     </td>

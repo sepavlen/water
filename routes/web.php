@@ -26,9 +26,9 @@ Route::prefix('dashboard')
         Route::get('/machine', 'backend\MachineController@machine')->name('dashboard.machine');
         Route::get('/machine/create', 'backend\MachineController@create')->name('dashboard.machine.create');
         Route::post('/machine/create', 'backend\MachineController@save')->name('dashboard.machine.create');
-        Route::post('/machine/edit/{id}', 'backend\MachineController@edit')->name('dashboard.machine.edit');
-        Route::post('/machine/update', 'backend\MachineController@update')->name('dashboard.machine.update');
-        Route::post('/machine/delete/{id}', 'backend\MachineController@delete')->name('dashboard.machine.delete');
+        Route::get('/machine/edit/{machine}', 'backend\MachineController@edit')->name('dashboard.machine.edit');
+        Route::post('/machine/update/{machine}', 'backend\MachineController@update')->name('dashboard.machine.update');
+        Route::get('/machine/delete/{machine}', 'backend\MachineController@delete')->name('dashboard.machine.delete');
 
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
     });

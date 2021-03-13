@@ -61,3 +61,13 @@ button.close{
 .form-control-max-content{
     min-width: max-content;
 }
+.custom-select-medium{
+    max-width: 300px;
+}
+#contacts, #address, #rent_price, #rent_description{
+    width: 400px;
+}
+
+.portlet.light.bordered{
+    padding: 30px;!important;
+}

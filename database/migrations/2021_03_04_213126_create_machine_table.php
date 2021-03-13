@@ -24,8 +24,12 @@ class CreateMachineTable extends Migration
             $table->integer('water_down')->nullable();
             $table->integer('max_banknotes')->nullable();
             $table->integer('max_coins')->nullable();
-            $table->integer('timing_connect');
+            $table->integer('timing_connect')->nullable();
             $table->integer('calibration')->nullable();
+            $table->text('lender_contacts')->nullable();
+            $table->text('lender_address')->nullable();
+            $table->decimal('lender_price')->nullable();
+            $table->text('lender_description')->nullable();
             $table->timestamps();
         });
     }

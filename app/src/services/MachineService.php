@@ -3,10 +3,9 @@
 
 namespace App\src\services;
 
+use App\src\entities\Machine;
 use App\src\repositories\MachineRepository;
-use App\src\repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class MachineService
 {
@@ -22,23 +21,27 @@ class MachineService
         return $this->repository->getUserByParams(['email' => $email]);
     }
 
-    public function user_validate (Request $request)
+    public function machine_validate (Request $request)
     {
         $request->validate($this->getRules(), $this->getMessages());
     }
 
-    public function userValidateUpdate (Request $request)
+    public function machineValidateUpdate (Request $request)
     {
         $request->validate($this->getRulesUpdate($request->user_id), $this->getMessages());
     }
 
     public function save (Request $request)
     {
-        $user = $this->repository->getUserOrCreate(['id' => $request->user_id]);
-        $user->fill($request->except(['password']));
-        if ($request->password)
-            $user->password = Hash::make($request->password);
-        return $this->repository->save($user);
+        $machine = $this->repository->getMachine();
+        $machine->fill($request->all());
+        return $this->repository->save($machine);
+    }
+
+    public function update (Machine $machine, Request $request)
+    {
+        $machine->fill($request->all());
+        return $this->repository->save($machine);
     }
 
     public function getMachines ()
@@ -59,8 +62,10 @@ class MachineService
     public function getRules ()
     {
         return [
-            'password' => 'required|min:6|confirmed',
-            'email' => 'required|email|unique:users',
+            'unique_number' => 'required|integer|unique:machines',
+            'user_id' => 'required|integer',
+            'price' => 'required|numeric',
+            'status' => 'required|integer',
         ];
     }
 
@@ -75,12 +80,12 @@ class MachineService
     public function getMessages ()
     {
         return [
-            'email.unique' => 'Пользователь с таким email уже существует!',
-            'password.required' => 'Вы забыли ввести пароль!',
-            'password.min' => 'Пароль должен иметь не менее 6-и сомволов!',
-            'password.confirmed' => 'Пароли не совпали!',
-            'email.required' => 'Поле Email обязательно для заполнения!',
-            'email.email' => 'Поле Email введено неправильно!',
+            'unique_number.unique' => 'Автомат с таким номером уже существует!',
+            'unique_number.integer' => 'Номер автомата должен быть числом!',
+            'unique_number.required' => 'Вы забыли ввести уникальный номер!',
+            'user_id.required' => 'Вы забыли указать пользователя!',
+            'price.required' => 'Вы забыли указать цену!',
+            'status.required' => 'Вы забыли указать статус!',
         ];
     }
     

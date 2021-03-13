@@ -26,19 +26,10 @@ class MachineRepository
     {
         return $this->getMachine()->all();
     }
-
-    public function getMachineOrCreate ($id)
-    {
-        if ($id){
-            $machine = $this->getMachineByParams(['id' => $id]);
-            if ($machine)
-                return $machine;
-        }
-        return $this->getMachine();
-    }
     
     public function save ($machine)
     {
         return $machine->save();
     }
+
 }
