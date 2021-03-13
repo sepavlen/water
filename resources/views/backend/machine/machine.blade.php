@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet light bordered">
-                @if (count($machines))
+
                 <div class="portlet-body">
                     <div class="table-toolbar">
                         <div class="row">
@@ -47,7 +47,8 @@
                             </div>
                         </div>
                     </div>
-                    <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
+                    @if (count($machines))
+                        <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> Действие</th>
@@ -78,9 +79,9 @@
                         @endforeach
                         </tbody>
                     </table>                </div>
-                @else
-                    Нет автоматов!
-                @endif
+                    @else
+                        Нет автоматов!
+                    @endif
             </div>
         </div>
 @endsection
