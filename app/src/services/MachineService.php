@@ -62,10 +62,16 @@ class MachineService
     public function getRules ()
     {
         return [
-            'unique_number' => 'required|integer|unique:machines',
+            'unique_number' => 'required|unique:machines|max:255',
             'user_id' => 'required|integer',
             'price' => 'required|numeric',
             'status' => 'required|integer',
+            'water_up' => 'required|integer',
+            'water_down' => 'required|integer',
+            'max_banknotes' => 'required|integer',
+            'max_coins' => 'required|integer',
+            'timing_connect' => 'required|integer',
+            'calibration' => 'required|integer',
         ];
     }
 
@@ -82,10 +88,17 @@ class MachineService
         return [
             'unique_number.unique' => 'Автомат с таким номером уже существует!',
             'unique_number.integer' => 'Номер автомата должен быть числом!',
+            'unique_number.max' => 'Уникальный номер слишком длинный!',
             'unique_number.required' => 'Вы забыли ввести уникальный номер!',
             'user_id.required' => 'Вы забыли указать пользователя!',
             'price.required' => 'Вы забыли указать цену!',
             'status.required' => 'Вы забыли указать статус!',
+            'water_up.required' => 'Вы забыли указать верхний уровень воды!',
+            'water_down.required' => 'Вы забыли указать нижний уровень воды!',
+            'max_banknotes.required' => 'Вы забыли указать количество купюр!',
+            'max_coins.required' => 'Вы забыли указать количество монет!',
+            'timing_connect.required' => 'Вы забыли указать время выхода на связь!',
+            'calibration.required' => 'Вы забыли указать калибровку!',
         ];
     }
     

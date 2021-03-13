@@ -15,17 +15,17 @@ class CreateMachineTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->integer('unique_number')->unique();
+            $table->string('unique_number')->unique();
             $table->integer('user_id')->nullable(false);
             $table->decimal('price')->nullable();
             $table->integer('status')->default(1)->comment('1 - Active, 2 - Blocked');
             $table->text('address')->nullable();
-            $table->integer('water_up')->nullable();
-            $table->integer('water_down')->nullable();
-            $table->integer('max_banknotes')->nullable();
-            $table->integer('max_coins')->nullable();
-            $table->integer('timing_connect')->nullable();
-            $table->integer('calibration')->nullable();
+            $table->integer('water_up')->default(0);
+            $table->integer('water_down')->default(0);
+            $table->integer('max_banknotes')->default(0);
+            $table->integer('max_coins')->default(0);
+            $table->integer('timing_connect')->default(1);
+            $table->integer('calibration')->default(0);
             $table->text('lender_contacts')->nullable();
             $table->text('lender_address')->nullable();
             $table->decimal('lender_price')->nullable();

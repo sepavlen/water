@@ -33,6 +33,7 @@
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet light bordered">
+                @if (count($machines))
                 <div class="portlet-body">
                     <div class="table-toolbar">
                         <div class="row">
@@ -46,41 +47,40 @@
                             </div>
                         </div>
                     </div>
-                    @if (count($machines))
-                        <table class="table table-striped table-bordered table-hover ">
-                            <thead>
-                            <tr>
-                                <th> Владелец</th>
-                                <th> Номер автомата</th>
-                                <th> Адрес</th>
-                                <th> Статус</th>
-                                <th> Действие</th>
+                    <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th> Действие</th>
+                            <th> Владелец</th>
+                            <th> Номер автомата</th>
+                            <th> Адрес</th>
+                            <th> Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($machines as $machine)
+                            <tr class="odd gradeX">
+                                <td class="text-center custom-icons">
+                                    <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
+                                       onclick="return confirm('Вы уверены?')"><span
+                                                class="fa fa-times"> </span></a>
+                                    <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
+                                                class="fa fa-edit"> </span></a>
+                                </td>
+                                <td> {{ $machine->user->email }} ({{ $machine->user->name }})</td>
+                                <td>{{ $machine->unique_number }}</td>
+                                <td>{{ $machine->address }}</td>
+                                <td>
+                                    {!! \App\src\helpers\MachineHelper::getStatus($machine->status) !!}
+                                </td>
+
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($machines as $machine)
-                                <tr class="odd gradeX">
-                                    <td> {{ $machine->user->email }} ({{ $machine->user->name }})</td>
-                                    <td>{{ $machine->unique_number }}</td>
-                                    <td>{{ $machine->address }}</td>
-                                    <td>
-                                        {!! \App\src\helpers\MachineHelper::getStatus($machine->status) !!}
-                                    </td>
-                                    <td class="text-center custom-icons">
-                                        <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
-                                                    class="fa fa-edit"> </span></a>
-                                        <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
-                                           onclick="return confirm('Вы уверены?')"><span
-                                                    class="fa fa-times"> </span></a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        Нет автоматов!
-                    @endif
-                </div>
+                        @endforeach
+                        </tbody>
+                    </table>                </div>
+                @else
+                    Нет автоматов!
+                @endif
             </div>
         </div>
 @endsection

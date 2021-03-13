@@ -7,13 +7,13 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
+    <link href="/assets/global/bootstrap/css/plugins.min.css" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700" media="all">    <link href="/assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    
+
     <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
 
 
     <link href="/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
@@ -266,7 +266,12 @@
 <script src="/assets/global/counterup/jquery.counterup.min.js" type="text/javascript"></script>
 <script src="/assets/global/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="/assets/global/app.min.js" type="text/javascript"></script>
+
 <script src="/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+
+<script src="/assets/global/datatables.min.js" type="text/javascript"></script>
+<script src="/assets/global/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="/assets/global/table-datatables-managed.js" type="text/javascript"></script>
 
 </body>
 

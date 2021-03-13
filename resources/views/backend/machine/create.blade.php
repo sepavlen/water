@@ -55,6 +55,7 @@
                         'class' => 'table table-responsive'
                     ]) }}
                     <div class="form-group form-group-custom">
+                        <span class="text-danger">*</span>
                         {{ Form::label('unique_number', 'Уникальный номер:', ['class' => 'control-label']) }}
                         {{ Form::text('unique_number', $machine->unique_number, [
                             'class' => 'form-control',
@@ -70,16 +71,19 @@
                         ]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('user_id', 'Владелец:', ['class' => 'control-label']) }}
                         {{ Form::select('user_id', \App\src\helpers\UserHelper::convertForSelect($users), null, [
                                 'class' => 'form-control form-control-max-content',
                         ]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('price', 'Цена:', ['class' => 'control-label']) }}
                         {{ Form::number('price', $machine->price, ['class' => 'form-control', 'step' => '0.1', 'min' => '0.1', 'placeholder' => 'Цена',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('status', 'Статус:', ['class' => 'control-label']) }}
                         {{ Form::select('status', [
                             \App\src\entities\Machine::STATUS_ACTIVE => 'Активный',
@@ -87,26 +91,32 @@
                         ], $machine->status, ['class' => 'form-control']) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('water_up', 'Верхний уровень (в литрах):', ['class' => 'control-label']) }}
                         {{ Form::number('water_up', $machine->water_up, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('water_down', 'Нижний уровень (в литрах):', ['class' => 'control-label']) }}
                         {{ Form::number('water_down', $machine->water_up, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('max_banknotes', 'Максимум купюр:', ['class' => 'control-label']) }}
                         {{ Form::number('max_banknotes', $machine->max_banknotes, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('max_coins', 'Максимум монет:', ['class' => 'control-label']) }}
                         {{ Form::number('max_coins', $machine->max_coins, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('timing_connect', 'Выход на связь: (в минутах)', ['class' => 'control-label']) }}
                         {{ Form::number('timing_connect', $machine->timing_connect, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
+                        <span class="text-danger">*</span>
                         {{ Form::label('calibration', 'Калибровка:', ['class' => 'control-label']) }}
                         {{ Form::number('calibration', $machine->calibration, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
@@ -143,7 +153,7 @@
 {{--                    {{ Form::hidden('id', $machine->id ) }}--}}
 
                     {{ Form::button('submit', [
-                        'type' => 'submit',
+                        'type' => 'Сохранить',
                         'class' => 'btn btn-circle green btn-sm'
                     ]) }}
                     {{ Form::close() }}
