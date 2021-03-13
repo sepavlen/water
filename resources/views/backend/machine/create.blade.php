@@ -152,8 +152,8 @@
                     </div>
 {{--                    {{ Form::hidden('id', $machine->id ) }}--}}
 
-                    {{ Form::button('submit', [
-                        'type' => 'Сохранить',
+                    {{ Form::button('Сохранить', [
+                        'type' => 'submit',
                         'class' => 'btn btn-circle green btn-sm'
                     ]) }}
                     {{ Form::close() }}
