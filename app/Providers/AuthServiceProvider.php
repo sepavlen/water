@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\MachinePolicy;
+use App\src\entities\Machine;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        Machine::class => MachinePolicy::class
     ];
 
     /**

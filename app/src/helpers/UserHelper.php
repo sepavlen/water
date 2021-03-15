@@ -5,6 +5,7 @@ namespace App\src\helpers;
 
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserHelper
 {
@@ -30,8 +31,12 @@ class UserHelper
     {
         $array = [];
         if ($users) {
-            foreach ($users as $user) {
-                $array[$user['id']] = $user['email'] . " ({$user['name']})";
+            if (isAdmin()){
+                foreach ($users as $user) {
+                    $array[$user['id']] = $user['email'] . " ({$user['name']})";
+                }
+            } else {
+                $array[Auth::id()] = Auth::user()->email . " (" . Auth::user()->name . ")";
             }
         }
         return $array;

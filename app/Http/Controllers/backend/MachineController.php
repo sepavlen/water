@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\backend;
 
+
 use App\Http\Controllers\Controller;
 use App\src\entities\Machine;
 use App\src\services\MachineService;
 use App\src\services\UserService;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class MachineController extends Controller
 {
@@ -43,6 +47,11 @@ class MachineController extends Controller
 
     public function edit (Machine $machine)
     {
+
+        if (!Gate::allows('update', [$machine])){
+            abort(403, "У Вас нет прав для редактирования данного автомата!");
+        }
+
         $users = $this->userService->getAllUsers()->toArray();
         return view('backend.machine.create', compact('machine', 'users'));
     }

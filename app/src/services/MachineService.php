@@ -5,7 +5,9 @@ namespace App\src\services;
 
 use App\src\entities\Machine;
 use App\src\repositories\MachineRepository;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MachineService
 {
@@ -46,7 +48,10 @@ class MachineService
 
     public function getMachines ()
     {
-        return $this->repository->getAllMachines();
+        if (Auth::user()->isAdmin()){
+            return $this->repository->getAllMachines();
+        }
+        return $this->repository->getAllMachinesByUserId( Auth::id());
     }
 
     public function getModel ()

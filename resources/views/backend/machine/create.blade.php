@@ -75,6 +75,7 @@
                         {{ Form::label('user_id', 'Владелец:', ['class' => 'control-label']) }}
                         {{ Form::select('user_id', \App\src\helpers\UserHelper::convertForSelect($users), null, [
                                 'class' => 'form-control form-control-max-content',
+                                'value' => 1
                         ]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">

@@ -26,6 +26,11 @@ class MachineRepository
     {
         return $this->getMachine()->all();
     }
+
+    public function getAllMachinesByUserId ($user_id)
+    {
+        return $this->getMachine()->where(['user_id' => $user_id])->get();
+    }
     
     public function save ($machine)
     {
