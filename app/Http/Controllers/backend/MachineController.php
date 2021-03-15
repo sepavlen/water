@@ -66,6 +66,9 @@ class MachineController extends Controller
 
     public function delete (Machine $machine)
     {
+        if (!Gate::allows('update', [$machine])){
+            abort(403, "У Вас нет прав для удаления данного автомата!");
+        }
         $machine->delete();
         return redirect()->route('dashboard.machine')->with(['success' => "Автомат удален"]);
     }
