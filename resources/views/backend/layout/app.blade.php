@@ -152,7 +152,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="{{ route('dashboard.user.edit', ['id' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                            <a href="{{ route('dashboard.user.edit', ['user' => \Illuminate\Support\Facades\Auth::id()]) }}">
                                 <i class="icon-user"></i> My Profile </a>
                         </li>
                         <li>
@@ -162,65 +162,42 @@
                         </li>
                     </ul>
                 </li>
-                
-                
-                
                 <li class="dropdown">
                     <a class="dropdown-toggle" onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
                         <i class="icon-logout"></i>
                     </a>
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </li>
-                
             </ul>
         </div>
-        
     </div>
-    
 </div>
-
-
 <div class="clearfix"> </div>
-
-
 <div class="page-container">
     
     <div class="page-sidebar-wrapper">
-        
-        
-        
         <div class="page-sidebar navbar-collapse collapse">
-            
-            
-            
-            
-            
-            
-            
             <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
-                
                 <li class="sidebar-toggler-wrapper hide">
-                    
                     <div class="sidebar-toggler"> </div>
-                    
                 </li>
-
                 <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : ''  }}">
                     <a href="{{ request()->routeIs('dashboard') ? 'javascript:void(0)' : route('dashboard')  }}" class="nav-link">
                         <i class="fa fa-home"></i>
                         <span class="title">Главная</span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('dashboard.users') ? 'active' : ''  }}">
-                    <a href="{{ request()->routeIs('dashboard.users') ? 'javascript:void(0)' : route('dashboard.users')  }}" class="nav-link">
-                        <i class="icon-user"></i>
-                        <span class="title">Пользователи</span>
-                    </a>
-                </li>
+                @if (isAdmin())
+                    <li class="nav-item {{ request()->routeIs('dashboard.users') ? 'active' : ''  }}">
+                        <a href="{{ request()->routeIs('dashboard.users') ? 'javascript:void(0)' : route('dashboard.users')  }}" class="nav-link">
+                            <i class="icon-user"></i>
+                            <span class="title">Пользователи</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item {{ request()->routeIs('dashboard.machine') ? 'active' : ''  }}">
                     <a href="{{ request()->routeIs('dashboard.machine') ? 'javascript:void(0)' : route('dashboard.machine')  }}" class="nav-link">
                         <i class="fa fa-cog"></i>

@@ -54,14 +54,16 @@
                         'route' => [ $machine->exists ? 'dashboard.machine.update' : 'dashboard.machine.create', $machine->id],
                         'class' => 'table table-responsive'
                     ]) }}
-                    <div class="form-group form-group-custom">
-                        <span class="text-danger">*</span>
-                        {{ Form::label('unique_number', 'Уникальный номер:', ['class' => 'control-label']) }}
-                        {{ Form::text('unique_number', $machine->unique_number, [
-                            'class' => 'form-control',
-                            'placeholder' => '123123',
-                            ]) }}
-                    </div>
+                    @can('change', $machine)
+                        <div class="form-group form-group-custom">
+                            <span class="text-danger">*</span>
+                            {{ Form::label('unique_number', 'Уникальный номер:', ['class' => 'control-label']) }}
+                            {{ Form::text('unique_number', $machine->unique_number, [
+                                'class' => 'form-control',
+                                'placeholder' => '123123',
+                                ]) }}
+                        </div>
+                    @endcan
                     <div class="form-group form-group-custom">
                         {{ Form::label('address', 'Адрес:', ['class' => 'control-label']) }}
                         {{ Form::textarea('address', $machine->address, [
@@ -70,14 +72,16 @@
                             'rows' => '5',
                         ]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select-medium">
-                        <span class="text-danger">*</span>
-                        {{ Form::label('user_id', 'Владелец:', ['class' => 'control-label']) }}
-                        {{ Form::select('user_id', \App\src\helpers\UserHelper::convertForSelect($users), null, [
-                                'class' => 'form-control form-control-max-content',
-                                'value' => 1
-                        ]) }}
-                    </div>
+                    @can('change', $machine)
+                        <div class="form-group form-group-custom custom-select-medium">
+                            <span class="text-danger">*</span>
+                            {{ Form::label('user_id', 'Владелец:', ['class' => 'control-label']) }}
+                            {{ Form::select('user_id', \App\src\helpers\UserHelper::convertForSelect($users), null, [
+                                    'class' => 'form-control form-control-max-content',
+                                    'value' => 1
+                            ]) }}
+                        </div>
+                    @endcan
                     <div class="form-group form-group-custom custom-select-medium">
                         <span class="text-danger">*</span>
                         {{ Form::label('price', 'Цена:', ['class' => 'control-label']) }}
@@ -111,16 +115,21 @@
                         {{ Form::label('max_coins', 'Максимум монет:', ['class' => 'control-label']) }}
                         {{ Form::number('max_coins', $machine->max_coins, ['class' => 'form-control', 'placeholder' => '',]) }}
                     </div>
-                    <div class="form-group form-group-custom custom-select-medium">
-                        <span class="text-danger">*</span>
-                        {{ Form::label('timing_connect', 'Выход на связь: (в минутах)', ['class' => 'control-label']) }}
-                        {{ Form::number('timing_connect', $machine->timing_connect, ['class' => 'form-control', 'placeholder' => '',]) }}
-                    </div>
-                    <div class="form-group form-group-custom custom-select-medium">
-                        <span class="text-danger">*</span>
-                        {{ Form::label('calibration', 'Калибровка:', ['class' => 'control-label']) }}
-                        {{ Form::number('calibration', $machine->calibration, ['class' => 'form-control', 'placeholder' => '',]) }}
-                    </div>
+                    @can('change', $machine)
+                        <div class="form-group form-group-custom custom-select-medium">
+                            <span class="text-danger">*</span>
+                            {{ Form::label('timing_connect', 'Выход на связь: (в минутах)', ['class' => 'control-label']) }}
+                            {{ Form::number('timing_connect', $machine->timing_connect, ['class' => 'form-control', 'placeholder' => '',]) }}
+                        </div>
+                    @endcan
+                    @can('change', $machine)
+                        <div class="form-group form-group-custom custom-select-medium">
+                            <span class="text-danger">*</span>
+                            {{ Form::label('calibration', 'Калибровка:', ['class' => 'control-label']) }}
+                            {{ Form::number('calibration', $machine->calibration, ['class' => 'form-control', 'placeholder' => '',]) }}
+                        </div>
+                    @endcan
+
                     <br>
                     <div class="portlet-title">
                         <div class="caption">

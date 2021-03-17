@@ -71,9 +71,9 @@
                                         {!! \App\src\helpers\UserHelper::getStatus($user->status) !!}
                                     </td>
                                     <td class="text-center custom-icons">
-                                        <a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}"><span
+                                        <a href="{{ route('dashboard.user.edit', ['user' => $user->id]) }}"><span
                                                     class="fa fa-edit"> </span></a>
-                                        <a href="{{ route('dashboard.user.delete', ['id' => $user->id]) }}"
+                                        <a href="{{ route('dashboard.user.delete', ['user' => $user->id]) }}"
                                            onclick="return confirm('Вы уверены?')"><span
                                                     class="fa fa-times"> </span></a>
                                     </td>

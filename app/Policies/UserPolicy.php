@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\src\entities\Machine;
 use App\User;
+use http\Env\Request;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MachinePolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -20,17 +20,7 @@ class MachinePolicy
         //
     }
 
-    public function update (User $user, Machine $machine)
-    {
-        return $user->isAdmin() || $user->id == $machine->user_id;
-    }
-
-    public function change (User $user)
-    {
-        return $user->isAdmin();
-    }
-
-    public function delete (User $user)
+    public function update (User $user)
     {
         return $user->isAdmin();
     }

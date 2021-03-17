@@ -31,6 +31,10 @@ class MachineController extends Controller
 
     public function create ()
     {
+        if (Gate::denies('update')){
+            abort(403, "У Вас нет прав для создания нового автомата!");
+        }
+
         $machine = $this->service->getModel();
         $users = $this->userService->getAllUsers()->toArray();
         return view('backend.machine.create', compact('machine', 'users'));
@@ -47,8 +51,7 @@ class MachineController extends Controller
 
     public function edit (Machine $machine)
     {
-
-        if (!Gate::allows('update', [$machine])){
+        if (Gate::denies('update', [$machine])){
             abort(403, "У Вас нет прав для редактирования данного автомата!");
         }
 
@@ -66,7 +69,7 @@ class MachineController extends Controller
 
     public function delete (Machine $machine)
     {
-        if (!Gate::allows('update', [$machine])){
+        if (Gate::denies('delete', [$machine])){
             abort(403, "У Вас нет прав для удаления данного автомата!");
         }
         $machine->delete();

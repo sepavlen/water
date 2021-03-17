@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\src\services\UserService;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,6 +20,9 @@ class UserController extends Controller
 
     public function index ()
     {
+//        if (Gate::denies('watch', [Auth::user()])){
+//            abort(403, "У Вас нет прав для просмотра просмотра пользователей!");
+//        }
         $users = $this->userService->getUsers();
         return view('backend.user.index', compact('users'));
     }
@@ -37,9 +42,8 @@ class UserController extends Controller
         return redirect()->back()->with(['errors' => "Не удалось создать пользователя"]);
     }
 
-    public function edit ($id)
+    public function edit (User $user)
     {
-        $user = $this->userService->getUserById($id);
         return view('backend.user.create', compact('user'));
     }
 

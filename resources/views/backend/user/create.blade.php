@@ -7,14 +7,18 @@
                 <a href="{{ route('dashboard') }}">Главная</a>
                 <i class="fa fa-circle"></i>
             </li>
-            <li>
-                <a href="{{ route('dashboard.users') }}">Пользователи</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            @if($user->exists)
-                <li>Редактирование пользователя</li>
+            @if (isAdmin())
+                <li>
+                    <a href="{{ route('dashboard.users') }}">Пользователи</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                @if($user->exists)
+                    <li>Редактирование пользователя</li>
+                @else
+                    <li>Создание пользователя</li>
+                @endif
             @else
-                <li>Создание пользователя</li>
+                <li>Личный кабинет</li>
             @endif
         </ul>
     </div>
@@ -25,11 +29,16 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-user font-green"></i>
-                            @if($user->exists)
-                                <span class="caption-subject font-green bold uppercase">Редактирование пользователя ({{ $user->name }})</span>
+                            @if (isAdmin())
+                                @if($user->exists)
+                                    <span class="caption-subject font-green bold uppercase">Редактирование пользователя ({{ $user->name }})</span>
+                                @else
+                                    <span class="caption-subject font-green bold uppercase">Создание нового пользователя</span>
+                                @endif
                             @else
-                                <span class="caption-subject font-green bold uppercase">Создание нового пользователя</span>
+                                <span class="caption-subject font-green bold uppercase">Мой кабинет</span>
                             @endif
+
                         </div>
                     </div>
                     @if (session('success'))
@@ -65,28 +74,31 @@
                                    value="@if (old('email')){{old('email')}}@else{{$user->email}}@endif"
                                    placeholder="Email">
                         </div>
-                        <div class="form-group form-group-custom custom-select">
-                            <label class="control-label"><span class="text-danger">*</span> Статус </label>
-                            <select name="status" class="bs-select form-control">
-                                <option @if($user->status == \App\User::STATUS_ACTIVE) selected
-                                        @endif value="{{ \App\User::STATUS_ACTIVE }}">Активный
-                                </option>
-                                <option @if($user->status == \App\User::STATUS_BLOCKED) selected
-                                        @endif value="{{ \App\User::STATUS_BLOCKED }}">Заблокирован
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group form-group-custom custom-select">
-                            <label class="control-label"><span class="text-danger">*</span> Роль </label>
-                            <select name="role" class="bs-select form-control">
-                                <option @if($user->role == \App\User::ROLE_ADMIN) selected
-                                        @endif value="{{ \App\User::ROLE_ADMIN }}">Админ
-                                </option>
-                                <option @if($user->role == \App\User::ROLE_MANAGER) selected
-                                        @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер
-                                </option>
-                            </select>
-                        </div>
+                        @can('update', $user)
+                            <div class="form-group form-group-custom custom-select">
+                                <label class="control-label"><span class="text-danger">*</span> Статус </label>
+                                <select name="status" class="bs-select form-control">
+                                    <option @if($user->status == \App\User::STATUS_ACTIVE) selected
+                                            @endif value="{{ \App\User::STATUS_ACTIVE }}">Активный
+                                    </option>
+                                    <option @if($user->status == \App\User::STATUS_BLOCKED) selected
+                                            @endif value="{{ \App\User::STATUS_BLOCKED }}">Заблокирован
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group form-group-custom custom-select">
+                                <label class="control-label"><span class="text-danger">*</span> Роль </label>
+                                <select name="role" class="bs-select form-control">
+                                    <option @if($user->role == \App\User::ROLE_ADMIN) selected
+                                            @endif value="{{ \App\User::ROLE_ADMIN }}">Админ
+                                    </option>
+                                    <option @if($user->role == \App\User::ROLE_MANAGER) selected
+                                            @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер
+                                    </option>
+                                </select>
+                            </div>
+                        @endcan
+
                         <div class="form-group form-group-custom custom-select">
                             <label for="default" class="control-label"><span class="text-danger">*</span> Пароль
                             </label>

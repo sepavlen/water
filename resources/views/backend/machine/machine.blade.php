@@ -35,18 +35,21 @@
             <div class="portlet light bordered">
 
                 <div class="portlet-body">
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="btn btn-group">
-                                    <a href="{{ route('dashboard.machine.create') }}" id="sample_editable_1_new"
-                                       class="btn custom_bth sbold green"> Добавить новый автомат
-                                        <i class="fa fa-plus"></i>
-                                    </a>
+                    @if (isAdmin())
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn btn-group">
+                                        <a href="{{ route('dashboard.machine.create') }}" id="sample_editable_1_new"
+                                           class="btn custom_bth sbold green"> Добавить новый автомат
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+
                     @if (count($machines))
                         <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
                         <thead>
@@ -62,9 +65,11 @@
                         @foreach($machines as $machine)
                             <tr class="odd gradeX">
                                 <td class="text-center custom-icons">
-                                    <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
-                                       onclick="return confirm('Вы уверены?')"><span
-                                                class="fa fa-times"> </span></a>
+                                    @can('change', $machine)
+                                        <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
+                                           onclick="return confirm('Вы уверены?')"><span
+                                                    class="fa fa-times"> </span></a>
+                                    @endcan
                                     <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
                                                 class="fa fa-edit"> </span></a>
                                 </td>
