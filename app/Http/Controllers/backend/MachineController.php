@@ -31,7 +31,7 @@ class MachineController extends Controller
 
     public function create ()
     {
-        if (Gate::denies('update')){
+        if (Gate::denies('update', new Machine())){
             abort(403, "У Вас нет прав для создания нового автомата!");
         }
 
