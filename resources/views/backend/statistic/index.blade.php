@@ -390,7 +390,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за последние поль года'
+                text: 'Доход за последние пол года'
             },
             accessibility: {
                 announceNewData: {
@@ -701,7 +701,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за последние поль года'
+                text: 'Доход за последний год'
             },
             accessibility: {
                 announceNewData: {
@@ -1012,7 +1012,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за последние поль года'
+                text: 'Доход за все время'
             },
             accessibility: {
                 announceNewData: {
