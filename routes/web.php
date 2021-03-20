@@ -34,6 +34,7 @@ Route::prefix('dashboard')
         Route::get('/machine/delete/{machine}', 'backend\MachineController@delete')->name('dashboard.machine.delete');
 
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
+        Route::get('/table', 'backend\TableController@index')->name('dashboard.table');
     });
 
 //Route::get('/add.php', 'HomeController@index')->name('home');

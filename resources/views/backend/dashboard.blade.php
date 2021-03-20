@@ -121,11 +121,7 @@
                 </figure>
 
 @endsection
-@if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-@endif
+
 @push('scripts')
     <script>
         var colors = Highcharts.getOptions().colors;

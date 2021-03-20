@@ -9,7 +9,7 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>Пользователи</span>
+                Пользователи
             </li>
         </ul>
     </div>

@@ -71,3 +71,7 @@ button.close{
 .portlet.light.bordered{
     padding: 30px;!important;
 }
+
+.selected{
+    background: #3E4B5C!important;
+}

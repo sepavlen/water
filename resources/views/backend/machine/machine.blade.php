@@ -9,7 +9,7 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>Автоматы</span>
+                Автоматы
             </li>
         </ul>
     </div>

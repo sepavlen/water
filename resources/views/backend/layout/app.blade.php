@@ -204,15 +204,31 @@
                         <span class="title">Автоматы</span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('dashboard.statistic') ? 'active' : ''  }}">
-                    <a href="{{ request()->routeIs('dashboard.statistic') ? 'javascript:void(0)' : route('dashboard.statistic')  }}" class="nav-link">
-                        <i class="fa fa-bar-chart"></i>
+                <li class="nav-item {{ request()->routeIs(['dashboard.table', 'dashboard.statistic']) ? 'active' : ''  }}">
+                    <a href="" class="nav-link nav-toggle">
+                        <i class="fa fa-line-chart"></i>
                         <span class="title">Статистика</span>
+                        <span class="arrow {{ request()->routeIs(['dashboard.table', 'dashboard.statistic']) ? 'open' : ''  }}"></span>
                     </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  {{ request()->routeIs(['dashboard.table']) ? 'selected' : ''  }}">
+                            <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table')  }}" class="nav-link ">
+                                <i class="fa fa-table"></i>
+                                <span class="title">Таблицы</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ request()->routeIs(['dashboard.statistic']) ? 'selected' : ''  }} ">
+
+                            <a href="{{ request()->routeIs('dashboard.statistic') ? 'javascript:void(0)' : route('dashboard.statistic')  }}" class="nav-link ">
+                                <i class="fa fa-bar-chart"></i>
+                                <span class="title">Графики</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
             </ul>
-            
+
             
         </div>
         
@@ -249,7 +265,9 @@
 <script src="/assets/global/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="/assets/global/table-datatables-managed.js" type="text/javascript"></script>
+
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
