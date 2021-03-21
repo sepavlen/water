@@ -19,6 +19,8 @@
     <link href="/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/global/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
 
     <link rel="shortcut icon" href="/favicon.ico" /> </head>
@@ -264,7 +266,9 @@
 
 <script src="/assets/global/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/datatables.bootstrap.js" type="text/javascript"></script>
-<script src="/assets/global/table-datatables-managed.js" type="text/javascript"></script>
+
+
+
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>

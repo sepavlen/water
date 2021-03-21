@@ -88,3 +88,7 @@
             </div>
         </div>
 @endsection
+
+@push('scripts')
+        <script src="/assets/global/table-datatables-managed.js" type="text/javascript"></script>
+@endpush

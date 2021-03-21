@@ -68,10 +68,12 @@
                                     @can('change', $machine)
                                         <a href="{{ route('dashboard.machine.delete', ['machine' => $machine->id]) }}"
                                            onclick="return confirm('Вы уверены?')"><span
-                                                    class="fa fa-times"> </span></a>
+                                                    class="fa fa-times" title="Удалить"> </span></a>
                                     @endcan
                                     <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
-                                                class="fa fa-edit"> </span></a>
+                                                class="fa fa-edit" title="Редактировать"> </span></a>
+                                    <a href="{{ route('dashboard.machine.show-statistic', ['machine' => $machine->id]) }}"><span
+                                                class="fa fa-pie-chart" title="Показать статистику продаж"> </span></a>
                                 </td>
                                 <td> {{ $machine->user->email }} ({{ $machine->user->name }})</td>
                                 <td>{{ $machine->unique_number }}</td>
@@ -90,3 +92,6 @@
             </div>
         </div>
 @endsection
+@push('scripts')
+    <script src="/assets/global/table-datatables-managed.js" type="text/javascript"></script>
+@endpush

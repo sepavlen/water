@@ -31,6 +31,7 @@ Route::prefix('dashboard')
         Route::post('/machine/create', 'backend\MachineController@save')->name('dashboard.machine.create');
         Route::get('/machine/edit/{machine}', 'backend\MachineController@edit')->name('dashboard.machine.edit');
         Route::post('/machine/update/{machine}', 'backend\MachineController@update')->name('dashboard.machine.update');
+        Route::get('/machine/show-statistic/{machine}', 'backend\MachineController@showStatistic')->name('dashboard.machine.show-statistic');
         Route::get('/machine/delete/{machine}', 'backend\MachineController@delete')->name('dashboard.machine.delete');
 
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');

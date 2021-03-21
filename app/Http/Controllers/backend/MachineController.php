@@ -67,6 +67,14 @@ class MachineController extends Controller
         return redirect()->route('dashboard.machine')->with(['errors' => "Не удалось изменить автомат!"]);
     }
 
+    public function showStatistic (Machine $machine)
+    {
+        if (Gate::denies('update', [$machine])){
+            abort(403, "У Вас нет прав для просмотра статистики данного автомата!");
+        }
+        return view('backend.machine.show-statistic', compact('machine'));
+    }
+
     public function delete (Machine $machine)
     {
         if (Gate::denies('delete', [$machine])){

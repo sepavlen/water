@@ -248,23 +248,21 @@ if (App.isAngularJsApp() === false) {
     });
 }
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     let dataTables_paginate = $('.dataTables_paginate');
 
     checkDisabled()
-        $("select[name='sample_1_length']").change(function (){
-            checkDisabled()
-        })
+    $("select[name='sample_1_length']").change(function () {
+        checkDisabled()
+    })
 
-        function checkDisabled(){
-            if ($('.prev.disabled').length === 2
-                && $('.next.disabled').length === 2){
-                dataTables_paginate.hide();
-                return;
-                }
-            dataTables_paginate.show();
+    function checkDisabled() {
+        if ($('.prev.disabled').length === 2
+            && $('.next.disabled').length === 2) {
+            dataTables_paginate.hide();
+            return;
         }
-
-
+        dataTables_paginate.show();
+    }
 });
 
