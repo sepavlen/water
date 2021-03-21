@@ -386,6 +386,9 @@
         });
 
         Highcharts.chart('container4', {
+            lang: {
+                drillUpText: 'Назад'
+            },
             chart: {
                 type: 'column'
             },
@@ -697,6 +700,9 @@
             }
         });
         Highcharts.chart('container5', {
+            lang: {
+                drillUpText: 'Назад'
+            },
             chart: {
                 type: 'column'
             },
@@ -1008,6 +1014,9 @@
             }
         });
         Highcharts.chart('container6', {
+            lang: {
+                drillUpText: 'Назад'
+            },
             chart: {
                 type: 'column'
             },

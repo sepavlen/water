@@ -435,7 +435,6 @@
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}грн</b><br/>'
             },
-
             series: [
                 {
                     name: "Доход",
@@ -479,6 +478,9 @@
                     ]
                 }
             ],
+            lang: {
+                drillUpText: 'Назад'
+            },
             drilldown: {
                 series: [
                     {
@@ -701,6 +703,9 @@
             }
         });
         Highcharts.chart('container5', {
+            lang: {
+                drillUpText: 'Назад'
+            },
             chart: {
                 type: 'column'
             },
@@ -1012,6 +1017,9 @@
             }
         });
         Highcharts.chart('container6', {
+            lang: {
+                drillUpText: 'Назад'
+            },
             chart: {
                 type: 'column'
             },
