@@ -17,11 +17,6 @@ class MachineService
     {
         $this->repository = $repository;
     }
-    
-    public function getUserByEmail ($email) 
-    {
-        return $this->repository->getUserByParams(['email' => $email]);
-    }
 
     public function machine_validate (Request $request)
     {
@@ -37,12 +32,16 @@ class MachineService
     {
         $machine = $this->repository->getMachine();
         $machine->fill($request->all());
+        $machine->contact_time = date("Y-m-d H:i:s");
         return $this->repository->save($machine);
     }
 
     public function update (Machine $machine, Request $request)
     {
         $machine->fill($request->all());
+        if ($machine->status == Machine::STATUS_NEW){
+            $machine->status = Machine::STATUS_ACTIVE;
+        }
         return $this->repository->save($machine);
     }
 
@@ -59,9 +58,38 @@ class MachineService
         return $this->repository->getMachine();
     }
 
-    public function getMachineById ($id)
+    public function getMachineByUniqueNumber ($unique_number)
     {
-        return $this->repository->getMachineByParams(['id' => $id]);
+        return $this->repository->getMachineByParams(['unique_number' => $unique_number]);
+    }
+
+    public function updateOrCreateDefaultMachine (Request $request)
+    {
+        $this->getErrorEmptyCountWater($request);
+        if ($request->has('n')){
+            $machine = $this->getMachineByUniqueNumber($request->n);
+            if (!$machine){
+                if ($this->repository->createDefaultMachine($request)){
+                    echo "Автомат создан";
+                }
+            } else {
+                if ($this->repository->updateContactTimeAndAmountCount($machine, $request)){
+                    echo "Автомат обновлен";
+                }
+            }
+
+        }
+    }
+
+    public function getErrorEmptyCountWater (Request $request)
+    {
+        if (!$request->l){
+            $request->session()->put('request_error.empty_water.' . $request->n, 'Автомат ' . $request->n . ' не передает остаток воды');
+        } else {
+            if ($request->session()->has('request_error.empty_water.' . $request->n)){
+                $request->session()->forget('request_error.empty_water.' . $request->n);
+            }
+        }
     }
 
     public function getRules ()

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\src\services\MachineService;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \view()->composer('backend.layout.app', function ($view){
+            $view->with('machines', resolve(MachineService::class)->getMachines());
+        });
     }
 }

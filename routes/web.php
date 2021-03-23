@@ -38,5 +38,5 @@ Route::prefix('dashboard')
         Route::get('/table', 'backend\TableController@index')->name('dashboard.table');
     });
 
-//Route::get('/add.php', 'HomeController@index')->name('home');
+Route::get('/add.php', 'RequestController@index');
 

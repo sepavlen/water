@@ -31,10 +31,34 @@ class MachineRepository
     {
         return $this->getMachine()->where(['user_id' => $user_id])->get();
     }
+
+    public function createDefaultMachine (Request $request)
+    {
+        $model = $this->getMachine();
+        $machine = $this->load($model, $request);
+        return $this->save($machine);
+    }
+
+    public function updateContactTimeAndAmountCount (Machine $machine, Request $request)
+    {
+        $machine->water_amount = $request->l;
+        $machine->contact_time = date('Y-m-d H:i:s');
+        return $machine->save();
+    }
     
     public function save ($machine)
     {
         return $machine->save();
+    }
+
+    public function load ($model, Request $request)
+    {
+        $model->unique_number = $request->n;
+        $model->water_amount = $request->l;
+        $model->contact_time = date('Y-m-d H:i:s');
+        $model->user_id = User::ID_ADMIN;
+        $model->status = Machine::STATUS_NEW;
+        return $model;
     }
 
 }

@@ -51,6 +51,11 @@
     padding: 3px 5px!important;
     border-radius: 3px!important;
 }
+.label-new{
+    background: #30ff02 !important;
+    padding: 3px 5px!important;
+    border-radius: 3px!important;
+}
 .alert-success{
     border-radius: 4px!important;
 }

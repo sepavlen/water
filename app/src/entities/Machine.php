@@ -9,6 +9,7 @@ class Machine extends Model
 {
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCKED = 2;
+    const STATUS_NEW = 3;
 
     protected $guarded = [];
 

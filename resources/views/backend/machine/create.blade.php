@@ -90,10 +90,18 @@
                     <div class="form-group form-group-custom custom-select-medium">
                         <span class="text-danger">*</span>
                         {{ Form::label('status', 'Статус:', ['class' => 'control-label']) }}
-                        {{ Form::select('status', [
+                        @if($machine->status == \App\src\entities\Machine::STATUS_NEW)
+                            {{ Form::select('status', [
+                            \App\src\entities\Machine::STATUS_ACTIVE => 'Активный',
+                            \App\src\entities\Machine::STATUS_BLOCKED => 'Заблокирован',
+                            \App\src\entities\Machine::STATUS_NEW => 'Новый',
+                        ], $machine->status, ['class' => 'form-control']) }}
+                        @else
+                            {{ Form::select('status', [
                             \App\src\entities\Machine::STATUS_ACTIVE => 'Активный',
                             \App\src\entities\Machine::STATUS_BLOCKED => 'Заблокирован',
                         ], $machine->status, ['class' => 'form-control']) }}
+                        @endif
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
                         <span class="text-danger">*</span>

@@ -20,16 +20,17 @@
             </div>
         </div>
         <div class="portlet-body">
-            <ul class="nav nav-pills">
-                <li class="active">
-                    <a href="#tab_2_1" data-toggle="tab"> Выход на связь </a>
-                </li>
-                <li>
-                    <a href="#tab_2_2" data-toggle="tab"> Статистика </a>
-                </li>
-            </ul>
-            <br>
-            <div class="tab-content">
+            @if ($machines)
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#tab_2_1" data-toggle="tab"> Выход на связь </a>
+                    </li>
+                    <li>
+                        <a href="#tab_2_2" data-toggle="tab"> Статистика </a>
+                    </li>
+                </ul>
+                <br>
+                <div class="tab-content">
                 <div class="tab-pane fade active in" id="tab_2_1">
                     <div class="row">
                         <div class="col-md-12">
@@ -52,48 +53,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-success">Активный</span></td>
-                                            <td><span class="text text-info">Проблем нет</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-success">Активный</span></td>
-                                            <td><span class="text text-info">Проблем нет</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-success">Активный</span></td>
-                                            <td><span class="text text-info">Проблем нет</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-warning">Есть проблемы</span></td>
-                                            <td><span class="text text-danger">Автомат давно не выходил на связь</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-warning">Есть проблемы</span></td>
-                                            <td><span class="text text-danger">Автомат давно не выходил на связь</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>21-02-2021</td>
-                                            <td><span class="label label-sm label-warning">Есть проблемы</span></td>
-                                            <td><span class="text text-danger">Автомат давно не выходил на связь</span></td>
-                                        </tr>
+                                            @foreach($machines as $machine)
+                                                <tr>
+                                                    <td>{{ $machine->unique_number }}</td>
+                                                    <td>{{ $machine->address }}</td>
+                                                    <td>{{ $machine->contact_time }}</td>
+                                                    <td>{!! \App\src\helpers\MachineHelper::getTimingStatus($machine) !!}</td>
+                                                    <td>
+                                                        @foreach(\App\src\helpers\MachineHelper::getProblems($machine) as $problem)
+                                                            {!! $problem  !!}
+                                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -121,37 +93,20 @@
                                             <th>Среднесуточные продажи за 30 дней</th>
                                             <th>Продажи за вчера</th>
                                             <th>Продажи за сегодня</th>
+                                            <th>Остаток воды (л)</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                        </tr>
-                                        <tr>
-                                            <td>123123</td>
-                                            <td>Алекс 128/45</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                            <td>333грн</td>
-                                        </tr>
+                                            @foreach($machines as $machine)
+                                                <tr>
+                                                    <td>{{ $machine->unique_number }}</td>
+                                                    <td>{{ $machine->address }}</td>
+                                                    <td>333грн</td>
+                                                    <td>333грн</td>
+                                                    <td>333грн</td>
+                                                    <td>{{ $machine->water_amount }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -161,6 +116,9 @@
                     </div>
                 </div>
             </div>
+            @else
+                <h5>Данные автоматов отсутствуют!</h5>
+            @endif
         </div>
     </div>
 @endsection

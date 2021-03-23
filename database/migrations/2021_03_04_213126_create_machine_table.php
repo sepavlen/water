@@ -30,6 +30,8 @@ class CreateMachineTable extends Migration
             $table->text('lender_address')->nullable();
             $table->decimal('lender_price')->nullable();
             $table->text('lender_description')->nullable();
+            $table->float('water_amount')->nullable();
+            $table->dateTime('contact_time')->nullable();
             $table->timestamps();
         });
     }
@@ -41,6 +43,6 @@ class CreateMachineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machine');
+        Schema::dropIfExists('machines');
     }
 }
