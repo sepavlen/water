@@ -101,3 +101,6 @@ table.dataTable.dtr-column>tbody>tr.parent td.control:before, table.dataTable.dt
     line-height: 18px;
     border: 0;
 }
+.badge-danger-custom{
+    padding: 3px!important;
+}

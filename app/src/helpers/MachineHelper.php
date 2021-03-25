@@ -5,11 +5,12 @@ namespace App\src\helpers;
 
 
 use App\src\entities\Machine;
-use App\User;
 use DateTime;
 
 class MachineHelper
 {
+    const ADDING_MINUTES_FOR_CHECK = 1;
+
     public static function getStatus ($key)
     {
         $statuses = [
@@ -20,7 +21,7 @@ class MachineHelper
         return $statuses[$key];
     }
 
-    public static function getTimingStatus (Machine $machine)
+    public static function getStatusForTable (Machine $machine)
     {
         if (self::checkProblems($machine)){
             return '<span class="label label-sm label-warning">Есть проблемы</span>';
@@ -30,20 +31,15 @@ class MachineHelper
 
     public static function getProblems (Machine $machine)
     {
-
         $return = [];
         $start_date = new DateTime($machine->contact_time);
         $since_start = $start_date->diff(new DateTime());
-        if ($since_start->i > ($machine->timing_connect + 2)){
+        if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
             $return[] = '<br><span class="text text-danger">Автомат не выходит на связь ' . self::getDiffDate($since_start) . '</span>';
         }
-
-        if (session()->has('request_error.' . $machine->unique_number)){
-            $error = self::getErrorsByNumber(session('request_error.' . $machine->unique_number));
-            if ($error){
-                $return[] = '<br><span class="text text-danger">' . $error . '</span>';
-            } else {
-                $return[] = '<br><span class="text text-danger">Ошибка №' . session('request_error.' . $machine->unique_number) . ' </span>';
+        if ($error = \App\src\helpers\ErrorHelper::getErrors($machine->unique_number)){
+            foreach ($error as $err){
+                $return[] = '<br><span class="text text-danger">' . $err . '</span>';
             }
         }
 
@@ -58,69 +54,13 @@ class MachineHelper
     {
         $start_date = new DateTime($machine->contact_time);
         $since_start = $start_date->diff(new DateTime());
-        if ($since_start->i > ($machine->timing_connect + 2)){
+        if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
             return true;
         }
-        if (session()->has('request_error.' . $machine->unique_number)){
+        if (session()->has('machine_errors.request_error.'.$machine->unique_number)){
             return true;
         }
         return false;
-    }
-
-    public static function checkProblemsForLayout ($machines)
-    {
-        if ($machines){
-            foreach($machines as $machine){
-                if (self::checkProblems($machine)){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static function getErrorsByNumber ($errno)
-    {
-        $error = '';
-        switch ($errno){
-            case '0x00000001':
-                $error = 'Автомат заблокирован';
-                break;
-            case '0x00000010':
-                $error = 'Сенсор открытия двери';
-                break;
-            case '0x00000020':
-                $error = 'Уровень воды по верхний датчик';
-                break;
-            case '0x00001000':
-                $error = 'Бокс монетоприемника открыт';
-                break;
-            case '0x00002000':
-                $error = 'Бокс купюроприемника открыт';
-                break;
-            case '0x00003000':
-                $error = 'Маска инкассации';
-                break;
-            case '0x00010000':
-                $error = 'Уровень воды ниже нижнего датчика';
-                break;
-            case '0x00020000':
-                $error = 'Ошибка монетоприемника';
-                break;
-            case '0x00040000':
-                $error = 'Ошибка купюроприемника';
-                break;
-            case '0x00080000':
-                $error = 'Ошибка насоса';
-                break;
-            case '0x00100000':
-                $error = 'Ошибка счетчика вод';
-                break;
-            case '0x00200000':
-                $error = 'Ошибка клапана';
-                break;
-        }
-        return $error;
     }
 
     public static function getDiffDate ($date)
@@ -142,5 +82,26 @@ class MachineHelper
             $str .= $date->i . '(минуты) ';
         }
         return $str;
+    }
+
+    public static function getMinutesNotTiming ($date)
+    {
+        $i = 0;
+        if ($date->y){
+            $i += $date->y * 12 * 30 * 24 * 60;
+        }
+        if ($date->m){
+            $i += $date->m * 30 * 24 * 60;
+        }
+        if ($date->d){
+            $i += $date->d * 24 * 60;
+        }
+        if ($date->h){
+            $i += $date->h * 60;
+        }
+        if ($date->i){
+            $i += $date->i;
+        }
+        return $i ?: 1;
     }
 }

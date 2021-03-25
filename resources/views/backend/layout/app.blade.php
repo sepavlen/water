@@ -43,46 +43,32 @@
         
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                @if (\App\src\helpers\MachineHelper::checkProblemsForLayout($machines) || session()->has('request_error'))
+                @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
 
-                            <span class="badge badge-danger"> ? </span>
+                            <span class="badge badge-danger badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
                     </a>
-                        <ul class="dropdown-menu">
-    {{--                        <li class="external">--}}
-    {{--                            <h3>--}}
-    {{--                                <span class="bold">12 pending</span> notifications</h3>--}}
-    {{--                            <a href="page_user_profile_1.html">view all</a>--}}
-    {{--                        </li>--}}
-                            <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                    @if (\App\src\helpers\MachineHelper::checkProblemsForLayout($machines))
-                                        <li>
-                                            <a href="{{ route('dashboard.table') }}">
-                                            <span class="details">
-                                                        <span class="label label-sm label-icon label-warning">
-                                                            <i class="fa fa-bell-o"></i>
-                                                        </span> Проблемы с автоматами </span>
-                                            </a>
-                                        </li>
-                                    @endif
-                                    @if (session()->has('request_error.empty_water'))
-                                        @foreach(session('request_error.empty_water') as $error)
-                                                <li>
-                                                    <a href="javascript:;">
-                                                    <span class="details">
-                                                        <span class="label label-sm label-icon label-danger">
-                                                            <i class="fa fa-bolt"></i>
-                                                        </span> {{ $error }} </span>
-                                                    </a>
-                                                </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </li>
-                        </ul>
+                    <ul class="dropdown-menu">
+{{--                        <li class="external">--}}
+{{--                            <h3>--}}
+{{--                                <span class="bold">12 pending</span> notifications</h3>--}}
+{{--                            <a href="page_user_profile_1.html">view all</a>--}}
+{{--                        </li>--}}
+                        <li>
+                            <ul class="dropdown-menu-list" data-handle-color="#637283">
+                                <li>
+                                    <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
+                                    <span class="details">
+                                                <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Есть проблемы с автоматами </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
                 @endif
 

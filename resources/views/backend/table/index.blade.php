@@ -58,7 +58,7 @@
                                                     <td>{{ $machine->unique_number }}</td>
                                                     <td>{{ $machine->address }}</td>
                                                     <td>{{ $machine->contact_time }}</td>
-                                                    <td>{!! \App\src\helpers\MachineHelper::getTimingStatus($machine) !!}</td>
+                                                    <td>{!! \App\src\helpers\MachineHelper::getStatusForTable($machine) !!}</td>
                                                     <td>
                                                         @foreach(\App\src\helpers\MachineHelper::getProblems($machine) as $problem)
                                                             {!! $problem  !!}
