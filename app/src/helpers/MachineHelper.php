@@ -9,7 +9,7 @@ use DateTime;
 
 class MachineHelper
 {
-    const ADDING_MINUTES_FOR_CHECK = 1;
+    const ADDING_MINUTES_FOR_CHECK = 5;
 
     public static function getStatus ($key)
     {
@@ -35,11 +35,19 @@ class MachineHelper
         $start_date = new DateTime($machine->contact_time);
         $since_start = $start_date->diff(new DateTime());
         if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
-            $return[] = '<br><span class="text text-danger">Автомат не выходит на связь ' . self::getDiffDate($since_start) . '</span>';
+            $return[] = '<br><span class="text text-danger">Автомат не выходит на связь (com=1) - ' . self::getDiffDate($since_start) . '</span>';
         }
+
         if ($error = \App\src\helpers\ErrorHelper::getErrors($machine->unique_number)){
             foreach ($error as $err){
-                $return[] = '<br><span class="text text-danger">' . $err . '</span>';
+                if (is_array($err)){
+                    foreach ($err as $item) {
+                        $return[] = '<br><span class="text text-danger">' . $item . '</span>';
+                    }
+                } else {
+                    $return[] = '<br><span class="text text-danger">' . $err . '</span>';
+
+                }
             }
         }
 
@@ -57,7 +65,10 @@ class MachineHelper
         if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
             return true;
         }
-        if (session()->has('machine_errors.request_error.'.$machine->unique_number)){
+        if (session()->has('machine_errors.empty_water.'.$machine->unique_number)){
+            return true;
+        }
+        if (session()->has('machine_errors.empty_water.'.$machine->unique_number)){
             return true;
         }
         return false;

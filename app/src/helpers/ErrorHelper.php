@@ -13,10 +13,11 @@ class ErrorHelper
 
     public static function checkErrors ($machines)
     {
+        self::removeErrorIfEmpty();
         if (self::checkMachineTimingErrors($machines)){
             return true;
         }
-        if (session()->has('machine_errors')){
+        if (session()->has('machine_errors') && session('machine_errors')){
             return true;
         }
         return false;
@@ -24,10 +25,14 @@ class ErrorHelper
 
     public static function getErrors ($machine_id)
     {
-        if (session()->has('machine_errors.request_error.'.$machine_id)){
-            return unserialize(session('machine_errors.request_error.'.$machine_id));
+        $errors = [];
+        if (session()->has('machine_errors.request_error.'.$machine_id)) {
+            $errors[] = unserialize(session('machine_errors.request_error.' . $machine_id));
         }
-        return false;
+        if (session()->has('machine_errors.empty_water.'.$machine_id)) {
+            $errors[] = session('machine_errors.empty_water.'.$machine_id);
+        }
+        return $errors ?: false;
     }
 
     public static function checkRequestErrors (Request $request)
@@ -40,6 +45,19 @@ class ErrorHelper
         } else {
             if ($request->session()->has('machine_errors.request_error.'.$request->n)){
                 $request->session()->forget('machine_errors.request_error.'.$request->n);
+            }
+        }
+    }
+
+    public static function removeErrorIfEmpty ()
+    {
+        if (session()->has('machine_errors')){
+            if (session('machine_errors')){
+                if (session()->has('machine_errors.request_error') && !session('machine_errors.request_error')){
+                    session()->forget('machine_errors.request_error');
+                }
+            }else{
+                session()->forget('machine_errors');
             }
         }
     }
@@ -85,21 +103,10 @@ class ErrorHelper
                 $errors[] = 'Ошибка клапана';
             }
             if (!$errors){
-                $errors[] = "Неизвестная ошибка - $error_code (" . self::dec2hex($error_code) . ")";
+                $errors[] = "Неизвестная ошибка - $error_code (" . dec2hex($error_code) . ")";
             }
         }
         return $errors ? serialize($errors) : false;
-    }
-
-    public static function dec2hex($dec) {
-        $hex = ($dec == 0 ? '0' : '');
-
-        while ($dec > 0) {
-            $hex = dechex($dec - floor($dec / 16) * 16) . $hex;
-            $dec = floor($dec / 16);
-        }
-
-        return $hex;
     }
     
     public static function checkMachineTimingErrors ($machines)
@@ -110,6 +117,26 @@ class ErrorHelper
             if (!MachineHelper::getMinutesNotTiming($since_start) || MachineHelper::getMinutesNotTiming($since_start) > ($machine->timing_connect + MachineHelper::ADDING_MINUTES_FOR_CHECK)){
                 return true;
             }
+        }
+        return false;
+    }
+
+    public static function checkOrderError (Request $request)
+    {
+        if (!$request->sp || !$request->sn || !$request->kp || !$request->kn){
+            if ($request->session()->has('machine_errors.request_error.'.$request->n))
+                $request->session()->forget('machine_errors.request_error.'.$request->n);
+            $request->session()->put('machine_errors.request_error.'.$request->n, $request->getRequestUri());
+        } else {
+            if ($request->session()->has('machine_errors.request_error.'.$request->n))
+                $request->session()->forget('machine_errors.request_error.'.$request->n);
+        }
+    }
+    public static function checkUnknownMachineNumber (Request $request)
+    {
+        if (!$request->n){
+            $request->session()->push('unknown_errors', $request->getRequestUri());
+            return true;
         }
         return false;
     }

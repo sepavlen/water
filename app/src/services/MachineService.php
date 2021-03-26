@@ -69,7 +69,8 @@ class MachineService
         if ($request->has('n')){
             $machine = $this->getMachineByUniqueNumber($request->n);
             if (!$machine){
-                if ($this->repository->createDefaultMachine($request)){
+                if ($machine = $this->createDefaultMachine($request)){
+                    $this->repository->updateAmountWater($machine, $request);
                     echo "Автомат создан";
                 }
             } else {
@@ -77,18 +78,25 @@ class MachineService
                     echo "Автомат обновлен";
                 }
             }
-
         }
+    }
+
+    public function createDefaultMachine (Request $request)
+    {
+        return $this->repository->createDefaultMachine($request);
     }
 
     public function getErrorEmptyCountWater (Request $request)
     {
         if (!$request->l){
-            $request->session()->put('request_error.empty_water.' . $request->n, 'Автомат ' . $request->n . ' не передает остаток воды');
+            $request->session()->put('machine_errors.empty_water.' . $request->n, 'Автомат ' . $request->n . ' не передает остаток воды');
         } else {
-            if ($request->session()->has('request_error.empty_water.' . $request->n)){
-                $request->session()->forget('request_error.empty_water.' . $request->n);
+            if ($request->session()->has('machine_errors.empty_water.' . $request->n)){
+                $request->session()->forget('machine_errors.empty_water.' . $request->n);
             }
+        }
+        if (session('machine_errors.empty_water') == []){
+            session()->forget('machine_errors.empty_water');
         }
     }
 
@@ -134,5 +142,7 @@ class MachineService
             'calibration.required' => 'Вы забыли указать калибровку!',
         ];
     }
+
+
     
 }

@@ -6,8 +6,6 @@ namespace App\src\repositories;
 
 use App\src\entities\Machine;
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class MachineRepository
@@ -36,7 +34,14 @@ class MachineRepository
     {
         $model = $this->getMachine();
         $machine = $this->load($model, $request);
-        return $this->save($machine);
+        $this->save($machine);
+        return $machine;
+    }
+
+    public function updateAmountWater (Machine $machine, Request $request)
+    {
+        $machine->water_amount = $request->l;
+        $machine->save();
     }
 
     public function updateContactTimeAndAmountCount (Machine $machine, Request $request)
@@ -48,13 +53,13 @@ class MachineRepository
     
     public function save ($machine)
     {
-        return $machine->save();
+        $machine->save();
+        return $machine;
     }
 
     public function load ($model, Request $request)
     {
         $model->unique_number = $request->n;
-        $model->water_amount = $request->l;
         $model->contact_time = date('Y-m-d H:i:s');
         $model->user_id = User::ID_ADMIN;
         $model->status = Machine::STATUS_NEW;

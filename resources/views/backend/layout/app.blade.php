@@ -28,23 +28,23 @@
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
 
 <div class="page-header navbar navbar-fixed-top">
-    
+
     <div class="page-header-inner ">
-        
+
         <div class="page-logo">
             <a href="{{ route('dashboard') }}">
                 <img src="/assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler"> </div>
         </div>
-        
-        
+
+
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-        
-        
+
+
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    @if (\App\src\helpers\ErrorHelper::checkErrors($machines) || session('unknown_errors'))
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
 
@@ -58,25 +58,40 @@
 {{--                        </li>--}}
                         <li>
                             <ul class="dropdown-menu-list" data-handle-color="#637283">
-                                <li>
-                                    <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
+                                @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
+                                    <li>
+                                        <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
                                     <span class="details">
                                                 <span class="label label-sm label-icon label-warning">
                                                     <i class="fa fa-bell-o"></i>
                                                 </span> Есть проблемы с автоматами </span>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (session('unknown_errors'))
+                                        <li>
+                                            <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
+                                    <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Получен запрос в котором нет номера автомата
+                                                    @foreach(session('unknown_errors') as $error)
+                                                        <b class="text-danger">{{ $error }}</b> </span>
+                                                    @endforeach
+                                            </a>
+                                        </li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
+                    @endif
                 </li>
-                @endif
 
 
 
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="/assets/layouts/layout/img/avatar3_small.jpg" />
+                        <img alt="" class="img-circle" src="/assets/layouts/layout/img/avatar.png" />
                         <span class="username username-hide-on-mobile"> {{ \Illuminate\Support\Facades\Auth::user()->name }} </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -107,7 +122,7 @@
 </div>
 <div class="clearfix"> </div>
 <div class="page-container">
-    
+
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
             <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
@@ -159,12 +174,12 @@
 
             </ul>
 
-            
+
         </div>
-        
+
     </div>
-    
-    
+
+
     <div class="page-content-wrapper">
         <div class="page-content">
             @yield('content')

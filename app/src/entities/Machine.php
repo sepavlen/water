@@ -13,8 +13,18 @@ class Machine extends Model
 
     protected $guarded = [];
 
+    public static function tableName ()
+    {
+        return 'machines';
+    }
+
     public function user ()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function orders ()
+    {
+        return $this->belongsToMany(Order::class);
     }
 }
