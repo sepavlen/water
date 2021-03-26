@@ -48,9 +48,6 @@ class RequestController extends Controller
                 $this->orderService->save($request);
             }
             if ($request->com == 3){
-//                dd(array_sum($request->except(['com', 'n'])));
-//                dd(array_sum($request->except(['com', 'n'])));
-//                ErrorHelper::checkOrderError($request);
                 $this->encashmentService->save($request);
             }
         }
