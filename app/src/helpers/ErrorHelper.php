@@ -18,6 +18,7 @@ class ErrorHelper
             return true;
         }
         if (session()->has('machine_errors') && session('machine_errors')){
+            dd(session('machine_errors'));
             return true;
         }
         return false;
@@ -31,6 +32,9 @@ class ErrorHelper
         }
         if (session()->has('machine_errors.empty_water.'.$machine_id)) {
             $errors[] = session('machine_errors.empty_water.'.$machine_id);
+        }
+        if (session()->has('machine_errors.order_error.'.$machine_id)) {
+            $errors[] = session('machine_errors.order_error.'.$machine_id);
         }
         return $errors ?: false;
     }
@@ -55,6 +59,9 @@ class ErrorHelper
             if (session('machine_errors')){
                 if (session()->has('machine_errors.request_error') && !session('machine_errors.request_error')){
                     session()->forget('machine_errors.request_error');
+                }
+                if (session()->has('machine_errors.order_error') && !session('machine_errors.order_error')){
+                    session()->forget('machine_errors.order_error');
                 }
             }else{
                 session()->forget('machine_errors');
@@ -124,12 +131,12 @@ class ErrorHelper
     public static function checkOrderError (Request $request)
     {
         if (!$request->sp || !$request->sn || !$request->kp || !$request->kn){
-            if ($request->session()->has('machine_errors.request_error.'.$request->n))
-                $request->session()->forget('machine_errors.request_error.'.$request->n);
-            $request->session()->put('machine_errors.request_error.'.$request->n, $request->getRequestUri());
+            if ($request->session()->has('machine_errors.order_error.'.$request->n))
+                $request->session()->forget('machine_errors.order_error.'.$request->n);
+            $request->session()->put('machine_errors.order_error.'.$request->n, $request->getRequestUri());
         } else {
-            if ($request->session()->has('machine_errors.request_error.'.$request->n))
-                $request->session()->forget('machine_errors.request_error.'.$request->n);
+            if ($request->session()->has('machine_errors.order_error.'.$request->n))
+                $request->session()->forget('machine_errors.order_error.'.$request->n);
         }
     }
     public static function checkUnknownMachineNumber (Request $request)
