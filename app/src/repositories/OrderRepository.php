@@ -3,11 +3,7 @@
 
 namespace App\src\repositories;
 
-
-use App\src\entities\Machine;
 use App\src\entities\Order;
-use App\User;
-use Illuminate\Http\Request;
 
 class OrderRepository
 {

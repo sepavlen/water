@@ -28,7 +28,6 @@ class OrderService
 
     public function load(Order $order, Request $request)
     {
-//        dd(!$this->machineService->getMachineByUniqueNumber($request->n));
         if (!$machine = $this->machineService->getMachineByUniqueNumber($request->n)){
             $machine = $this->machineService->createDefaultMachine($request);
         }

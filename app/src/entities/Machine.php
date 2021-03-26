@@ -27,4 +27,9 @@ class Machine extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function encashment ()
+    {
+        return $this->belongsToMany(Encashment::class);
+    }
 }
