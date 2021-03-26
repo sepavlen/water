@@ -70,14 +70,14 @@
                                 @endif
                                 @if (session('unknown_errors'))
                                         <li>
-                                            <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
+                                            <a href="{{ request()->routeIs('dashboard.unknownErrors') ? 'javascript:void(0)' : route('dashboard.unknownErrors') }}">
                                     <span class="details">
                                                 <span class="label label-sm label-icon label-danger">
                                                     <i class="fa fa-bolt"></i>
                                                 </span> Получен запрос в котором нет номера автомата
-                                                    @foreach(session('unknown_errors') as $error)
-                                                        <b class="text-danger">{{ $error }}</b> </span>
-                                                    @endforeach
+{{--                                                    @foreach(session('unknown_errors') as $error)--}}
+{{--                                                        <b class="text-danger">{{ $error }}</b> </span>--}}
+{{--                                                    @endforeach--}}
                                             </a>
                                         </li>
                                 @endif

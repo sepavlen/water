@@ -23,6 +23,8 @@ Route::prefix('dashboard')
             Route::post('/users/create', 'backend\UserController@save')->name('dashboard.user.create');
             Route::get('/users/edit/{user}', 'backend\UserController@edit')->name('dashboard.user.edit');
             Route::get('/users/delete/{user}', 'backend\UserController@destroy')->name('dashboard.user.delete');
+            Route::get('/errors-unknown', 'backend\DashboardController@errors')->name('dashboard.unknownErrors');
+            Route::get('/error-remove', 'backend\DashboardController@errorRemove')->name('dashboard.removeErrors');
         });
         Route::post('/users/update', 'backend\UserController@update')->name('dashboard.user.update');
 

@@ -12,4 +12,16 @@ class DashboardController extends Controller
 
         return view('backend.dashboard');
     }
+
+    public function errors ()
+    {
+        return view('backend.dashboard.unknown-errors');
+    }
+
+    public function errorRemove (Request $request)
+    {
+        if (session('unknown_errors.'.$request->id)){
+            session()->forget('unknown_errors.'.$request->id);
+        }
+    }
 }
