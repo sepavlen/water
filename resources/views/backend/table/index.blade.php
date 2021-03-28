@@ -97,14 +97,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($machines as $machine)
+                                            @foreach($machines_statistic as $machine)
                                                 <tr>
-                                                    <td>{{ $machine->unique_number }}</td>
-                                                    <td>{{ $machine->address }}</td>
-                                                    <td>333грн</td>
-                                                    <td>333грн</td>
-                                                    <td>333грн</td>
-                                                    <td>{{ $machine->water_amount }}</td>
+                                                    <td>{{ $machine['unique_number'] }}</td>
+                                                    <td>{{ $machine['address'] }}</td>
+                                                    <td>{{ $machine['orders_sum_month'] }}грн</td>
+                                                    <td>{{ $machine['orders_sum_yesterday'] }}грн</td>
+                                                    <td>{{ $machine['orders_sum_today'] }}грн</td>
+                                                    <td>{{ $machine['water_amount'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

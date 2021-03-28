@@ -4,7 +4,9 @@
 namespace App\src\services;
 
 use App\src\entities\Order;
+use App\src\helpers\OrderHelper;
 use App\src\repositories\OrderRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderService
@@ -48,6 +50,58 @@ class OrderService
     public function getModel ()
     {
         return $this->repository->getOrder();
+    }
+
+    public function getSumOrdersForLastMonth ()
+    {
+        return $this->getModel()->where(
+            'created_at',
+            '>',
+            Carbon::now()
+                ->subDays(30))
+            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->groupBy('machine_id')
+            ->get()
+            ->keyBy('machine_id')
+            ->toArray();
+    }
+
+    public function getSumOrdersForYesterday ()
+    {
+        return $this->getModel()->where(
+            'created_at',
+            '>',
+            Carbon::yesterday())
+            ->where('created_at',
+                '<',
+                Carbon::today())
+            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->groupBy('machine_id')
+            ->get()
+            ->keyBy('machine_id')
+            ->toArray();
+    }
+
+    public function getSumOrdersToday ()
+    {
+        return $this->getModel()->where(
+            'created_at',
+            '>',
+            Carbon::today())
+            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->groupBy('machine_id')
+            ->get()
+            ->keyBy('machine_id')
+            ->toArray();
+    }
+
+    public function createOrderStatisticArray ($machines)
+    {
+        $order_month = $this->getSumOrdersForLastMonth();
+        $order_yesterday = $this->getSumOrdersForYesterday();
+        $order_today = $this->getSumOrdersToday();
+
+        return OrderHelper::createOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today);
     }
 
 }
