@@ -54,45 +54,17 @@ class OrderService
 
     public function getSumOrdersForLastMonth ()
     {
-        return $this->getModel()->where(
-            'created_at',
-            '>',
-            Carbon::now()
-                ->subDays(30))
-            ->selectRaw('machine_id, sum(put_amount) as total')
-            ->groupBy('machine_id')
-            ->get()
-            ->keyBy('machine_id')
-            ->toArray();
+        return $this->repository->getSumOrdersForLastMonth();
     }
 
     public function getSumOrdersForYesterday ()
     {
-        return $this->getModel()->where(
-            'created_at',
-            '>',
-            Carbon::yesterday())
-            ->where('created_at',
-                '<',
-                Carbon::today())
-            ->selectRaw('machine_id, sum(put_amount) as total')
-            ->groupBy('machine_id')
-            ->get()
-            ->keyBy('machine_id')
-            ->toArray();
+        return $this->repository->getSumOrdersForYesterday();
     }
 
     public function getSumOrdersToday ()
     {
-        return $this->getModel()->where(
-            'created_at',
-            '>',
-            Carbon::today())
-            ->selectRaw('machine_id, sum(put_amount) as total')
-            ->groupBy('machine_id')
-            ->get()
-            ->keyBy('machine_id')
-            ->toArray();
+        return $this->repository->getSumOrdersToday();
     }
 
     public function createOrderStatisticArray ($machines)
