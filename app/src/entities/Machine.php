@@ -12,6 +12,7 @@ class Machine extends Model
     const STATUS_NEW = 3;
 
     protected $guarded = [];
+    protected $table = 'machines';
 
     public static function tableName ()
     {
@@ -25,7 +26,7 @@ class Machine extends Model
 
     public function orders ()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'id', 'machine_id');
     }
 
     public function encashment ()

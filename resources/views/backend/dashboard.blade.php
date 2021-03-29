@@ -59,11 +59,11 @@
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="125">0</span> ₴
+                                    <span data-counter="counterup" data-value="{{ $profit_today }}">0</span> ₴
                                 </div>
                                 <div class="desc"> Доход за сегодня </div>
                             </div>
-                            <a class="more" href="javascript:;"> View more
+                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -75,10 +75,10 @@
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="350">0</span> ₴</div>
+                                    <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴</div>
                                 <div class="desc"> Доход за месяц </div>
                             </div>
-                            <a class="more" href="javascript:;"> View more
+                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -90,11 +90,11 @@
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="549">0</span> ₴
+                                    <span data-counter="counterup" data-value="{{ $profit_year }}">0</span> ₴
                                 </div>
                                 <div class="desc"> Доход за год </div>
                             </div>
-                            <a class="more" href="javascript:;"> View more
+                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -106,111 +106,117 @@
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="8900"></span> ₴</div>
+                                    <span data-counter="counterup" data-value="{{ $profit_all_time }}">0</span> ₴</div>
                                 <div class="desc"> Доход за все время </div>
                             </div>
-                            <a class="more" href="javascript:;"> View more
+                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <figure class="highcharts-figure">
-                    <div id="container"></div>
-                </figure>
+                @if ($checkStatistic)
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                    </figure>
+                @else
+                     Нет данных для отображения!
+                @endif
+
 
 @endsection
-
-@push('scripts')
-    <script>
-        var colors = Highcharts.getOptions().colors;
-        Highcharts.chart('container', {
-            chart: {
-                type: 'spline'
-            },
-
-            legend: {
-                symbolWidth: 40
-            },
-
-            title: {
-                text: 'Доход и затраты за последние 30 дней'
-            },
-
-            yAxis: {
-                title: {
-                    text: false
-                }
-            },
-
-            xAxis: {
-                title: {
-                    text: 'ДД.ММ'
-                },
-                categories: {!! $labelsForChart !!}
-            },
-
-            plotOptions: {
-                series: {
-                    states: {
-
-                        inactive: {
-                            opacity: 1
-                        }
-
-                    },
-                    cursor: 'pointer',
+@if ($checkStatistic)
+    @push('scripts')
+        <script>
+            var colors = Highcharts.getOptions().colors;
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'spline'
                 },
 
-            },
-            credits: {
-                text: 'Water',
-                href: false,
-            },
-            tooltip: {
-                valueSuffix: ' грн.'
-            },
-            exporting: {
-                buttons: {
-                    contextButton: {
-                        menuItems: ['downloadPNG', 'downloadPDF', 'downloadXLS']
+                legend: {
+                    symbolWidth: 40
+                },
+
+                title: {
+                    text: 'Доход и затраты за последние 30 дней'
+                },
+
+                yAxis: {
+                    title: {
+                        text: false
                     }
-                }
-            },
+                },
 
-            series: [
-                {
-                    name: 'Доход',
-                    data: {!! $dataForChart !!},
-                    color: colors[2],
-                }, {
-                    name: 'Затраты',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    color: colors[3],
-                    dashStyle: 'ShortDash',
-                }
-            ],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 550
+                xAxis: {
+                    title: {
+                        text: 'ММ.ДД'
                     },
-                    chartOptions: {
-                        chart: {
-                            spacingLeft: 3,
-                            spacingRight: 3
+                    categories: {!! $labelsForChart !!}
+                },
+
+                plotOptions: {
+                    series: {
+                        states: {
+
+                            inactive: {
+                                opacity: 1
+                            }
+
                         },
-                        legend: {
-                            itemWidth: 150
-                        },
-                        yAxis: {
-                            visible: false
+                        cursor: 'pointer',
+                    },
+
+                },
+                credits: {
+                    text: 'Water',
+                    href: false,
+                },
+                tooltip: {
+                    valueSuffix: ' грн.'
+                },
+                exporting: {
+                    buttons: {
+                        contextButton: {
+                            menuItems: ['downloadPNG', 'downloadPDF', 'downloadXLS']
                         }
                     }
-                }]
-            }
-        });
-    </script>
-@endpush
+                },
+
+                series: [
+                    {
+                        name: 'Доход',
+                        data: {!! $dataForChart !!},
+                        color: colors[2],
+                    }, {
+                        name: 'Затраты',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: colors[3],
+                        dashStyle: 'ShortDash',
+                    }
+                ],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 550
+                        },
+                        chartOptions: {
+                            chart: {
+                                spacingLeft: 3,
+                                spacingRight: 3
+                            },
+                            legend: {
+                                itemWidth: 150
+                            },
+                            yAxis: {
+                                visible: false
+                            }
+                        }
+                    }]
+                }
+            });
+        </script>
+        @endpush
+@endif

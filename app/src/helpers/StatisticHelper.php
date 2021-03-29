@@ -22,4 +22,14 @@ class StatisticHelper
         }
         return $return;
     }
+
+    public static function checkStatistic ($statistic)
+    {
+        foreach ($statistic as $item){
+            if ($item != 0){
+                return true;
+            }
+        }
+        return false;
+    }
 }

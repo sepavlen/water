@@ -4,6 +4,8 @@
 namespace App\src\repositories;
 
 
+use App\src\entities\Machine;
+use App\src\entities\Order;
 use App\src\services\OrderService;
 use Carbon\Carbon;
 
@@ -16,9 +18,13 @@ class StatisticRepository
         $this->order = $orderService->getModel();
     }
     
-    public function getSumOrdersForLastThirtyDays ()
+    public function getSumOrdersForLastThirtyDays ($user_id)
     {
-        return $this->order->where(
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+                return $query->where('user_id', $user_id);
+        })
+            ->where(
             'created_at',
             '>',
             Carbon::now()->subDays(30))
@@ -28,6 +34,52 @@ class StatisticRepository
             ->get()
             ->keyBy('cnt_date')
             ->toArray();
+    }
+
+    public function getTotalProfitToday ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+            return $query->where('user_id', $user_id);
+        })->where(
+                'orders.created_at',
+                '>=',
+                Carbon::today())
+            ->sum('put_amount');
+    }
+
+    public function getTotalProfitMonth ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+            return $query->where('user_id', $user_id);
+        })
+            ->where(
+                'orders.created_at',
+                '>',
+                Carbon::now()->subDays(30))
+            ->sum('put_amount');
+    }
+
+    public function getTotalProfitYear ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+            return $query->where('user_id', $user_id);
+        })
+            ->where(
+                'orders.created_at',
+                '>',
+                Carbon::now()->subMonths(12))
+            ->sum('put_amount');
+    }
+
+    public function getTotalProfitAllTime ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+            return $query->where('user_id', $user_id);
+        })->sum('put_amount');
     }
 
 }

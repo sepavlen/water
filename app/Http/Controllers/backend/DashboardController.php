@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\src\entities\Order;
 use App\src\helpers\StatisticHelper;
 use App\src\services\StatisticService;
 use Carbon\Carbon;
@@ -23,6 +24,11 @@ class DashboardController extends Controller
         return view('backend.dashboard', [
             'labelsForChart' => json_encode(array_keys($statistic)),
             'dataForChart' => json_encode(array_values($statistic)),
+            'profit_today' => $this->statisticService->getTotalProfitToday(),
+            'profit_month' => $this->statisticService->getTotalProfitMonth(),
+            'profit_year' => $this->statisticService->getTotalProfitYear(),
+            'profit_all_time' => $this->statisticService->getTotalProfitAllTime(),
+            'checkStatistic' => StatisticHelper::checkStatistic($statistic),
         ]);
     }
 
