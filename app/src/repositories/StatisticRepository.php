@@ -4,8 +4,6 @@
 namespace App\src\repositories;
 
 
-use App\src\entities\Machine;
-use App\src\entities\Order;
 use App\src\services\OrderService;
 use Carbon\Carbon;
 
@@ -80,6 +78,64 @@ class StatisticRepository
             if (!isAdmin())
             return $query->where('user_id', $user_id);
         })->sum('put_amount');
+    }
+
+    public function getStatisticForCurrentDay ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+                return $query->where('user_id', $user_id);
+        })
+            ->where(
+                'created_at',
+                '>=',
+                Carbon::today())
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'hh:00') as cnt_date")
+            ->groupBy('cnt_date')
+            ->orderBy('cnt_date')
+            ->get()
+            ->keyBy('cnt_date')
+            ->toArray();
+    }
+
+    public function getStatisticForCurrentMonth ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+                return $query->where('user_id', $user_id);
+        })
+            ->where(
+                'created_at',
+                '<=',
+                Carbon::now()->subMonths()->endOfMonth())
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
+            ->groupBy('cnt_date')
+            ->orderBy('cnt_date')
+            ->get()
+            ->keyBy('cnt_date')
+            ->toArray();
+    }
+
+    public function getStatisticForLastMonth ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (!isAdmin())
+                return $query->where('user_id', $user_id);
+        })
+            ->where(
+                'created_at',
+                '<',
+                Carbon::now()->subMonth()->startOfMonth())
+            ->where(
+                'created_at',
+                '>=',
+                Carbon::now()->startOfMonth()->subMonths())
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
+            ->groupBy('cnt_date')
+            ->orderBy('cnt_date')
+            ->get()
+            ->keyBy('cnt_date')
+            ->toArray();
     }
 
 }

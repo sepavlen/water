@@ -45,4 +45,19 @@ class StatisticService
     {
         return $this->repository->getTotalProfitAllTime(\Auth::id());
     }
+
+    public function getStatisticForCurrentDay ()
+    {
+        return StatisticHelper::getStatisticForCurrentDay($this->repository->getStatisticForCurrentDay(\Auth::id()));
+    }
+
+    public function getStatisticForCurrentMonth ()
+    {
+        return StatisticHelper::getStatisticForCurrentMonth($this->repository->getStatisticForCurrentMonth(\Auth::id()));
+    }
+
+    public function getStatisticForLastMonth ()
+    {
+        return StatisticHelper::getStatisticForLastMonth($this->repository->getStatisticForLastMonth(\Auth::id()));
+    }
 }

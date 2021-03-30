@@ -28,7 +28,6 @@ class DashboardController extends Controller
             'profit_month' => $this->statisticService->getTotalProfitMonth(),
             'profit_year' => $this->statisticService->getTotalProfitYear(),
             'profit_all_time' => $this->statisticService->getTotalProfitAllTime(),
-            'checkStatistic' => StatisticHelper::checkStatistic($statistic),
         ]);
     }
 

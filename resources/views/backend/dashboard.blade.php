@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="desc"> Доход за сегодня </div>
                             </div>
-                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -78,7 +78,7 @@
                                     <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴</div>
                                 <div class="desc"> Доход за месяц </div>
                             </div>
-                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="desc"> Доход за год </div>
                             </div>
-                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
@@ -109,25 +109,20 @@
                                     <span data-counter="counterup" data-value="{{ $profit_all_time }}">0</span> ₴</div>
                                 <div class="desc"> Доход за все время </div>
                             </div>
-                            <a class="more" href="{{ route('dashboard.table') }}"> Подробнее
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                @if ($checkStatistic)
-                    <figure class="highcharts-figure">
-                        <div id="container"></div>
-                    </figure>
-                @else
-                     Нет данных для отображения!
-                @endif
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
 
 
 @endsection
-@if ($checkStatistic)
-    @push('scripts')
+@push('scripts')
         <script>
             var colors = Highcharts.getOptions().colors;
             Highcharts.chart('container', {
@@ -219,4 +214,3 @@
             });
         </script>
         @endpush
-@endif
