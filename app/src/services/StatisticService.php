@@ -60,4 +60,14 @@ class StatisticService
     {
         return StatisticHelper::getStatisticForLastMonth($this->repository->getStatisticForLastMonth(\Auth::id()));
     }
+
+    public function getStatisticForPeriod ($months)
+    {
+        return StatisticHelper::getStatisticForPeriod($this->repository->getStatisticForPeriod(\Auth::id(), $months), $months);
+    }
+
+    public function getStatisticForAllTime ()
+    {
+        return $this->repository->getStatisticForAllTime(\Auth::id());
+    }
 }

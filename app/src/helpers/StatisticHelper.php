@@ -37,6 +37,18 @@ class StatisticHelper
         }
         return $days;
     }
+    public static function getDefaultDatePeriod ($month)
+    {
+        $days = array();
+        for($i = 1; $i <= $month; $i++){
+            if ($i === 1)
+                $days[] = date("Y F", now()->timestamp);
+            elseif ($i == $month)
+                continue;
+            $days[] = date("Y F", now()->startOfMonth()->subMonths($i)->timestamp);
+        }
+        return $days;
+    }
 
     public static function getStatisticForLastThirtyDays ($sum_orders)
     {
@@ -72,5 +84,34 @@ class StatisticHelper
             $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
         }
         return $return;
+    }
+
+    public static function getStatisticForPeriod ($sum_orders, $months)
+    {
+        $return = [];
+        foreach (self::getDefaultDatePeriod($months) as $date){
+            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+        }
+        return $return;
+    }
+
+    public static function convertArrayForChart (array $data) : array
+    {
+        $array = [];
+        foreach (array_reverse($data) as $key => $value){
+            if(is_array($value)){
+                $array[] = [
+                    'name' => reset($value),
+                    'y' => (int)end($value),
+                ];
+            } else {
+                $array[] = [
+                    'name' => $key,
+                    'y' => $value,
+                ];
+            }
+
+        }
+        return $array;
     }
 }

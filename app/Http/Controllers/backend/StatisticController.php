@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\src\helpers\StatisticHelper;
 use App\src\services\StatisticService;
 use Carbon\Carbon;
 
@@ -29,6 +30,10 @@ class StatisticController extends Controller
 
             'labelsStatisticLastMonth' => json_encode(array_keys($statisticLastMonth)),
             'dataStatisticLastMonth' => json_encode(array_values($statisticLastMonth)),
+
+            'dataStatisticHalfYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(6))),
+            'dataStatisticLastYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(12))),
+            'dataStatisticAllTime' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForAllTime())),
         ]);
     }
 }

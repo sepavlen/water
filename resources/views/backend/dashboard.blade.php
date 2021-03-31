@@ -165,7 +165,7 @@
 
                 },
                 credits: {
-                    text: 'Water',
+                    text: 'Zdorovenka',
                     href: false,
                 },
                 tooltip: {
