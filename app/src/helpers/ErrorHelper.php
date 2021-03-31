@@ -41,11 +41,11 @@ class ErrorHelper
 
     public static function checkRequestErrors (Request $request)
     {
-        if ($request->has('err') && $request->err){
+        if ($request->has('tw') && $request->tw){
             if ($request->session()->has('machine_errors.request_error.'.$request->n)){
                 $request->session()->forget('machine_errors.request_error.'.$request->n);
             }
-            $request->session()->put('machine_errors.request_error.'.$request->n, self::getRequestErrors($request->err));
+            $request->session()->put('machine_errors.request_error.'.$request->n, self::getRequestErrors($request->tw));
         } else {
             if ($request->session()->has('machine_errors.request_error.'.$request->n)){
                 $request->session()->forget('machine_errors.request_error.'.$request->n);
