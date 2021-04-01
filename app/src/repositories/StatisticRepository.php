@@ -90,7 +90,7 @@ class StatisticRepository
                 'created_at',
                 '>=',
                 Carbon::today())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'hh:00') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'HH:00') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()

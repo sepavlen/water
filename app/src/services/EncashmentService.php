@@ -24,7 +24,7 @@ class EncashmentService
         $encashment = $this->repository->getEncashment();
         $this->load($encashment, $request);
         $this->repository->save($encashment);
-        echo "Заказ создан";
+        echo "Инкасация произведена";
     }
 
     public function load(Encashment $encashment, Request $request)

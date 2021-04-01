@@ -25,7 +25,6 @@ class EncashmentRepository
 
     public function save (Encashment $encashment)
     {
-        dd($encashment->save());
         $encashment->save();
         return $encashment;
     }
