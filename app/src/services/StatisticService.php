@@ -46,28 +46,29 @@ class StatisticService
         return $this->repository->getTotalProfitAllTime(\Auth::id());
     }
 
-    public function getStatisticForCurrentDay ()
+    public function getStatisticForCurrentDay ($machine_id = false)
     {
-        return StatisticHelper::getStatisticForCurrentDay($this->repository->getStatisticForCurrentDay(\Auth::id()));
+        return StatisticHelper::getStatisticForCurrentDay($this->repository->getStatisticForCurrentDay(\Auth::id(), $machine_id));
     }
 
-    public function getStatisticForCurrentMonth ()
+    public function getStatisticForCurrentMonth ($machine_id= false)
     {
-        return StatisticHelper::getStatisticForCurrentMonth($this->repository->getStatisticForCurrentMonth(\Auth::id()));
+        return StatisticHelper::getStatisticForCurrentMonth($this->repository->getStatisticForCurrentMonth(\Auth::id(), $machine_id));
     }
 
-    public function getStatisticForLastMonth ()
+    public function getStatisticForLastMonth ($machine_id = false)
     {
-        return StatisticHelper::getStatisticForLastMonth($this->repository->getStatisticForLastMonth(\Auth::id()));
+//        dd($this->repository->getStatisticForLastMonth(\Auth::id(), $machine_id));
+        return StatisticHelper::getStatisticForLastMonth($this->repository->getStatisticForLastMonth(\Auth::id(), $machine_id));
     }
 
-    public function getStatisticForPeriod ($months)
+    public function getStatisticForPeriod ($months, $machine_id = false)
     {
-        return StatisticHelper::getStatisticForPeriod($this->repository->getStatisticForPeriod(\Auth::id(), $months), $months);
+        return StatisticHelper::getStatisticForPeriod($this->repository->getStatisticForPeriod(\Auth::id(), $months, $machine_id), $months);
     }
 
-    public function getStatisticForAllTime ()
+    public function getStatisticForAllTime ($machine_id = false)
     {
-        return $this->repository->getStatisticForAllTime(\Auth::id());
+        return $this->repository->getStatisticForAllTime(\Auth::id(), $machine_id);
     }
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\src\entities\Machine;
+use App\src\helpers\StatisticHelper;
 use App\src\services\MachineService;
+use App\src\services\StatisticService;
 use App\src\services\UserService;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
@@ -16,11 +18,13 @@ class MachineController extends Controller
 {
     public $service;
     public $userService;
+    public $statisticService;
 
-    public function __construct(MachineService $service, UserService $userService)
+    public function __construct(MachineService $service, StatisticService $statisticService, UserService $userService)
     {
         $this->service = $service;
         $this->userService = $userService;
+        $this->statisticService = $statisticService;
     }
 
     public function machine () 
@@ -72,7 +76,26 @@ class MachineController extends Controller
         if (Gate::denies('update', [$machine])){
             abort(403, "У Вас нет прав для просмотра статистики данного автомата!");
         }
-        return view('backend.machine.show-statistic', compact('machine'));
+
+        $statisticCurrentDay = $this->statisticService->getStatisticForCurrentDay($machine->id);
+        $statisticCurrentMonth = $this->statisticService->getStatisticForCurrentMonth($machine->id);
+        $statisticLastMonth = $this->statisticService->getStatisticForLastMonth($machine->id);
+
+        return view('backend.machine.show-statistic', [
+            'machine' => $machine,
+            'labelsStatisticCurrentDay' => json_encode(array_keys($statisticCurrentDay)),
+            'dataStatisticCurrentDay' => json_encode(array_values($statisticCurrentDay)),
+
+            'labelsStatisticCurrentMonth' => json_encode(array_keys($statisticCurrentMonth)),
+            'dataStatisticCurrentMonth' => json_encode(array_values($statisticCurrentMonth)),
+
+            'labelsStatisticLastMonth' => json_encode(array_keys($statisticLastMonth)),
+            'dataStatisticLastMonth' => json_encode(array_values($statisticLastMonth)),
+
+            'dataStatisticHalfYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(6, $machine->id))),
+            'dataStatisticLastYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(12, $machine->id))),
+            'dataStatisticAllTime' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForAllTime($machine->id))),
+        ]);
     }
 
     public function delete (Machine $machine)

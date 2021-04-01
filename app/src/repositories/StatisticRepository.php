@@ -26,7 +26,7 @@ class StatisticRepository
             'created_at',
             '>',
             Carbon::now()->subDays(30))
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'MM-dd') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -80,11 +80,14 @@ class StatisticRepository
         })->sum('put_amount');
     }
 
-    public function getStatisticForCurrentDay ($user_id)
+    public function getStatisticForCurrentDay ($user_id, $machine_id)
     {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
             if (!isAdmin())
-                return $query->where('user_id', $user_id);
+                $query->where('user_id', $user_id);
+            if ($machine_id)
+                $query->where('id', $machine_id);
+            return $query;
         })
             ->where(
                 'created_at',
@@ -98,17 +101,20 @@ class StatisticRepository
             ->toArray();
     }
 
-    public function getStatisticForCurrentMonth ($user_id)
+    public function getStatisticForCurrentMonth ($user_id, $machine_id)
     {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
             if (!isAdmin())
-                return $query->where('user_id', $user_id);
+                $query->where('user_id', $user_id);
+            if ($machine_id)
+                $query->where('id', $machine_id);
+            return $query;
         })
             ->where(
                 'created_at',
                 '<=',
                 Carbon::now()->subMonths()->endOfMonth())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'MM-dd') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -116,21 +122,24 @@ class StatisticRepository
             ->toArray();
     }
 
-    public function getStatisticForLastMonth ($user_id)
+    public function getStatisticForLastMonth ($user_id, $machine_id)
     {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
             if (!isAdmin())
-                return $query->where('user_id', $user_id);
+                 $query->where('user_id', $user_id);
+            if ($machine_id)
+                 $query->where('id', $machine_id);
+            return $query;
         })
             ->where(
                 'created_at',
-                '<',
+                '>=',
                 Carbon::now()->subMonth()->startOfMonth())
             ->where(
                 'created_at',
-                '>=',
-                Carbon::now()->startOfMonth()->subMonths())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'MM-dd') as cnt_date")
+                '<=',
+                Carbon::now()->endOfMonth()->subMonths())
+            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -138,11 +147,14 @@ class StatisticRepository
             ->toArray();
     }
 
-    public function getStatisticForPeriod ($user_id, $period)
+    public function getStatisticForPeriod ($user_id, $period, $machine_id)
     {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
             if (!isAdmin())
-                return $query->where('user_id', $user_id);
+                $query->where('user_id', $user_id);
+            if ($machine_id)
+                $query->where('id', $machine_id);
+            return $query;
         })
             ->where(
                 'created_at',
@@ -155,11 +167,14 @@ class StatisticRepository
             ->keyBy('cnt_date')
             ->toArray();
     }
-    public function getStatisticForAllTime ($user_id)
+    public function getStatisticForAllTime ($user_id, $machine_id)
     {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
             if (!isAdmin())
-                return $query->where('user_id', $user_id);
+                $query->where('user_id', $user_id);
+            if ($machine_id)
+                $query->where('id', $machine_id);
+            return $query;
         })
             ->selectRaw("to_char(created_at, 'YY MM') as cnt_date, sum(put_amount) as total")
             ->groupBy('cnt_date')
