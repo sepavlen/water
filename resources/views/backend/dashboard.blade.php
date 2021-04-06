@@ -49,7 +49,7 @@
                     </ul>
                 </div>
                 <h3 class="page-title"> Главная
-                    <small>Доходы и статистика</small>
+                    <small>Продажи и статистика</small>
                 </h3>
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -61,7 +61,7 @@
                                 <div class="number">
                                     <span data-counter="counterup" data-value="{{ $profit_today }}">0</span> ₴
                                 </div>
-                                <div class="desc"> Доход за сегодня </div>
+                                <div class="desc"> Продажи за сегодня </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
@@ -76,7 +76,7 @@
                             <div class="details">
                                 <div class="number">
                                     <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴</div>
-                                <div class="desc"> Доход за месяц </div>
+                                <div class="desc"> Продажи за месяц </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
@@ -92,7 +92,7 @@
                                 <div class="number">
                                     <span data-counter="counterup" data-value="{{ $profit_year }}">0</span> ₴
                                 </div>
-                                <div class="desc"> Доход за год </div>
+                                <div class="desc"> Продажи за год </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
@@ -107,7 +107,7 @@
                             <div class="details">
                                 <div class="number">
                                     <span data-counter="counterup" data-value="{{ $profit_all_time }}">0</span> ₴</div>
-                                <div class="desc"> Доход за все время </div>
+                                <div class="desc"> Продажи за все время </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
@@ -135,7 +135,7 @@
                 },
 
                 title: {
-                    text: 'Доход и затраты за последние 30 дней'
+                    text: 'Продажи и затраты за последние 30 дней'
                 },
 
                 yAxis: {
@@ -181,7 +181,7 @@
 
                 series: [
                     {
-                        name: 'Доход',
+                        name: 'Продажи',
                         data: {!! $dataForChart !!},
                         color: colors[2],
                     }, {

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\src\entities\Order;
 use App\src\services\MachineService;
 use App\src\services\OrderService;
-use Carbon\Carbon;
 
 class TableController extends Controller
 {
@@ -20,7 +18,7 @@ class TableController extends Controller
     public function index ()
     {
         $machines = resolve(MachineService::class)->getMachines();
-        $machines_statistic = $this->orderService->createOrderStatisticArray($machines);
+        $machines_statistic = $this->orderService->getOrderStatisticArray($machines);
         return view('backend.table.index', compact('machines', 'machines_statistic'));
     }
 }

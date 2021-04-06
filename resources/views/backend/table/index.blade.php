@@ -101,9 +101,9 @@
                                                 <tr>
                                                     <td>{{ $machine['unique_number'] }}</td>
                                                     <td>{{ $machine['address'] }}</td>
-                                                    <td>{{ $machine['orders_sum_month'] }}грн</td>
-                                                    <td>{{ $machine['orders_sum_yesterday'] }}грн</td>
-                                                    <td>{{ $machine['orders_sum_today'] }}грн</td>
+                                                    <td>{{ $machine['orders_sum_month'] }}грн / {{ $machine['water_given_month'] }}л</td>
+                                                    <td>{{ $machine['orders_sum_yesterday'] }}грн / {{ $machine['water_given_yesterday'] }}л</td>
+                                                    <td>{{ $machine['orders_sum_today'] }}грн / {{ $machine['water_given_today'] }}л</td>
                                                     <td>{{ $machine['water_amount'] }}</td>
                                                 </tr>
                                             @endforeach

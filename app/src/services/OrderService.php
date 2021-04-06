@@ -67,13 +67,13 @@ class OrderService
         return $this->repository->getSumOrdersToday();
     }
 
-    public function createOrderStatisticArray ($machines)
+    public function getOrderStatisticArray ($machines)
     {
         $order_month = $this->getSumOrdersForLastMonth();
         $order_yesterday = $this->getSumOrdersForYesterday();
         $order_today = $this->getSumOrdersToday();
 
-        return OrderHelper::createOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today);
+        return OrderHelper::getOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today);
     }
 
 }

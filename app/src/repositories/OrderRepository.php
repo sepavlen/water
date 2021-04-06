@@ -30,7 +30,7 @@ class OrderRepository
             '>',
             Carbon::now()
                 ->subDays(30))
-            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->selectRaw('machine_id, sum(put_amount) as total, sum(water_given) as water_given')
             ->groupBy('machine_id')
             ->get()
             ->keyBy('machine_id')
@@ -46,7 +46,7 @@ class OrderRepository
             ->where('created_at',
                 '<',
                 Carbon::today())
-            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->selectRaw('machine_id, sum(put_amount) as total, sum(water_given) as water_given')
             ->groupBy('machine_id')
             ->get()
             ->keyBy('machine_id')
@@ -59,7 +59,7 @@ class OrderRepository
             'created_at',
             '>',
             Carbon::today())
-            ->selectRaw('machine_id, sum(put_amount) as total')
+            ->selectRaw('machine_id, sum(put_amount) as total, sum(water_given) as water_given')
             ->groupBy('machine_id')
             ->get()
             ->keyBy('machine_id')

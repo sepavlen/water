@@ -91,7 +91,7 @@
             legend: false,
 
             title: {
-                text: 'Доход за сегодняшний день (по часам)'
+                text: 'Продажи за сегодняшний день (по часам)'
             },
 
             yAxis: {
@@ -134,7 +134,7 @@
 
             series: [
                 {
-                    name: 'Доход',
+                    name: 'Продажи',
                     data: {!! $dataStatisticCurrentDay !!},
                     color: colors[2],
                 }
@@ -168,7 +168,7 @@
             legend: false,
 
             title: {
-                text: 'Доход за текущий месяц'
+                text: 'Продажи за текущий месяц'
             },
 
             yAxis: {
@@ -211,7 +211,7 @@
 
             series: [
                 {
-                    name: 'Доход',
+                    name: 'Продажи',
                     data: {!! $dataStatisticCurrentMonth !!},
                     color: colors[2],
                 }
@@ -245,7 +245,7 @@
             legend: false,
 
             title: {
-                text: 'Доход зы прошлый месяц'
+                text: 'Продажи зы прошлый месяц'
             },
 
             yAxis: {
@@ -288,7 +288,7 @@
 
             series: [
                 {
-                    name: 'Доход',
+                    name: 'Продажи',
                     data: {!! $dataStatisticLastMonth !!},
                     color: colors[2],
                 }
@@ -324,7 +324,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за последние пол года'
+                text: 'Продажи за последние пол года'
             },
             accessibility: {
                 announceNewData: {
@@ -367,7 +367,7 @@
             },
             series: [
                 {
-                    name: "Доход",
+                    name: "Продажи",
                     colorByPoint: true,
                     data: {!! $dataStatisticHalfYear !!}
                 }
@@ -388,7 +388,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за последний год'
+                text: 'Продажи за последний год'
             },
             accessibility: {
                 announceNewData: {
@@ -432,7 +432,7 @@
 
             series: [
                 {
-                    name: "Доход",
+                    name: "Продажи",
                     colorByPoint: true,
                     data: {!! $dataStatisticLastYear !!}
                 }
@@ -450,7 +450,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Доход за все время'
+                text: 'Продажи за все время'
             },
             accessibility: {
                 announceNewData: {
@@ -494,7 +494,7 @@
 
             series: [
                 {
-                    name: "Доход",
+                    name: "Продажи",
                     colorByPoint: true,
                     data: {!! $dataStatisticAllTime !!}
                 }
