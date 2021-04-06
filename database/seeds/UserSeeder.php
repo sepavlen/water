@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'status' => User::STATUS_ACTIVE,
             ],
             [
+                'id' => 2,
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('123qwe'),
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'status' => User::STATUS_ACTIVE,
             ],
             [
+                'id' => 3,
                 'name' => 'Test',
                 'email' => 'test@gmail.com',
                 'password' => Hash::make('123qwe'),
