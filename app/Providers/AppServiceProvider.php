@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\src\services\MachineService;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         \view()->composer('backend.layout.app', function ($view){
             $view->with('machines', resolve(MachineService::class)->getMachines());
         });
