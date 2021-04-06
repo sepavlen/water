@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
         "barryvdh/laravel-ide-helper": "^2.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-mysql": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

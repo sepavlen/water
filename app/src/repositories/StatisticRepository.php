@@ -26,7 +26,7 @@ class StatisticRepository
             'created_at',
             '>',
             Carbon::now()->subDays(30))
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -93,7 +93,7 @@ class StatisticRepository
                 'created_at',
                 '>=',
                 Carbon::today())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'HH:00') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%H:00') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -114,7 +114,7 @@ class StatisticRepository
                 'created_at',
                 '>=',
                 Carbon::now()->subMonths()->endOfMonth())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -139,7 +139,7 @@ class StatisticRepository
                 'created_at',
                 '<=',
                 Carbon::now()->endOfMonth()->subMonths())
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'mm-dd') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -160,7 +160,7 @@ class StatisticRepository
                 'created_at',
                 '>=',
                 Carbon::now()->subMonths($period))
-            ->selectRaw("sum(put_amount) as total, to_char(created_at, 'YY MM') as cnt_date")
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%Y %M') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
             ->get()
@@ -176,7 +176,7 @@ class StatisticRepository
                 $query->where('id', $machine_id);
             return $query;
         })
-            ->selectRaw("to_char(created_at, 'YY MM') as cnt_date, to_char(created_at, 'YY mm') as group_date, sum(put_amount) as total")
+            ->selectRaw("date_format(created_at, '%Y %M') as cnt_date, date_format(created_at, '%Y %m') as group_date, sum(put_amount) as total")
             ->groupBy('cnt_date', 'group_date')
             ->orderBy('group_date', 'desc')
             ->get()
