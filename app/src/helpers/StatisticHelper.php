@@ -54,7 +54,7 @@ class StatisticHelper
     {
         $return = [];
         foreach (self::getDefaultDateLastThirtyDays() as $date){
-            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+            $return[$date] = isset($sum_orders[$date]) ? (float)$sum_orders[$date]['total'] : 0;
         }
         return $return;
     }

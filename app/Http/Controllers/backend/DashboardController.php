@@ -21,6 +21,10 @@ class DashboardController extends Controller
     public function index ()
     {
         $statistic = $this->statisticService->getStatisticLastThirtyDays();
+        if (\Auth::id() == 4){
+            dd(json_encode(array_values($statistic)));
+        }
+
         return view('backend.dashboard', [
             'labelsForChart' => json_encode(array_keys($statistic)),
             'dataForChart' => json_encode(array_values($statistic)),
