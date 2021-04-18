@@ -49,7 +49,8 @@
                         </div>
                     </div>
                     @if (count($users))
-                        <table class="table table-striped table-bordered table-hover ">
+                        <div class="table-scrollable">
+                            <table class="table table-striped table-bordered table-hover ">
                             <thead>
                             <tr>
                                 <th> Имя пользователя</th>
@@ -81,6 +82,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        </div>
                     @else
                         Нет пользователей!
                     @endif
