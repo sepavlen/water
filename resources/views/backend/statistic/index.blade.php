@@ -139,7 +139,7 @@
             responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 550
+                        maxWidth: 380
                     },
                     chartOptions: {
                         chart: {
@@ -216,7 +216,7 @@
             responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 550
+                        maxWidth: 380
                     },
                     chartOptions: {
                         chart: {
@@ -293,7 +293,7 @@
             responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 550
+                        maxWidth: 380
                     },
                     chartOptions: {
                         chart: {
