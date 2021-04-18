@@ -23,22 +23,22 @@ class UserSeeder extends Seeder
                 'role' => User::ROLE_ADMIN,
                 'status' => User::STATUS_ACTIVE,
             ],
-            [
-                'id' => 2,
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('123qwe'),
-                'role' => User::ROLE_ADMIN,
-                'status' => User::STATUS_ACTIVE,
-            ],
-            [
-                'id' => 3,
-                'name' => 'Test',
-                'email' => 'test@gmail.com',
-                'password' => Hash::make('123qwe'),
-                'role' => User::ROLE_MANAGER,
-                'status' => User::STATUS_ACTIVE,
-            ],
+//            [
+//                'id' => 2,
+//                'name' => 'Admin',
+//                'email' => 'admin@gmail.com',
+//                'password' => Hash::make('123qwe'),
+//                'role' => User::ROLE_ADMIN,
+//                'status' => User::STATUS_ACTIVE,
+//            ],
+//            [
+//                'id' => 3,
+//                'name' => 'Test',
+//                'email' => 'test@gmail.com',
+//                'password' => Hash::make('123qwe'),
+//                'role' => User::ROLE_MANAGER,
+//                'status' => User::STATUS_ACTIVE,
+//            ],
         ]);
     }
 }

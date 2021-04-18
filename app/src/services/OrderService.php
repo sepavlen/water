@@ -25,7 +25,7 @@ class OrderService
         $order = $this->repository->getOrder();
         $this->load($order, $request);
         $this->repository->save($order);
-        echo "Заказ создан";
+        echo "OK; ";
     }
 
     public function load(Order $order, Request $request)
