@@ -63,7 +63,7 @@ class StatisticHelper
     {
         $return = [];
         foreach (self::getDefaultHours() as $date){
-            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+            $return[$date] = isset($sum_orders[$date]) ? (float)$sum_orders[$date]['total'] : 0;
         }
         return $return;
     }
@@ -72,7 +72,7 @@ class StatisticHelper
     {
         $return = [];
         foreach (self::getDefaultDateCurrentMonth() as $date){
-            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+            $return[$date] = isset($sum_orders[$date]) ? (float)$sum_orders[$date]['total'] : 0;
         }
         return $return;
     }
@@ -81,7 +81,7 @@ class StatisticHelper
     {
         $return = [];
         foreach (self::getDefaultDateLastMonth() as $date){
-            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+            $return[$date] = isset($sum_orders[$date]) ? (float)$sum_orders[$date]['total'] : 0;
         }
         return $return;
     }
@@ -90,7 +90,7 @@ class StatisticHelper
     {
         $return = [];
         foreach (self::getDefaultDatePeriod($months) as $date){
-            $return[$date] = isset($sum_orders[$date]) ? $sum_orders[$date]['total'] : 0;
+            $return[$date] = isset($sum_orders[$date]) ? (float)$sum_orders[$date]['total'] : 0;
         }
         return $return;
     }
