@@ -104,3 +104,9 @@ table.dataTable.dtr-column>tbody>tr.parent td.control:before, table.dataTable.dt
 .badge-danger-custom{
     padding: 3px!important;
 }
+
+@media screen and (max-width: 640px) {
+    div.dt-buttons{
+        padding: 15px!important;
+    }
+}
