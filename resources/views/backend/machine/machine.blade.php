@@ -51,7 +51,7 @@
                     @endif
 
                     @if (count($machines))
-                        <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
+                    <table  class="table table-striped table-bordered table-hover order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> Действие</th>
@@ -85,7 +85,8 @@
                             </tr>
                         @endforeach
                         </tbody>
-                    </table>                </div>
+                    </table>
+                </div>
                     @else
                         Нет автоматов!
                     @endif
