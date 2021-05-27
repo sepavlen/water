@@ -39,8 +39,8 @@ class RequestController extends Controller
             return;
         }
         if ($request->has('com')){
+            $request->session()->put('test' . $request->n, $_SERVER['REQUEST_URI']);
             if ($request->com == 1){
-                $request->session()->put('test' . $request->n, $_SERVER['REQUEST_URI']);
                 ErrorHelper::checkRequestErrors($request);
                 $this->machineService->updateOrCreateDefaultMachine($request);
             }
