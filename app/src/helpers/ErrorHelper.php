@@ -18,7 +18,6 @@ class ErrorHelper
             return true;
         }
         if (session()->has('machine_errors') && session('machine_errors')){
-            dd(session('machine_errors'));
             return true;
         }
         return false;
