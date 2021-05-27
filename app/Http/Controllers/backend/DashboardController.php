@@ -20,9 +20,6 @@ class DashboardController extends Controller
 
     public function index ()
     {
-        if ($_SERVER['REMOTE_ADDR'] == '178.150.178.193'){
-            dd(session());
-        }
         $statistic = $this->statisticService->getStatisticLastThirtyDays();
         return view('backend.dashboard', [
             'labelsForChart' => json_encode(array_keys($statistic)),
