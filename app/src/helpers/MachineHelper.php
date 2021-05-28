@@ -65,13 +65,7 @@ class MachineHelper
         if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
             return true;
         }
-        if (session()->has('machine_errors.request_error.'.$machine->unique_number)){
-            return true;
-        }
-        if (session()->has('machine_errors.empty_water.'.$machine->unique_number)){
-            return true;
-        }
-        if (session()->has('machine_errors.order_error.'.$machine->unique_number)){
+        if (\Storage::disk()->exists('errors/' . $machine->unique_number . '.txt')){
             return true;
         }
         return false;

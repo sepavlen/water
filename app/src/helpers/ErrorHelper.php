@@ -13,11 +13,11 @@ class ErrorHelper
 
     public static function checkErrors ($machines)
     {
-        self::removeErrorIfEmpty();
+//        self::removeErrorIfEmpty();
         if (self::checkMachineTimingErrors($machines)){
             return true;
         }
-        if (session()->has('machine_errors') && session('machine_errors')){
+        if (\Storage::disk()->allFiles('errors')){
             return true;
         }
         return false;
@@ -26,14 +26,8 @@ class ErrorHelper
     public static function getErrors ($machine_id)
     {
         $errors = [];
-        if (session()->has('machine_errors.request_error.'.$machine_id)) {
-            $errors[] = unserialize(session('machine_errors.request_error.' . $machine_id));
-        }
-        if (session()->has('machine_errors.empty_water.'.$machine_id)) {
-            $errors[] = session('machine_errors.empty_water.'.$machine_id);
-        }
-        if (session()->has('machine_errors.order_error.'.$machine_id)) {
-            $errors[] = session('machine_errors.order_error.'.$machine_id);
+        if (\Storage::disk()->exists('errors/' . $machine_id . '.txt')){
+            $errors[] = unserialize(\Storage::get('errors/' . $machine_id . '.txt'));
         }
         return $errors ?: false;
     }
@@ -41,29 +35,10 @@ class ErrorHelper
     public static function checkRequestErrors (Request $request)
     {
         if ($request->has('st') && $request->st){
-            if ($request->session()->has('machine_errors.request_error.'.$request->n)){
-                $request->session()->forget('machine_errors.request_error.'.$request->n);
-            }
-            $request->session()->put('machine_errors.request_error.'.$request->n, self::getRequestErrors($request->st));
+            \Storage::disk()->put('errors/' . $request->n . '.txt', self::getRequestErrors($request->st));
         } else {
-            if ($request->session()->has('machine_errors.request_error.'.$request->n)){
-                $request->session()->forget('machine_errors.request_error.'.$request->n);
-            }
-        }
-    }
-
-    public static function removeErrorIfEmpty ()
-    {
-        if (session()->has('machine_errors')){
-            if (session('machine_errors')){
-                if (session()->has('machine_errors.request_error') && !session('machine_errors.request_error')){
-                    session()->forget('machine_errors.request_error');
-                }
-                if (session()->has('machine_errors.order_error') && !session('machine_errors.order_error')){
-                    session()->forget('machine_errors.order_error');
-                }
-            }else{
-                session()->forget('machine_errors');
+            if (\Storage::disk()->exists('errors/' . $request->n . '.txt')){
+                \Storage::delete('errors/' . $request->n . '.txt');
             }
         }
     }
@@ -123,26 +98,6 @@ class ErrorHelper
             if (!MachineHelper::getMinutesNotTiming($since_start) || MachineHelper::getMinutesNotTiming($since_start) > ($machine->timing_connect + MachineHelper::ADDING_MINUTES_FOR_CHECK)){
                 return true;
             }
-        }
-        return false;
-    }
-
-    public static function checkOrderError (Request $request)
-    {
-        if (!$request->sp || !$request->sn || !$request->kp || !$request->kn){
-            if ($request->session()->has('machine_errors.order_error.'.$request->n))
-                $request->session()->forget('machine_errors.order_error.'.$request->n);
-            $request->session()->put('machine_errors.order_error.'.$request->n, $request->getRequestUri());
-        } else {
-            if ($request->session()->has('machine_errors.order_error.'.$request->n))
-                $request->session()->forget('machine_errors.order_error.'.$request->n);
-        }
-    }
-    public static function checkUnknownMachineNumber (Request $request)
-    {
-        if (!$request->n){
-            $request->session()->push('unknown_errors', $request->getRequestUri());
-            return true;
         }
         return false;
     }

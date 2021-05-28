@@ -35,16 +35,12 @@ class RequestController extends Controller
 
     public function index (Request $request)
     {
-        if (ErrorHelper::checkUnknownMachineNumber($request)){
-            return;
-        }
         if ($request->has('com')){
             if ($request->com == 1){
                 ErrorHelper::checkRequestErrors($request);
                 $this->machineService->updateOrCreateDefaultMachine($request);
             }
             if ($request->com == 2){
-                ErrorHelper::checkOrderError($request);
                 $this->orderService->save($request);
             }
             if ($request->com == 3){

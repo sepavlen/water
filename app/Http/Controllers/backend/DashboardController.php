@@ -20,6 +20,11 @@ class DashboardController extends Controller
 
     public function index ()
     {
+//        \Storage::disk()->put('errors/testtest.txt', serialize(['error1', 'error2']));
+//        \Storage::disk('local')->put('test.txt', 'test file content 4' . PHP_EOL);
+//        \Storage::delete('errors/testtest.txt');
+//        echo str_replace("\n", '<br>', \Storage::get('test.txt'));
+//        dd(\Storage::disk()->allFiles('errors'));
         $statistic = $this->statisticService->getStatisticLastThirtyDays();
         return view('backend.dashboard', [
             'labelsForChart' => json_encode(array_keys($statistic)),
