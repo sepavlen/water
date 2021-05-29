@@ -50,7 +50,7 @@ class ErrorHelper
             if (0x00000001 & $error_code) {
                 $errors[] = 'Автомат заблокирован';
             }
-            if (0x00000010 & $error_code) {
+            if (0x00100000 & $error_code) {
                 $errors[] = 'Ошибка счетчика воды';
             }
             if (0x00000020 & $error_code) {
@@ -77,7 +77,7 @@ class ErrorHelper
             if (0x00080000 & $error_code) {
                 $errors[] = 'Ошибка насоса';
             }
-            if (0x00100000 & $error_code) {
+            if (0x00000010 & $error_code) {
                 $errors[] = 'Сенсор открытия двери';
             }
             if (0x00200000 & $error_code) {
