@@ -113,7 +113,7 @@ class StatisticRepository
             ->where(
                 'created_at',
                 '>=',
-                Carbon::now()->subMonths()->endOfMonth())
+                Carbon::now()->subMonths())
             ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
@@ -133,12 +133,12 @@ class StatisticRepository
         })
             ->where(
                 'created_at',
-                '>=',
-                Carbon::now()->subMonth()->startOfMonth())
+                '<',
+                Carbon::now()->subMonths())
             ->where(
                 'created_at',
-                '<=',
-                Carbon::now()->endOfMonth()->subMonths())
+                '>=',
+                Carbon::now()->subMonths(2)->endOfMonth())
             ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
