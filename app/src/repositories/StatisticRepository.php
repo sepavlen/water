@@ -134,7 +134,7 @@ class StatisticRepository
             ->where(
                 'created_at',
                 '<',
-                Carbon::now()->subMonths())
+                Carbon::now()->startOfMonth())
             ->where(
                 'created_at',
                 '>=',
