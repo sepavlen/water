@@ -85,7 +85,7 @@
                     <div class="form-group form-group-custom custom-select-medium">
                         <span class="text-danger">*</span>
                         {{ Form::label('price', 'Цена:', ['class' => 'control-label']) }}
-                        {{ Form::number('price', $machine->price, ['class' => 'form-control', 'step' => '0.1', 'min' => '0.1', 'placeholder' => 'Цена',]) }}
+                        {{ Form::number('price', $machine->price, ['class' => 'form-control', 'step' => '0.01', 'min' => '0.01', 'placeholder' => 'Цена',]) }}
                     </div>
                     <div class="form-group form-group-custom custom-select-medium">
                         <span class="text-danger">*</span>
