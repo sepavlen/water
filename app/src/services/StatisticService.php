@@ -58,7 +58,6 @@ class StatisticService
 
     public function getStatisticForLastMonth ($machine_id = false)
     {
-//        dd($this->repository->getStatisticForLastMonth(\Auth::id(), $machine_id));
         return StatisticHelper::getStatisticForLastMonth($this->repository->getStatisticForLastMonth(\Auth::id(), $machine_id));
     }
 
