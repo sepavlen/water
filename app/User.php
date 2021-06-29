@@ -9,13 +9,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    const STATUS_ACTIVE = 1;
-    const STATUS_BLOCKED = 2;
-
-    const ROLE_ADMIN = 1;
-    const ROLE_MANAGER = 2;
-
-    const ID_ADMIN = 1;
+    const STATUS_ACTIVE = 1,
+          STATUS_BLOCKED = 2,
+          ROLE_ADMIN = 1,
+          ROLE_MANAGER = 2,
+          ROLE_PARTNER = 3,
+          ROLE_GENERAL_PARTNER = 4,
+          ID_ADMIN = 1;
 
 
 
@@ -49,5 +49,10 @@ class User extends Authenticatable
     public function isAdmin ()
     {
         return $this->role == self::ROLE_ADMIN;
+    }
+
+    public function isGeneralPartner ()
+    {
+        return $this->role == self::ROLE_GENERAL_PARTNER;
     }
 }

@@ -95,6 +95,12 @@
                                     <option @if($user->role == \App\User::ROLE_MANAGER) selected
                                             @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер
                                     </option>
+                                    <option @if($user->role == \App\User::ROLE_PARTNER) selected
+                                            @endif value="{{ \App\User::ROLE_PARTNER }}">Партнер
+                                    </option>
+                                    <option @if($user->role == \App\User::ROLE_GENERAL_PARTNER) selected
+                                            @endif value="{{ \App\User::ROLE_GENERAL_PARTNER }}">Главный партнер
+                                    </option>
                                 </select>
                             </div>
                         @endcan

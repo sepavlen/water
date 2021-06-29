@@ -5,6 +5,7 @@ namespace App\src\repositories;
 
 
 use App\src\services\OrderService;
+use App\User;
 use Carbon\Carbon;
 
 class StatisticRepository
@@ -19,8 +20,14 @@ class StatisticRepository
     public function getSumOrdersForLastThirtyDays ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (!isAdmin())
-                return $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
         })
             ->where(
             'created_at',
@@ -37,8 +44,14 @@ class StatisticRepository
     public function getTotalProfitToday ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (!isAdmin())
-            return $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
         })->where(
                 'orders.created_at',
                 '>=',
@@ -49,8 +62,14 @@ class StatisticRepository
     public function getTotalProfitMonth ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (!isAdmin())
-            return $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
         })
             ->where(
                 'orders.created_at',
@@ -62,8 +81,14 @@ class StatisticRepository
     public function getTotalProfitYear ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (!isAdmin())
-            return $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
         })
             ->where(
                 'orders.created_at',
@@ -75,18 +100,29 @@ class StatisticRepository
     public function getTotalProfitAllTime ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (!isAdmin())
-            return $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
         })->sum('put_amount');
     }
 
     public function getStatisticForCurrentDay ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
-            if (!isAdmin())
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
                 $query->where('user_id', $user_id);
             if ($machine_id)
-                $query->where('id', $machine_id);
+                $query->where('machines.id', $machine_id);
             return $query;
         })
             ->where(
@@ -104,10 +140,15 @@ class StatisticRepository
     public function getStatisticForCurrentMonth ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
-            if (!isAdmin())
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
                 $query->where('user_id', $user_id);
             if ($machine_id)
-                $query->where('id', $machine_id);
+                $query->where('machines.id', $machine_id);
             return $query;
         })
             ->where(
@@ -125,10 +166,15 @@ class StatisticRepository
     public function getStatisticForLastMonth ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
-            if (!isAdmin())
-                 $query->where('user_id', $user_id);
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
             if ($machine_id)
-                 $query->where('id', $machine_id);
+                $query->where('machines.id', $machine_id);
             return $query;
         })
             ->where(
@@ -150,10 +196,15 @@ class StatisticRepository
     public function getStatisticForPeriod ($user_id, $period, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
-            if (!isAdmin())
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
                 $query->where('user_id', $user_id);
             if ($machine_id)
-                $query->where('id', $machine_id);
+                $query->where('machines.id', $machine_id);
             return $query;
         })
             ->where(
@@ -170,10 +221,15 @@ class StatisticRepository
     public function getStatisticForAllTime ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
-            if (!isAdmin())
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
                 $query->where('user_id', $user_id);
             if ($machine_id)
-                $query->where('id', $machine_id);
+                $query->where('machines.id', $machine_id);
             return $query;
         })
             ->selectRaw("date_format(created_at, '%Y %M') as cnt_date, date_format(created_at, '%Y %m') as group_date, sum(put_amount) as total")

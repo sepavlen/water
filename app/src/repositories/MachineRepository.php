@@ -25,9 +25,16 @@ class MachineRepository
         return $this->getMachine()->all();
     }
 
+    public function getAllMachinesForGeneralPartner ()
+    {
+        return $this->getMachine()->whereHas('user', function ($query) {
+            return  $query->whereIn('role', [User::ROLE_PARTNER, User::ROLE_GENERAL_PARTNER]);
+        })->get();
+    }
+
     public function getAllMachinesByUserId ($user_id)
     {
-        return $this->getMachine()->where(['user_id' => $user_id])->get();
+        return $this->getMachine()->where('user_id', $user_id)->get();
     }
 
     public function createDefaultMachine (Request $request)

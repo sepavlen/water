@@ -22,7 +22,17 @@ class MachinePolicy
 
     public function update (User $user, Machine $machine)
     {
-        return $user->isAdmin() || $user->id == $machine->user_id;
+//        dd($machine->user->role == $user->role);
+        if ($user->isAdmin()){
+            return true;
+        }
+        if ($user->id == $machine->user_id){
+            return true;
+        }
+        if ($user->isGeneralPartner() && ($machine->user->role == User::ROLE_PARTNER || $machine->user->role == User::ROLE_GENERAL_PARTNER)){
+            return true;
+        }
+        return false;
     }
 
     public function change (User $user)

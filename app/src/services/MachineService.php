@@ -50,6 +50,9 @@ class MachineService
         if (Auth::user()->isAdmin()){
             return $this->repository->getAllMachines();
         }
+        if (Auth::user()->isGeneralPartner()){
+            return $this->repository->getAllMachinesForGeneralPartner();
+        }
         return $this->repository->getAllMachinesByUserId( Auth::id());
     }
 

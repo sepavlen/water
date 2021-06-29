@@ -14,6 +14,8 @@ class UserHelper
         $roles = [
             User::ROLE_ADMIN => 'Админ',
             User::ROLE_MANAGER => 'Менеджер',
+            User::ROLE_PARTNER => 'Партнер',
+            User::ROLE_GENERAL_PARTNER => 'Главный партнер',
         ];
         return $roles[$key];
     }
