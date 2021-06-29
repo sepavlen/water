@@ -32,7 +32,7 @@ class StatisticRepository
             ->where(
             'created_at',
             '>',
-            Carbon::now()->subDays(30))
+            Carbon::today()->subDays(30))
             ->selectRaw("sum(put_amount) as total, date_format(created_at, '%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
