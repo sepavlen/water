@@ -170,3 +170,16 @@ input#datefilter::placeholder {
         padding: 15px!important;
     }
 }
+
+@media only screen and (max-width: 570px) {
+    .daterangepicker {
+        width: 96%;
+    }
+    .drp-calendar, .calendar-table, .table-condensed{
+        max-width: 570px;
+        width: 100%!important;
+    }
+    .daterangepicker .drp-calendar {
+        max-width: 570px!important;
+    }
+}
