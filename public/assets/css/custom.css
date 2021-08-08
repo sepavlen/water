@@ -105,6 +105,66 @@ table.dataTable.dtr-column>tbody>tr.parent td.control:before, table.dataTable.dt
     padding: 3px!important;
 }
 
+
+.multiselect-container.dropdown-menu {
+    max-height: 533px;
+    overflow-y: auto;
+}
+.multiselect-container button{
+    width: 100%;
+}
+form#searchForm {
+    width: 50%;
+}
+#datefilter, #searchForm .btn-group, .multiselect{
+    width: 100%;
+}
+
+#searchForm input#datefilter, #searchForm button.multiselect.dropdown-toggle.custom-select, #searchForm button {
+    padding: 5px;
+    border: 2px solid #1abbd1;
+    color: #ffffff;
+    background: #46d9ed;
+    border-radius: 5px!important;
+    text-align: center;
+}
+
+#searchForm .multiselect-option.dropdown-item.active{
+    background: #1c98ad;
+}
+.multiselect-container .multiselect-option{
+    background: #8ae1ff!important;
+}
+.multiselect-container .multiselect-option.active{
+    background: #2bc9ff !important;
+}
+#searchForm .multiselect-option.dropdown-item{
+    margin-bottom: 3px;
+}
+
+#searchForm button:not(.multiselect) {
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+input#datefilter::placeholder {
+    color: #ffffff;
+}
+#datefilter, #searchForm .btn-group{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#searchForm .form-check-input{
+    opacity: 0;
+}
+
+@media screen and (max-width: 900px) {
+    form#searchForm{
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 640px) {
     div.dt-buttons{
         padding: 15px!important;

@@ -21,6 +21,9 @@
     <link href="/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
 
     <link href="/assets/global/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="/assets/global/bootstrap/css/bootstrap-multiselect.min.css" type="text/css">
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
 
     <link rel="shortcut icon" href="/favicon.ico" /> </head>
@@ -171,7 +174,14 @@
                         </li>
                     </ul>
                 </li>
-
+                @if (isAdmin())
+                    <li class="nav-item {{ request()->routeIs('dashboard.collection') ? 'active' : ''  }}">
+                        <a href="{{ request()->routeIs('dashboard.collection') ? 'javascript:void(0)' : route('dashboard.collection')  }}" class="nav-link">
+                            <i class="fa fa-money"></i>
+                            <span class="title">Инкассация</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
 
 
@@ -209,8 +219,9 @@
 
 <script src="/assets/global/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/datatables.bootstrap.js" type="text/javascript"></script>
-
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/assets/global/bootstrap/js/bootstrap-multiselect.min.js"></script>
 
 
 <script src="https://code.highcharts.com/highcharts.js"></script>

@@ -20,7 +20,7 @@ class EncashmentRepository
 
     public function getAllEncashments ()
     {
-        return $this->getEncashment()->all();
+        return $this->getEncashment()->orderBy('id', 'desc')->with('machine.user')->paginate(20);
     }
 
     public function save (Encashment $encashment)

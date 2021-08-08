@@ -38,6 +38,8 @@ Route::prefix('dashboard')
 
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
         Route::get('/table', 'backend\TableController@index')->name('dashboard.table');
+
+        Route::get('/collection', 'backend\CollectionController@index')->name('dashboard.collection');
     });
 
 Route::get('/add.php', 'RequestController@index');
