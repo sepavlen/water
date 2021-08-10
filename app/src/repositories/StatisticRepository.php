@@ -218,6 +218,30 @@ class StatisticRepository
             ->keyBy('cnt_date')
             ->toArray();
     }
+
+    public function getStatisticBetweenDates ($dateFrom, $dateTo, $machine_ids)
+    {
+        return $this->order->whereHas('machine', function ($query) use($machine_ids){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', \Auth::id());
+            if ($machine_ids)
+                $query->whereIn('machines.id', $machine_ids);
+            return $query;
+        })
+            ->where('created_at', '>=', $dateFrom)
+            ->where('created_at', '<=', $dateTo . ' 23:59:59')
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%Y-%m-%d') as cnt_date")
+            ->groupBy('cnt_date')
+            ->orderBy('cnt_date')
+            ->get()
+            ->toArray();
+    }
+
     public function getStatisticForAllTime ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){

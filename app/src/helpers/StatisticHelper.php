@@ -110,7 +110,18 @@ class StatisticHelper
                     'y' => $value,
                 ];
             }
+        }
+        return $array;
+    }
 
+    public static function convertDataForChart (array $data) : array
+    {
+        $array = [];
+        foreach ($data as $key => $value){
+            $array[] = [
+                'name' => end($value),
+                'y' => reset($value),
+            ];
         }
         return $array;
     }

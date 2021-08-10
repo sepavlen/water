@@ -120,7 +120,7 @@ form#searchForm {
     width: 100%;
 }
 
-#searchForm input#datefilter, #searchForm button.multiselect.dropdown-toggle.custom-select, #searchForm button {
+#searchForm input#datefilter, #searchForm button.multiselect.dropdown-toggle.custom-select, #searchForm button, #searchForm .button {
     padding: 5px;
     border: 2px solid #1abbd1;
     color: #ffffff;

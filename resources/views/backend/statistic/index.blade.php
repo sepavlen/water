@@ -19,11 +19,34 @@
                 <span class="caption-subject font-green-sharp bold uppercase">Графики</span>
             </div>
         </div>
+        <form id="searchForm">
+            <button type="submit">Поиск</button>
+            <a href="{{ route('dashboard.statistic') }}" class="button">Сброс</a>
+            <div>
+                <input type="text" id="datefilter" autocomplete="off" value="{{ request('date') }}" name="date" placeholder="{{ request()->get('date') ?: 'Выбрать дату' }}" />
+            </div>
+            <div>
+                <select id="demo" name="machine[]" multiple="multiple">
+                    @if($machines)
+                        @foreach($machines as $machine)
+                            <option {{ is_array(request()->get('machine')) && in_array($machine->id, request()->get('machine')) ? 'selected' : ' ' }} value="{{ $machine->id }}">{{ '(' . $machine->unique_number . ') ' . $machine->address }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+        </form>
         <div class="portlet-body">
             <ul class="nav nav-pills">
-                <li class="active">
-                    <a href="#tab_2_1" data-toggle="tab"> Текущий день </a>
-                </li>
+                @if (request('date') || request('machine'))
+                    <li>
+                        <a href="#tab_2_1" data-toggle="tab"> Текущий день </a>
+                    </li>
+                @else
+                    <li class="active">
+                        <a href="#tab_2_1" data-toggle="tab"> Текущий день </a>
+                    </li>
+                @endif
+
                 <li>
                     <a href="#tab_2_2" data-toggle="tab"> Текущий месяц </a>
                 </li>
@@ -41,7 +64,17 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane fade active in" id="tab_2_1">
+                @if (request()->get('date') || request()->get('machine'))
+                    {{ $class = '' }}
+                    <div class="tab-pane fade active in" id="tab_2_7">
+                        <figure class="highcharts-figure">
+                            <div id="container7"></div>
+                        </figure>
+                    </div>
+                @else
+                    @php($class = ' active in')
+                @endif
+                <div class="tab-pane fade {{ $class }}" id="tab_2_1">
                     <figure class="highcharts-figure">
                         <div id="container"></div>
                     </figure>
@@ -71,12 +104,68 @@
                         <div id="container6"></div>
                     </figure>
                 </div>
+
+
             </div>
         </div>
     </div>
 @endsection
 
 @push('scripts')
+    <script type="text/javascript">
+
+            $(function(){
+                $('#demo').multiselect();
+            });
+
+            $(function() {
+
+                $('#datefilter').daterangepicker({
+                    autoUpdateInput: false,
+                    format: 'YYYY/MM/DD',
+                    locale: {
+                        cancelLabel: 'Очистить',
+                        applyLabel: 'Принять',
+                        fromLabel: "From",
+                        toLabel: "To",
+                        customRangeLabel: "Custom",
+                        "daysOfWeek": [
+                            "Вс",
+                            "Пн",
+                            "Вт",
+                            "Ср",
+                            "Чт",
+                            "Пт",
+                            "Сб"
+                        ],
+                        "monthNames": [
+                            "Январь", // заменяем на Январь
+                            "Февраль", // Февраль и т д
+                            "Март",
+                            "Апрель",
+                            "Май",
+                            "Июнь",
+                            "Июль",
+                            "Август",
+                            "Сентябрь",
+                            "Октябрь",
+                            "Январь",
+                            "Февраль"
+                        ],
+                        "firstDay": 1
+                    }
+                });
+
+                $('#datefilter').on('apply.daterangepicker', function(ev, picker) {
+                    $(this).val(picker.startDate.format('YYYY/MM/DD') + '-' + picker.endDate.format('YYYY/MM/DD'));
+                });
+
+                $('#datefilter').on('cancel.daterangepicker', function(ev, picker) {
+                    $(this).val('');
+                });
+
+            });
+        </script>
     <script>
         var colors = Highcharts.getOptions().colors;
         Highcharts.chart('container', {
@@ -714,6 +803,73 @@
                     name: "Продажи",
                     colorByPoint: true,
                     data: {!! $dataStatisticAllTime !!}
+                        // {
+                        //     name: "Октябрь 2020",
+                        //     y: 62.74,
+                        //     drilldown: "Октябрь 2020"
+                        // },
+                }
+            ]
+        });
+        Highcharts.chart('container7', {
+            credits: {
+                text: 'Zdorovenka',
+                href: false,
+            },
+            lang: {
+                drillUpText: 'Назад'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Продажи с {!! str_replace(' - ', ' по ', request('date')) !!}'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: false
+                }
+
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadPNG', 'downloadPDF', 'downloadXLS']
+                    }
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}грн'
+                    }
+                }
+            },
+            colors: ['#6771DC', '#8067DC', '#A367DC', '#C767DC', '#DC67CE', '#DC67AB', '#DC67CE', '#C767DC', '#A367DC', '#8067DC', '#6771DC'],
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}грн</b><br/>'
+            },
+
+            series: [
+                {
+                    name: "Продажи",
+                    colorByPoint: true,
+                    data: {!! $dataRequestForChart !!}
                         // {
                         //     name: "Октябрь 2020",
                         //     y: 62.74,
