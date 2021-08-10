@@ -117,12 +117,15 @@ class StatisticHelper
     public static function convertDataForChart (array $data) : array
     {
         $array = [];
-        foreach ($data as $key => $value){
-            $array[] = [
-                'name' => end($value),
-                'y' => (int)reset($value),
-            ];
+        if ($data){
+            foreach ($data as $key => $value){
+                $array[] = [
+                    'name' => end($value),
+                    'y' => (int)reset($value),
+                ];
+            }
         }
+
         return $array;
     }
 }
