@@ -823,7 +823,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Продажи с {!! str_replace(' - ', ' по ', request('date')) !!}'
+                text: 'Продажи  {!! request('date') !!}'
             },
             accessibility: {
                 announceNewData: {
