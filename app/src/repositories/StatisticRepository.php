@@ -235,7 +235,7 @@ class StatisticRepository
         })
 
             ->where('created_at', '>=', $dateFrom ?: '1970-01-01')
-            ->where('created_at', '<=', $dateTo ?: '2200-01-01' . ' 23:59:59')
+            ->where('created_at', '<=', $dateTo ? $dateTo . ' 23:59:59' : '2999-01-01')
             ->selectRaw("sum(put_amount) as total, date_format(created_at, '%Y-%m-%d') as cnt_date")
             ->groupBy('cnt_date')
             ->orderBy('cnt_date')
