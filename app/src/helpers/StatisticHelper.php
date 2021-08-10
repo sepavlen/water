@@ -120,7 +120,7 @@ class StatisticHelper
         foreach ($data as $key => $value){
             $array[] = [
                 'name' => end($value),
-                'y' => reset($value),
+                'y' => (int)reset($value),
             ];
         }
         return $array;
