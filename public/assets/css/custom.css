@@ -169,6 +169,10 @@ input#datefilter::placeholder {
     div.dt-buttons{
         padding: 15px!important;
     }
+    .daterangepicker.ltr.show-calendar.opensright {
+        width: 90% !important;
+        right: 20px!important;
+    }
 }
 
 @media only screen and (max-width: 570px) {

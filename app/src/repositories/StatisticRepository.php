@@ -137,6 +137,30 @@ class StatisticRepository
             ->toArray();
     }
 
+    public function getStatisticOneMachineBetweenDates ($dateFrom, $dateTo, $user_id, $machine_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            if ($machine_id)
+                $query->where('machines.id', $machine_id);
+            return $query;
+        })
+            ->where('created_at', '>=', $dateFrom ?: '1970-01-01')
+            ->where('created_at', '<=', $dateTo ? $dateTo . ' 23:59:59' : '2999-01-01')
+            ->selectRaw("sum(put_amount) as total, date_format(created_at, '%Y-%m-%d') as cnt_date")
+            ->groupBy('cnt_date')
+            ->orderBy('cnt_date')
+            ->get()
+            ->keyBy('cnt_date')
+            ->toArray();
+    }
+
     public function getStatisticForCurrentMonth ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){

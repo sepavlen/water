@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\src\entities\Machine;
+use App\src\helpers\RequestHelper;
 use App\src\helpers\StatisticHelper;
 use App\src\services\MachineService;
 use App\src\services\StatisticService;
@@ -77,6 +78,15 @@ class MachineController extends Controller
             abort(403, "У Вас нет прав для просмотра статистики данного автомата!");
         }
 
+        $dataRequestForChart = StatisticHelper::convertDataForChart(
+            $this->statisticService->getStatisticOneMachineBetweenDates(
+                RequestHelper::getRequestDate()[0],
+                RequestHelper::getRequestDate()[1],
+                Auth::id(),
+                $machine->id
+            )
+        );
+
         $statisticCurrentDay = $this->statisticService->getStatisticForCurrentDay($machine->id);
         $statisticCurrentMonth = $this->statisticService->getStatisticForCurrentMonth($machine->id);
         $statisticLastMonth = $this->statisticService->getStatisticForLastMonth($machine->id);
@@ -95,6 +105,7 @@ class MachineController extends Controller
             'dataStatisticHalfYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(6, $machine->id))),
             'dataStatisticLastYear' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForPeriod(12, $machine->id))),
             'dataStatisticAllTime' => json_encode(StatisticHelper::convertArrayForChart($this->statisticService->getStatisticForAllTime($machine->id))),
+            'dataRequestForChart' => json_encode($dataRequestForChart)
         ]);
     }
 

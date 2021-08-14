@@ -71,6 +71,11 @@ class StatisticService
         return $this->repository->getStatisticBetweenDates($dateFrom, $dateTo, $machine_ids);
     }
 
+    public function getStatisticOneMachineBetweenDates ($dateFrom, $dateTo, $user_id, $machine_id)
+    {
+        return $this->repository->getStatisticOneMachineBetweenDates($dateFrom, $dateTo, $user_id, $machine_id);
+    }
+
     public function getStatisticForAllTime ($machine_id = false)
     {
         return $this->repository->getStatisticForAllTime(\Auth::id(), $machine_id);
