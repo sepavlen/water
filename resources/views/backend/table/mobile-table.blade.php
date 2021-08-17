@@ -34,10 +34,6 @@
                             <div class="portlet-body">
                                 @foreach($machines_statistic as $machine)
                                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" cellspacing="0" width="100%">
-
-
-
-
                                         <thead>
                                         <tr>
                                             <th colspan="2" class="text-center">{{ "({$machine['unique_number']})" . $machine['address'] }}</th>
@@ -46,7 +42,7 @@
                                     <tbody>
                                     <tr>
                                         <th width="50%">Выход на связь</th>
-                                        <td>{{ $machine['unique_number'] }}</td>
+                                        <td>{{ $machine['contact_time'] }}</td>
                                     </tr>
                                     <tr>
                                         <th width="50%">Продажи за вчера</th>
