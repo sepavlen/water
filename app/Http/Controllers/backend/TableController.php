@@ -21,4 +21,11 @@ class TableController extends Controller
         $machines_statistic = $this->orderService->getOrderStatisticArray($machines);
         return view('backend.table.index', compact('machines', 'machines_statistic'));
     }
+
+    public function mobileTable ()
+    {
+        $machines = resolve(MachineService::class)->getMachinesPaginate();
+        $machines_statistic = $this->orderService->getOrderStatisticArray($machines);
+        return view('backend.table.mobile-table', compact('machines', 'machines_statistic'));
+    }
 }

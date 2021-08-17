@@ -158,6 +158,14 @@ input#datefilter::placeholder {
 #searchForm .form-check-input{
     opacity: 0;
 }
+th.text-center {
+    background: #b8b8b8;
+}
+.desktop-none{
+    display: none;
+}
+
+
 
 @media screen and (max-width: 900px) {
     form#searchForm{
@@ -172,6 +180,10 @@ input#datefilter::placeholder {
     .daterangepicker.ltr.show-calendar.opensright {
         width: 90% !important;
         right: 20px!important;
+    }
+
+    .desktop-none{
+        display: block;
     }
 }
 

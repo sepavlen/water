@@ -56,6 +56,17 @@ class MachineService
         return $this->repository->getAllMachinesByUserId( Auth::id());
     }
 
+    public function getMachinesPaginate ()
+    {
+        if (Auth::user()->isAdmin()){
+            return $this->repository->getAllMachinesPaginate();
+        }
+        if (Auth::user()->isGeneralPartner()){
+            return $this->repository->getAllMachinesForGeneralPartnerPaginate();
+        }
+        return $this->repository->getAllMachinesByUserIdPaginate( Auth::id());
+    }
+
     public function getModel ()
     {
         return $this->repository->getMachine();

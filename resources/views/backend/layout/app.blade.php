@@ -159,6 +159,12 @@
                         <span class="arrow {{ request()->routeIs(['dashboard.table', 'dashboard.statistic']) ? 'open' : ''  }}"></span>
                     </a>
                     <ul class="sub-menu">
+                        <li class="nav-item desktop-none {{ request()->routeIs(['dashboard.mobile-table']) ? 'selected' : ''  }}">
+                            <a href="{{ request()->routeIs('dashboard.mobile-table') ? 'javascript:void(0)' : route('dashboard.mobile-table')  }}" class="nav-link ">
+                                <i class="fa fa-mobile-phone"></i>
+                                <span class="title">Таблицы (мобильная версия)</span>
+                            </a>
+                        </li>
                         <li class="nav-item  {{ request()->routeIs(['dashboard.table']) ? 'selected' : ''  }}">
                             <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table')  }}" class="nav-link ">
                                 <i class="fa fa-table"></i>

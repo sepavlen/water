@@ -25,6 +25,11 @@ class MachineRepository
         return $this->getMachine()->all();
     }
 
+    public function getAllMachinesPaginate ()
+    {
+        return $this->getMachine()->paginate(10);
+    }
+
     public function getAllMachinesForGeneralPartner ()
     {
         return $this->getMachine()->whereHas('user', function ($query) {
@@ -32,9 +37,21 @@ class MachineRepository
         })->get();
     }
 
+    public function getAllMachinesForGeneralPartnerPaginate ()
+    {
+        return $this->getMachine()->whereHas('user', function ($query) {
+            return  $query->whereIn('role', [User::ROLE_PARTNER, User::ROLE_GENERAL_PARTNER]);
+        })->paginate(10);
+    }
+
     public function getAllMachinesByUserId ($user_id)
     {
         return $this->getMachine()->where('user_id', $user_id)->get();
+    }
+
+    public function getAllMachinesByUserIdPaginate ($user_id)
+    {
+        return $this->getMachine()->where('user_id', $user_id)->paginate(10);
     }
 
     public function createDefaultMachine (Request $request)

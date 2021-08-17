@@ -8,11 +8,13 @@ class OrderHelper
 {
     public static function getOrderStatisticArray ($machines, $order_month, $order_yesterday, $order_today)
     {
+//        dd($machines[0]);
         $return = [];
         foreach ($machines as $machine) {
             $return[] = [
                 'unique_number' => $machine->unique_number,
                 'address' => $machine->address,
+                'contact_time' => $machine->contact_time,
                 'water_amount' => $machine->water_amount,
                 'water_given_month' => isset($order_month[$machine->id]) ? $order_month[$machine->id]['water_given'] : 0,
                 'water_given_yesterday' => isset($order_yesterday[$machine->id]) ? $order_yesterday[$machine->id]['water_given'] : 0,
