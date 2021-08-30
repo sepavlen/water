@@ -21,9 +21,6 @@ class CollectionController extends Controller
 
     public function index (Request $request, Encashment $encashment)
     {
-        if (!isAdmin()){
-            abort(404);
-        }
         $encashments = $encashment->getBySearch($request)->paginate(50);
         $machines = $this->machineService->getMachines();
 

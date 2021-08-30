@@ -47,6 +47,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $i = 0
+                            @endphp
                             @foreach($encashments as $encashment)
                                 <tr class="odd gradeX">
                                     <td>
@@ -64,8 +67,19 @@
                                     <td>
                                         {{ $encashment->getSum() }} грн
                                     </td>
+                                    @php
+                                        $i += $encashment->getSum();
+                                    @endphp
                                 </tr>
                             @endforeach
+                            <tr class="odd gradeX">
+                                <td colspan="4" class="text-right">
+                                    Всего:
+                                </td>
+                                <td>
+                                    {{ $i }} грн
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

@@ -6,6 +6,7 @@ namespace App\src\services;
 use App\src\entities\Encashment;
 use App\src\repositories\EncashmentRepository;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\False_;
 
 class EncashmentService
 {
@@ -23,20 +24,27 @@ class EncashmentService
     {
         $encashment = $this->repository->getEncashment();
         $this->load($encashment, $request);
-        $this->repository->save($encashment);
-        echo "Инкасация произведена";
+        if ($encashment->getAttributes()){
+            $this->repository->save($encashment);
+            echo "Инкасация произведена";
+        } else {
+            echo "Инкасация не произведена";
+        }
     }
 
-    public function load(Encashment $encashment, Request $request)
+    public function load(Encashment &$encashment, Request $request)
     {
         if (!$machine = $this->machineService->getMachineByUniqueNumber($request->n)){
             $machine = $this->machineService->createDefaultMachine($request);
         }
-        $encashment->fill($request->only($this->fields));
-        $encashment->machine_id = $machine->id;
-        $encashment->machine_unique_number = $request->n;
-        $encashment->total = array_sum($request->only($this->fields));
-        return $this->repository->save($encashment);
+        $fields = $request->only($this->fields);
+        if (array_sum($fields)){
+            $encashment->fill($fields);
+            $encashment->machine_id = $machine->id;
+            $encashment->machine_unique_number = $request->n;
+            $encashment->total = array_sum($fields);
+        }
+
     }
 
     public function getEncashments ()

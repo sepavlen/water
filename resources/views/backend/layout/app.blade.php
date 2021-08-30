@@ -47,7 +47,7 @@
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    @if (\App\src\helpers\ErrorHelper::checkErrors($machines) || session('unknown_errors'))
+                    @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
 
@@ -70,19 +70,6 @@
                                                 </span> Есть проблемы с автоматами </span>
                                         </a>
                                     </li>
-                                @endif
-                                @if (session('unknown_errors'))
-                                        <li>
-                                            <a href="{{ request()->routeIs('dashboard.unknownErrors') ? 'javascript:void(0)' : route('dashboard.unknownErrors') }}">
-                                    <span class="details">
-                                                <span class="label label-sm label-icon label-danger">
-                                                    <i class="fa fa-bolt"></i>
-                                                </span> Получен запрос в котором нет номера автомата
-{{--                                                    @foreach(session('unknown_errors') as $error)--}}
-{{--                                                        <b class="text-danger">{{ $error }}</b> </span>--}}
-{{--                                                    @endforeach--}}
-                                            </a>
-                                        </li>
                                 @endif
                             </ul>
                         </li>
@@ -180,14 +167,14 @@
                         </li>
                     </ul>
                 </li>
-                @if (isAdmin())
+{{--                @if (isAdmin())--}}
                     <li class="nav-item {{ request()->routeIs('dashboard.collection') ? 'active' : ''  }}">
                         <a href="{{ request()->routeIs('dashboard.collection') ? 'javascript:void(0)' : route('dashboard.collection')  }}" class="nav-link">
                             <i class="fa fa-money"></i>
                             <span class="title">Инкассация</span>
                         </a>
                     </li>
-                @endif
+{{--                @endif--}}
             </ul>
 
 

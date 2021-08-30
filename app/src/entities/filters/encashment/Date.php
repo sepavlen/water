@@ -17,8 +17,8 @@ class Date implements Filterable
             $date_from = $value[0];
             $date_to = $value[1];
             return $builder
-                ->where('created_at', '>=', $date_from)
-                ->where('created_at', '<=', $date_to)
+                ->where('created_at', '>=', $date_from . ' 00:00:00')
+                ->where('created_at', '<=', $date_to . ' 23:59:59')
                 ->orderBy('id', 'desc');
         }
     }
