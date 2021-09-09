@@ -13,11 +13,13 @@ class OrderService
 {
     private $repository;
     private $machineService;
+    private $waterAddition;
 
-    public function __construct(OrderRepository $repository, MachineService $machineService)
+    public function __construct(OrderRepository $repository, MachineService $machineService, WaterAdditionService $waterAddition)
     {
         $this->repository = $repository;
         $this->machineService = $machineService;
+        $this->waterAddition = $waterAddition;
     }
 
     public function save (Request $request)
@@ -67,13 +69,19 @@ class OrderService
         return $this->repository->getSumOrdersToday();
     }
 
+    public function getLostWaterAdded ()
+    {
+        return $this->waterAddition->getLostWaterAdded();
+    }
+
     public function getOrderStatisticArray ($machines)
     {
         $order_month = $this->getSumOrdersForLastMonth();
         $order_yesterday = $this->getSumOrdersForYesterday();
         $order_today = $this->getSumOrdersToday();
+        $last_water_added = $this->getLostWaterAdded();
 
-        return OrderHelper::getOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today);
+        return OrderHelper::getOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today, $last_water_added);
     }
 
 }

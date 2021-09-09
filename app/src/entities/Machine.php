@@ -29,6 +29,11 @@ class Machine extends Model
         return $this->hasMany(Order::class, 'id', 'machine_id');
     }
 
+    public function waterAddition ()
+    {
+        return $this->hasMany(WaterAddition::class, 'machine_id', 'id');
+    }
+
     public function encashment ()
     {
         return $this->belongsToMany(Encashment::class);

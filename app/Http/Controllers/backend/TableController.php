@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\src\entities\WaterAddition;
 use App\src\services\MachineService;
 use App\src\services\OrderService;
 

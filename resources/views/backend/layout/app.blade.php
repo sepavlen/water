@@ -175,6 +175,14 @@
                         </a>
                     </li>
 {{--                @endif--}}
+
+                <li class="nav-item {{ request()->routeIs(['dashboard.water-addition']) ? 'selected' : ''  }} ">
+
+                    <a href="{{ request()->routeIs('dashboard.water-addition') ? 'javascript:void(0)' : route('dashboard.water-addition')  }}" class="nav-link ">
+                        <i class="fa fa-plus-circle"></i>
+                        <span class="title">Долив</span>
+                    </a>
+                </li>
             </ul>
 
 

@@ -54,7 +54,7 @@
                                     </tr>
                                     <tr>
                                         <th width="50%">Долив дата / литров</th>
-                                        <td>в разработке</td>
+                                        <td>{{ $machine['waterAddition'] }}</td>
                                     </tr>
                                     <tr>
                                         <th width="50%">Остаток</th>

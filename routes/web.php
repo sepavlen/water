@@ -41,6 +41,8 @@ Route::prefix('dashboard')
         Route::get('/mobile-table', 'backend\TableController@mobileTable')->name('dashboard.mobile-table');
 
         Route::get('/collection', 'backend\CollectionController@index')->name('dashboard.collection');
+
+        Route::get('/water-addition', 'backend\WaterAdditionController@index')->name('dashboard.water-addition');
     });
 
 Route::get('/add.php', 'RequestController@index');

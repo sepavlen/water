@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 class MachineService
 {
     private $repository;
-    
-    public function __construct(MachineRepository $repository)
+    private $waterAdditionService;
+
+    public function __construct(MachineRepository $repository, WaterAdditionService $waterAdditionService)
     {
         $this->repository = $repository;
+        $this->waterAdditionService = $waterAdditionService;
     }
 
     public function machine_validate (Request $request)
@@ -88,6 +90,7 @@ class MachineService
                     echo "Автомат создан";
                 }
             } else {
+                $this->waterAdditionService->createIfWaterAddition($machine, $request);
                 if ($this->repository->updateContactTimeAndAmountCount($machine, $request)){
                     echo "Автомат обновлен";
                 }
