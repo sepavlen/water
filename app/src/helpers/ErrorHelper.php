@@ -23,7 +23,7 @@ class ErrorHelper
 
     public static function getErrorLabel ($status)
     {
-        if ($status === Error::STATUS_ACTIVE){
+        if ($status == Error::STATUS_ACTIVE){
             return '<span class="label label-sm label-danger">Актуально</span>';
         }
         return '<span class="label label-sm label-success">Неактуально</span>';
