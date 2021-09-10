@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\src\services\ErrorService;
 use App\src\services\MachineService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         \view()->composer('backend.layout.app', function ($view){
             $view->with('machines', resolve(MachineService::class)->getMachines());
+            $view->with('errors', resolve(ErrorService::class)->getActiveErrors());
         });
     }
 }

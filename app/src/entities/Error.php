@@ -2,31 +2,33 @@
 
 namespace App\src\entities;
 
-use App\src\entities\filters\water_addition\WaterAdditionSearch;
+use App\src\entities\filters\error\ErrorSearch;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class WaterAddition extends Model
+class Error extends Model
 {
     protected $guarded = [];
+    protected $table = 'error';
 
-    protected $table = 'water_addition';
+    const STATUS_ACTIVE = 1,
+        STATUS_INACTIVE = 2;
 
     public static function tableName ()
     {
-        return 'water_addition';
+        return 'error';
     }
 
     public function machine ()
     {
-        return $this->belongsTo(Machine::class, 'machine_id', 'id');
+        return $this->belongsTo(Machine::class, 'machine_number', 'unique_number');
     }
 
     public function getBySearch (Request $request) : Builder
     {
-        $model = (new WaterAdditionSearch())
+        $model = (new ErrorSearch())
             ->apply($request)
             ->with('machine')
             ->orderBy('id', 'desc');

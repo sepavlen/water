@@ -43,15 +43,19 @@
 
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
 
-
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
+                    @if (\App\src\helpers\ErrorHelper::checkErrors($machines) || $errors)
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
-
+                        @if ($errors)
                             <span class="badge badge-danger badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
+                        @else
+                            @if (\App\src\helpers\ErrorHelper::checkMachineTimingErrors($machines))
+                                <span class="badge badge-warning badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
+                            @endif
+                        @endif
                     </a>
                     <ul class="dropdown-menu">
 {{--                        <li class="external">--}}
@@ -61,16 +65,20 @@
 {{--                        </li>--}}
                         <li>
                             <ul class="dropdown-menu-list" data-handle-color="#637283">
-                                @if (\App\src\helpers\ErrorHelper::checkErrors($machines))
                                     <li>
                                         <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
                                     <span class="details">
-                                                <span class="label label-sm label-icon label-warning">
+                                        @if ($errors)
+                                            <span class="label label-sm label-icon label-danger">
                                                     <i class="fa fa-bell-o"></i>
                                                 </span> Есть проблемы с автоматами </span>
+                                        @else
+                                            <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Есть проблемы со связью </span>
+                                        @endif
                                         </a>
                                     </li>
-                                @endif
                             </ul>
                         </li>
                     </ul>
@@ -181,6 +189,14 @@
                     <a href="{{ request()->routeIs('dashboard.water-addition') ? 'javascript:void(0)' : route('dashboard.water-addition')  }}" class="nav-link ">
                         <i class="fa fa-plus-circle"></i>
                         <span class="title">Долив</span>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs(['dashboard.error']) ? 'selected' : ''  }} ">
+
+                    <a href="{{ request()->routeIs('dashboard.error') ? 'javascript:void(0)' : route('dashboard.error')  }}" class="nav-link ">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class="title">Ошибки</span>
                     </a>
                 </li>
             </ul>

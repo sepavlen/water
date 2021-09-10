@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\src\entities\Machine;
 use App\src\helpers\RequestHelper;
 use App\src\helpers\StatisticHelper;
+use App\src\repositories\ErrorRepository;
+use App\src\repositories\WaterAdditionRepository;
 use App\src\services\MachineService;
 use App\src\services\StatisticService;
 use App\src\services\UserService;
@@ -114,6 +116,8 @@ class MachineController extends Controller
         if (Gate::denies('delete', [$machine])){
             abort(403, "У Вас нет прав для удаления данного автомата!");
         }
+        resolve(WaterAdditionRepository::class)->removeByMachineId($machine->id);
+        resolve(ErrorRepository::class)->removeByMachineId($machine->unique_number);
         $machine->delete();
         return redirect()->route('dashboard.machine')->with(['success' => "Автомат удален"]);
     }

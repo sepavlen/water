@@ -8,31 +8,39 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                Долив
+                Ошибки
             </li>
         </ul>
     </div>
-    <h3 class="page-title"> Долив </h3>
-        <form id="searchForm">
-            <button type="submit">Поиск</button>
-            <button id="reset">Сброс</button>
-            <div>
-                <input type="text" id="datefilter" autocomplete="off" name="date" placeholder="{{ request()->get('date') ?: 'Выбрать дату' }}" />
-            </div>
-            <div>
-                <select id="demo" name="machine[]" multiple="multiple">
-                    @if($machines)
-                        @foreach($machines as $machine)
-                            <option {{ is_array(request()->get('machine')) && in_array($machine->id, request()->get('machine')) ? 'selected' : ' ' }} value="{{ $machine->id }}">{{ '(' . $machine->unique_number . ') ' . $machine->address }}</option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
-        </form>
-    @if ($waterAddition->total())
-        <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <h3 class="page-title"> Ошибки </h3>
+
+    <form id="searchForm">
+        <button type="submit">Поиск</button>
+        <button id="reset">Сброс</button>
+        <div>
+            <input type="text" id="datefilter" @if(request()->get('date')) value="{{ str_replace(' ', '', request()->get('date')) }}"  @endif autocomplete="off" name="date" placeholder="{{ request()->get('date') ?: 'Выбрать дату' }}" />
+        </div>
+        <div>
+            <select id="demo" name="machine[]" multiple="multiple">
+                @if($machines)
+                    @foreach($machines as $machine)
+                        <option {{ is_array(request()->get('machine')) && in_array($machine->id, request()->get('machine')) ? 'selected' : ' ' }} value="{{ $machine->id }}">{{ '(' . $machine->unique_number . ') ' . $machine->address }}</option>
+                    @endforeach
+                @endif
+            </select>
+        </div>
+        <div>
+            <select id="errors_desc" name="errors[]" multiple="multiple">
+                @foreach(\App\src\helpers\ErrorHelper::getDescriptionErrorsWithCode() as $key => $error)
+                    <option {{ is_array(request()->get('errors')) && in_array($key, request()->get('errors')) ? 'selected' : ' ' }} value="{{ $key }}">{{ $error }}</option>
+                @endforeach
+            </select>
+        </div>
+    </form>
+    @if ($errors->total())
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <div class="table-scrollable">
@@ -42,15 +50,13 @@
                                     <th> Номер автомата</th>
                                     <th> Адрес</th>
                                     <th> Владелец</th>
+                                    <th> Ошибка</th>
                                     <th> Дата</th>
-                                    <th> Долив/л</th>
+                                    <th> Статус</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php
-                                    $i = 0
-                                @endphp
-                                @foreach($waterAddition as $item)
+                                @foreach($errors as $item)
                                     <tr class="odd gradeX">
                                         <td>
                                             {{ $item->machine->unique_number }}
@@ -62,37 +68,30 @@
                                             {{ $item->machine->user->name }}
                                         </td>
                                         <td>
+                                            @foreach(unserialize($item->description) as $desc)
+                                                {{ $desc }} <br>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                             {{ $item->created_at }}
                                         </td>
                                         <td>
-                                            {{ $item->water_given }}
+                                            {!!  \App\src\helpers\ErrorHelper::getErrorLabel($item->status)  !!}
                                         </td>
-                                        @php
-                                            $i += $item->water_given;
-                                        @endphp
                                     </tr>
                                 @endforeach
-                                <tr class="odd gradeX">
-                                    <td colspan="4" class="text-right">
-                                        Всего:
-                                    </td>
-                                    <td>
-                                        {{ $i }} л
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
-                        {{ $waterAddition->onEachSide(2)->appends(request()->all())->links() }}
+                        {{ $errors->onEachSide(2)->appends(request()->all())->links() }}
                     </div>
                 </div>
-            </div>
+
         </div>
+    </div>
     @else
         Данных нет
     @endif
-
-
 
 
 @endsection
@@ -100,10 +99,15 @@
     <script type="text/javascript">
         $('#reset').click(function (e){
             e.preventDefault()
-            location.href = '{{ route('dashboard.water-addition') }}'
+            location.href = '{{ route('dashboard.error') }}'
         })
         $(function(){
             $('#demo').multiselect();
+        });
+        $(function(){
+            $('#errors_desc').multiselect({
+                nonSelectedText: 'Выберите тип ошибки'
+            });
         });
 
         $(function() {

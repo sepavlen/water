@@ -4,6 +4,7 @@
 namespace App\src\helpers;
 
 
+use App\src\entities\Error;
 use App\src\entities\Machine;
 use DateTime;
 use Illuminate\Http\Request;
@@ -17,30 +18,15 @@ class ErrorHelper
         if (self::checkMachineTimingErrors($machines)){
             return true;
         }
-        if (\Storage::disk()->allFiles('errors')){
-            return true;
-        }
         return false;
     }
 
-    public static function getErrors ($machine_id)
+    public static function getErrorLabel ($status)
     {
-        $errors = [];
-        if (\Storage::disk()->exists('errors/' . $machine_id . '.txt')){
-            $errors[] = unserialize(\Storage::get('errors/' . $machine_id . '.txt'));
+        if ($status === Error::STATUS_ACTIVE){
+            return '<span class="label label-sm label-danger">Актуально</span>';
         }
-        return $errors ?: false;
-    }
-
-    public static function checkRequestErrors (Request $request)
-    {
-        if ($request->has('st') && $request->st){
-            \Storage::disk()->put('errors/' . $request->n . '.txt', self::getRequestErrors($request->st));
-        } else {
-            if (\Storage::disk()->exists('errors/' . $request->n . '.txt')){
-                \Storage::delete('errors/' . $request->n . '.txt');
-            }
-        }
+        return '<span class="label label-sm label-success">Неактуально</span>';
     }
 
     public static function getRequestErrors ($error_code)
@@ -100,5 +86,36 @@ class ErrorHelper
             }
         }
         return false;
+    }
+
+    public static function getDescriptionErrorsWithCode ()
+    {
+        return [
+            'Автомат заблокирован',
+            'Ошибка счетчика воды',
+            'Уровень воды по верхний датчик',
+            'Бокс монетоприемника открыт',
+            'Бокс купюроприемника открыт',
+            'Маска инкассации',
+            'Уровень воды ниже нижнего датчика',
+            'Ошибка монетоприемника',
+            'Ошибка купюроприемника',
+            'Ошибка насоса',
+            'Сенсор открытия двери',
+            'Ошибка клапана',
+            "Неизвестная ошибка",
+        ];
+    }
+
+    public static function getDescriptionErrorsByCode ($error_code)
+    {
+        $errors = self::getDescriptionErrorsWithCode();
+        $return = [];
+        foreach ($error_code as $value){
+            if (isset($errors[$value])){
+                $return[] = '%' . $errors[$value] . '%';
+            }
+        }
+        return $return;
     }
 }

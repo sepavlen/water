@@ -21,15 +21,19 @@ class MachineHelper
         return $statuses[$key];
     }
 
-    public static function getStatusForTable (Machine $machine)
+    public static function getStatusForTable (Machine $machine, $errors = [])
     {
+        if (isset($errors[$machine->unique_number])){
+            return '<span class="label label-sm label-danger">Есть проблемы</span>';
+        }
+
         if (self::checkProblems($machine)){
-            return '<span class="label label-sm label-warning">Есть проблемы</span>';
+            return '<span class="label label-sm label-warning">Проблемы со связью</span>';
         }
         return '<span class="label label-sm label-success">Активный</span>';
     }
 
-    public static function getProblems (Machine $machine)
+    public static function getProblems (Machine $machine, $errors = [])
     {
         $return = [];
         $start_date = new DateTime($machine->contact_time);
@@ -38,19 +42,12 @@ class MachineHelper
             $return[] = '<br><span class="text text-danger">Автомат не выходит на связь (com=1) - ' . self::getDiffDate($since_start) . '</span>';
         }
 
-        if ($error = \App\src\helpers\ErrorHelper::getErrors($machine->unique_number)){
-            foreach ($error as $err){
-                if (is_array($err)){
-                    foreach ($err as $item) {
-                        $return[] = '<br><span class="text text-danger">' . $item . '</span>';
-                    }
-                } else {
-                    $return[] = '<br><span class="text text-danger">' . $err . '</span>';
-
-                }
+        if (isset($errors[$machine->unique_number])){
+            $_errors = unserialize($errors[$machine->unique_number]['description']);
+            foreach ($_errors as $error) {
+                $return[] = '<br><span class="text text-danger">' . $error . '</span>';
             }
         }
-
         if ($return){
             return $return;
         }
@@ -63,9 +60,6 @@ class MachineHelper
         $start_date = new DateTime($machine->contact_time);
         $since_start = $start_date->diff(new DateTime());
         if (!self::getMinutesNotTiming($since_start) || self::getMinutesNotTiming($since_start) > ($machine->timing_connect + self::ADDING_MINUTES_FOR_CHECK)){
-            return true;
-        }
-        if (\Storage::disk()->exists('errors/' . $machine->unique_number . '.txt')){
             return true;
         }
         return false;

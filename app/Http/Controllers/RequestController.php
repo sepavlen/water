@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\src\helpers\ErrorHelper;
 use App\src\services\EncashmentService;
+use App\src\services\ErrorService;
 use App\src\services\MachineService;
 use App\src\services\OrderService;
 use Illuminate\Http\Request;
@@ -21,23 +22,29 @@ class RequestController extends Controller
      * @var EncashmentService
      */
     public $encashmentService;
+    /**
+     * @var ErrorService
+     */
+    public $errorService;
 
     public function __construct(
         MachineService $machineService,
         OrderService $orderService,
-        EncashmentService $encashmentService
+        EncashmentService $encashmentService,
+        ErrorService $errorService
     )
     {
         $this->machineService = $machineService;
         $this->orderService = $orderService;
         $this->encashmentService = $encashmentService;
+        $this->errorService = $errorService;
     }
 
     public function index (Request $request)
     {
         if ($request->has('com')){
             if ($request->com == 1){
-                ErrorHelper::checkRequestErrors($request);
+                $this->errorService->checkRequestErrors($request);
                 $this->machineService->updateOrCreateDefaultMachine($request);
             }
             if ($request->com == 2){

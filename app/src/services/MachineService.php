@@ -81,7 +81,6 @@ class MachineService
 
     public function updateOrCreateDefaultMachine (Request $request)
     {
-        $this->getErrorEmptyCountWater($request);
         if ($request->has('n')){
             $machine = $this->getMachineByUniqueNumber($request->n);
             if (!$machine){
@@ -101,20 +100,6 @@ class MachineService
     public function createDefaultMachine (Request $request)
     {
         return $this->repository->createDefaultMachine($request);
-    }
-
-    public function getErrorEmptyCountWater (Request $request)
-    {
-        if (!$request->l){
-            $request->session()->put('machine_errors.empty_water.' . $request->n, 'Автомат ' . $request->n . ' не передает остаток воды');
-        } else {
-            if ($request->session()->has('machine_errors.empty_water.' . $request->n)){
-                $request->session()->forget('machine_errors.empty_water.' . $request->n);
-            }
-        }
-        if (session('machine_errors.empty_water') == []){
-            session()->forget('machine_errors.empty_water');
-        }
     }
 
     public function getRules ()

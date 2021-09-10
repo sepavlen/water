@@ -43,6 +43,7 @@ Route::prefix('dashboard')
         Route::get('/collection', 'backend\CollectionController@index')->name('dashboard.collection');
 
         Route::get('/water-addition', 'backend\WaterAdditionController@index')->name('dashboard.water-addition');
+        Route::get('/errors', 'backend\ErrorController@index')->name('dashboard.error');
     });
 
 Route::get('/add.php', 'RequestController@index');

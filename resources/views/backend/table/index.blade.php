@@ -56,11 +56,11 @@
                                             @foreach($machines as $machine)
                                                 <tr>
                                                     <td>{{ $machine->unique_number }}</td>
-                                                    <td>{!! \App\src\helpers\MachineHelper::getStatusForTable($machine) !!}</td>
+                                                    <td>{!! \App\src\helpers\MachineHelper::getStatusForTable($machine, $errors) !!}</td>
                                                     <td>{{ $machine->address }}</td>
                                                     <td>{{ $machine->contact_time }}</td>
                                                     <td>
-                                                        @foreach(\App\src\helpers\MachineHelper::getProblems($machine) as $problem)
+                                                        @foreach(\App\src\helpers\MachineHelper::getProblems($machine, $errors) as $problem)
                                                             {!! $problem  !!}
                                                         @endforeach
                                                     </td>
