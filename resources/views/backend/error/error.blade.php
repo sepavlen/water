@@ -18,7 +18,7 @@
         <button type="submit">Поиск</button>
         <button id="reset">Сброс</button>
         <div>
-            <input type="text" id="datefilter" @if(request()->get('date')) value="{{ str_replace(' ', '', request()->get('date')) }}"  @endif autocomplete="off" name="date" placeholder="{{ request()->get('date') ?: 'Выбрать дату' }}" />
+            <input type="text" id="datefilter" @if(request()->get('date')) value="{{ request()->get('date') }}"  @endif autocomplete="off" name="date" placeholder="{{ request()->get('date') ?: 'Выбрать дату' }}" />
         </div>
         <div>
             <select id="demo" name="machine[]" multiple="multiple">
@@ -148,7 +148,7 @@
             });
 
             $('#datefilter').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + '---' + picker.endDate.format('YYYY-MM-DD'));
             });
 
             $('#datefilter').on('cancel.daterangepicker', function(ev, picker) {

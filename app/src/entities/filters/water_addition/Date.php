@@ -9,7 +9,7 @@ class Date
     public static function apply(Builder $builder, $value)
     {
         if ($value){
-            $value = explode(' - ', $value);
+            $value = explode('---', $value);
             $date_from = $value[0];
             $date_to = $value[1];
             return $builder
