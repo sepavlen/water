@@ -26,7 +26,7 @@ class OrderService
     {
         $order = $this->repository->getOrder();
         $this->load($order, $request);
-        $this->repository->save($order);
+        //$this->repository->save($order);
         echo "OK; ";
     }
 
