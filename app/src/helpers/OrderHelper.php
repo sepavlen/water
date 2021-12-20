@@ -27,4 +27,20 @@ class OrderHelper
         }
         return $return;
     }
+    
+    public static function displayDiffPercent ($curr_number, $past_number)
+    {
+        $curr_number = $curr_number ?: 1;
+        $past_number = $past_number ?: 1;
+        if ($past_number > $curr_number){
+            return ' -' . self::getDiffPercent($curr_number, $past_number);
+        }
+        return self::getDiffPercent($past_number, $curr_number);
+
+    }
+
+    public static function getDiffPercent ($num1, $num2)
+    {
+        return round(100 - ($num1 / $num2 * 100), 1);
+    }
 }

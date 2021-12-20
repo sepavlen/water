@@ -41,7 +41,7 @@ class StatisticRepository
             ->toArray();
     }
 
-    public function getTotalProfitToday ($user_id)
+    public function getProfitToday ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
             if (isGeneralPartner()){
@@ -59,6 +59,108 @@ class StatisticRepository
             ->sum('put_amount');
     }
 
+    public function getCountOrdersToday ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
+        })->where(
+                'orders.created_at',
+                '>=',
+                Carbon::today())
+            ->count('id');
+    }
+
+    public function getProfitDailyIncomeWeekAgo ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
+        })->where(
+                'orders.created_at',
+                '>=',
+            Carbon::now()->subDays(7)->startOfDay())
+            ->where(
+                'orders.created_at',
+                '<=',
+                Carbon::now()->subDays(7))
+            ->sum('put_amount');
+    }
+
+    public function getProfitWeek ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
+        })->where(
+                'orders.created_at',
+                '>=',
+            Carbon::now()->startOfWeek())
+            ->sum('put_amount');
+    }
+
+    public function getProfitWeekAgo ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
+        })->where(
+                'orders.created_at',
+                '>=',
+            Carbon::now()->subWeek()->startOfWeek())
+            ->where(
+                'orders.created_at',
+                '<=',
+            Carbon::now()->subWeek())
+            ->sum('put_amount');
+    }
+
+    public function getDailyCountOrdersWeekAgo ($user_id)
+    {
+        return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isGeneralPartner()){
+                $query->join('users', function ($join) {
+                    $join->on('user_id', '=', 'users.id');
+                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
+            }
+            if (isDefaultUser())
+                $query->where('user_id', $user_id);
+            return $query;
+        })->where(
+                'orders.created_at',
+                '>=',
+            Carbon::now()->subDays(7)->startOfDay())
+            ->where(
+                'orders.created_at',
+                '<=',
+                Carbon::now()->subDays(7))
+            ->count('id');
+    }
+
     public function getTotalProfitMonth ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
@@ -73,8 +175,8 @@ class StatisticRepository
         })
             ->where(
                 'orders.created_at',
-                '>',
-                Carbon::now()->subDays(30))
+                '>=',
+                Carbon::now()->startOfMonth())
             ->sum('put_amount');
     }
 

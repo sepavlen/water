@@ -26,9 +26,34 @@ class StatisticService
         return StatisticHelper::getStatisticForLastThirtyDays($this->getSumOrdersForLastThirtyDays());
     }
 
-    public function getTotalProfitToday ()
+    public function getProfitToday ()
     {
-        return $this->repository->getTotalProfitToday(\Auth::id());
+        return $this->repository->getProfitToday(\Auth::id());
+    }
+
+    public function getCountOrdersToday ()
+    {
+        return $this->repository->getCountOrdersToday(\Auth::id());
+    }
+
+    public function getProfitDailyIncomeWeekAgo ()
+    {
+        return $this->repository->getProfitDailyIncomeWeekAgo(\Auth::id());
+    }
+
+    public function getProfitWeek ()
+    {
+        return $this->repository->getProfitWeek(\Auth::id());
+    }
+
+    public function getProfitWeekAgo ()
+    {
+        return $this->repository->getProfitWeekAgo(\Auth::id());
+    }
+
+    public function getDailyCountOrdersWeekAgo ()
+    {
+        return $this->repository->getDailyCountOrdersWeekAgo(\Auth::id());
     }
 
     public function getTotalProfitMonth ()

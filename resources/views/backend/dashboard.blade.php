@@ -54,20 +54,84 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="dashboard-stat blue">
+                            <div class="percent {{ $daily_income_week_ago > $profit_today ? 'minus_percent' : 'plus_percent' }}">
+                                    <span data-counter="counterup"
+                                          data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($profit_today, $daily_income_week_ago) }}">0</span>%
+                            </div>
                             <div class="visual">
                                 <i class="fa fa-money"></i>
                             </div>
                             <div class="details">
-                                <div class="number">
+                                <div class="desc custom_text_desc"> Продажи за сегодня </div>
+
+                                <div class="number custom_dashboard_number">
                                     <span data-counter="counterup" data-value="{{ $profit_today }}">0</span> ₴
                                 </div>
-                                <div class="desc"> Продажи за сегодня </div>
+
+                                <div class="number custom_dashboard_last_number">
+                                    <span data-counter="counterup" data-value="{{ $daily_income_week_ago }}">0</span> ₴
+                                    <span class="text_week_ago">Неделю назад</span>
+                                </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
                             </a>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat purple">
+                            <div class="percent {{ $daily_count_orders_week_ago > $count_orders_today ? 'minus_percent' : 'plus_percent' }}">
+                                    <span data-counter="counterup"
+                                          data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($count_orders_today, $daily_count_orders_week_ago) }}">0</span>%
+                            </div>
+                            <div class="visual">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <div class="details">
+                                <div class="desc custom_text_desc"> Посещения за сегодня </div>
+
+                                <div class="number custom_dashboard_number">
+                                    <span data-counter="counterup" data-value="{{ $count_orders_today }}">0</span>
+                                </div>
+
+                                <div class="number custom_dashboard_last_number">
+                                    <span data-counter="counterup" data-value="{{ $daily_count_orders_week_ago }}">0</span>
+                                    <span class="text_week_ago">Неделю назад</span>
+                                </div>
+                            </div>
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
+                                <i class="m-icon-swapright m-icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat green">
+                            <div class="percent {{ $profit_week_ago > $profit_week ? 'minus_percent' : 'plus_percent' }}">
+                                    <span data-counter="counterup"
+                                          data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($profit_week, $profit_week_ago) }}">0</span>%
+                            </div>
+                            <div class="visual">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <div class="details">
+                                <div class="desc custom_text_desc"> Продажи за неделю </div>
+
+                                <div class="number custom_dashboard_number">
+                                    <span data-counter="counterup" data-value="{{ $profit_week }}">0</span> ₴
+                                </div>
+
+                                <div class="number custom_dashboard_last_number">
+                                    <span data-counter="counterup" data-value="{{ $profit_week_ago }}">0</span> ₴
+                                    <span class="text_week_ago">Неделю назад</span>
+                                </div>
+                            </div>
+                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
+                                <i class="m-icon-swapright m-icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="dashboard-stat red">
                             <div class="visual">
@@ -77,37 +141,6 @@
                                 <div class="number">
                                     <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴</div>
                                 <div class="desc"> Продажи за месяц </div>
-                            </div>
-                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
-                                <i class="m-icon-swapright m-icon-white"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="dashboard-stat green">
-                            <div class="visual">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="{{ $profit_year }}">0</span> ₴
-                                </div>
-                                <div class="desc"> Продажи за год </div>
-                            </div>
-                            <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
-                                <i class="m-icon-swapright m-icon-white"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="dashboard-stat purple">
-                            <div class="visual">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="{{ $profit_all_time }}">0</span> ₴</div>
-                                <div class="desc"> Продажи за все время </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>
