@@ -55,7 +55,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="dashboard-stat blue">
                             <div class="percent {{ $daily_income_week_ago > $profit_today ? 'minus_percent' : 'plus_percent' }}">
-                                    <span data-counter="counterup"
+                                {{ $daily_income_week_ago > $profit_today ? '-' : '+'}}<span data-counter="counterup"
                                           data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($profit_today, $daily_income_week_ago) }}">0</span>%
                             </div>
                             <div class="visual">
@@ -81,7 +81,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="dashboard-stat purple">
                             <div class="percent {{ $daily_count_orders_week_ago > $count_orders_today ? 'minus_percent' : 'plus_percent' }}">
-                                    <span data-counter="counterup"
+                                {{ $daily_count_orders_week_ago > $count_orders_today ? '-' : '+' }}<span data-counter="counterup"
                                           data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($count_orders_today, $daily_count_orders_week_ago) }}">0</span>%
                             </div>
                             <div class="visual">
@@ -108,7 +108,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="dashboard-stat green">
                             <div class="percent {{ $profit_week_ago > $profit_week ? 'minus_percent' : 'plus_percent' }}">
-                                    <span data-counter="counterup"
+                                {{ $profit_week_ago > $profit_week ? '-' : '+' }}<span data-counter="counterup"
                                           data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($profit_week, $profit_week_ago) }}">0</span>%
                             </div>
                             <div class="visual">

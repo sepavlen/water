@@ -33,7 +33,7 @@ class OrderHelper
         $curr_number = $curr_number ?: 1;
         $past_number = $past_number ?: 1;
         if ($past_number > $curr_number){
-            return ' -' . self::getDiffPercent($curr_number, $past_number);
+            return  self::getDiffPercent($curr_number, $past_number);
         }
         return self::getDiffPercent($past_number, $curr_number);
 
