@@ -133,14 +133,25 @@
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="dashboard-stat red">
+                        <div class="dashboard-stat purple-intense">
+                            <div class="percent {{ $profit_month_ago > $profit_month ? 'minus_percent' : 'plus_percent' }}">
+                                {{ $profit_month_ago > $profit_month ? '-' : '+' }}<span data-counter="counterup"
+                                                                                       data-value="{{ \App\src\helpers\OrderHelper::displayDiffPercent($profit_month, $profit_month_ago) }}">0</span>%
+                            </div>
                             <div class="visual">
                                 <i class="fa fa-money"></i>
                             </div>
                             <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴</div>
-                                <div class="desc"> Продажи за месяц </div>
+                                <div class="desc custom_text_desc"> Продажи за месяц </div>
+
+                                <div class="number custom_dashboard_number">
+                                    <span data-counter="counterup" data-value="{{ $profit_month }}">0</span> ₴
+                                </div>
+
+                                <div class="number custom_dashboard_last_number">
+                                    <span data-counter="counterup" data-value="{{ $profit_month_ago }}">0</span> ₴
+                                    <span class="text_week_ago">Месяц назад</span>
+                                </div>
                             </div>
                             <a class="more" href="{{ route('dashboard.statistic') }}"> Подробнее
                                 <i class="m-icon-swapright m-icon-white"></i>

@@ -61,14 +61,9 @@ class StatisticService
         return $this->repository->getTotalProfitMonth(\Auth::id());
     }
 
-    public function getTotalProfitYear ()
+    public function getProfitMonthAgo ()
     {
-        return $this->repository->getTotalProfitYear(\Auth::id());
-    }
-
-    public function getTotalProfitAllTime ()
-    {
-        return $this->repository->getTotalProfitAllTime(\Auth::id());
+        return $this->repository->getProfitMonthAgo(\Auth::id());
     }
 
     public function getStatisticForCurrentDay ($machine_id = false)

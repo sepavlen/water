@@ -180,7 +180,7 @@ class StatisticRepository
             ->sum('put_amount');
     }
 
-    public function getTotalProfitYear ($user_id)
+    public function getProfitMonthAgo ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
             if (isGeneralPartner()){
@@ -194,23 +194,13 @@ class StatisticRepository
         })
             ->where(
                 'orders.created_at',
-                '>',
-                Carbon::now()->subMonths(12))
+                '>=',
+                Carbon::now()->subMonth()->startOfMonth())
+            ->where(
+                'orders.created_at',
+                '<=',
+                Carbon::now()->subMonth())
             ->sum('put_amount');
-    }
-
-    public function getTotalProfitAllTime ($user_id)
-    {
-        return $this->order->whereHas('machine', function ($query) use($user_id){
-            if (isGeneralPartner()){
-                $query->join('users', function ($join) {
-                    $join->on('user_id', '=', 'users.id');
-                })->whereIn('users.role', [User::ROLE_GENERAL_PARTNER, User::ROLE_PARTNER]);
-            }
-            if (isDefaultUser())
-                $query->where('user_id', $user_id);
-            return $query;
-        })->sum('put_amount');
     }
 
     public function getStatisticForCurrentDay ($user_id, $machine_id)

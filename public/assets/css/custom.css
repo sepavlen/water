@@ -172,6 +172,7 @@ th.text-center {
 
 .percent.minus_percent,.percent.plus_percent {
     width: 20%;
+    min-width: 55px;
     padding: 3px;
     color: white;
     border-radius: 6px!important;
@@ -200,6 +201,21 @@ th.text-center {
     margin-top: 5px;
     text-align: left;
 }
+.dashboard-stat{
+    height: 150px;
+}
+.dashboard-stat .visual{
+    margin-bottom: 42px;
+}
+
+.dashboard-stat .details {
+    margin-top: 21px;
+}
+/*@media (max-width: 1350px){*/
+/*    .col-lg-3 {*/
+/*        min-width: 250px!important;*/
+/*    }*/
+/*}*/
 
 
 @media screen and (max-width: 900px) {
