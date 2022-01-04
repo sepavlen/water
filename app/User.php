@@ -15,6 +15,7 @@ class User extends Authenticatable
           ROLE_MANAGER = 2,
           ROLE_PARTNER = 3,
           ROLE_GENERAL_PARTNER = 4,
+          ROLE_DRIVER = 5,
           ID_ADMIN = 1;
 
 

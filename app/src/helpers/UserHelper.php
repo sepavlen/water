@@ -11,14 +11,19 @@ class UserHelper
 {
     public static function getRole ($key)
     {
-        $roles = [
+        return self::getRoles()[$key] ?? 'Роль неизвестна';
+    }
+    public static function getRoles ()
+    {
+        return [
             User::ROLE_ADMIN => 'Админ',
             User::ROLE_MANAGER => 'Менеджер',
             User::ROLE_PARTNER => 'Партнер',
             User::ROLE_GENERAL_PARTNER => 'Главный партнер',
+//            User::ROLE_DRIVER => 'Водитель',
         ];
-        return $roles[$key];
     }
+
 
     public static function getStatus ($key)
     {

@@ -88,20 +88,9 @@
                             </div>
                             <div class="form-group form-group-custom custom-select">
                                 <label class="control-label"><span class="text-danger">*</span> Роль </label>
-                                <select name="role" class="bs-select form-control">
-                                    <option @if($user->role == \App\User::ROLE_ADMIN) selected
-                                            @endif value="{{ \App\User::ROLE_ADMIN }}">Админ
-                                    </option>
-                                    <option @if($user->role == \App\User::ROLE_MANAGER) selected
-                                            @endif value="{{ \App\User::ROLE_MANAGER }}">Менеджер
-                                    </option>
-                                    <option @if($user->role == \App\User::ROLE_PARTNER) selected
-                                            @endif value="{{ \App\User::ROLE_PARTNER }}">Партнер
-                                    </option>
-                                    <option @if($user->role == \App\User::ROLE_GENERAL_PARTNER) selected
-                                            @endif value="{{ \App\User::ROLE_GENERAL_PARTNER }}">Главный партнер
-                                    </option>
-                                </select>
+                                {{ Form::select('role', \App\src\helpers\UserHelper::getRoles(), $user->role, [
+                                    'class' => 'bs-select form-control'
+                                ]) }}
                             </div>
                         @endcan
 

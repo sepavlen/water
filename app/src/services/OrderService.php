@@ -24,10 +24,35 @@ class OrderService
 
     public function save (Request $request)
     {
-        $order = $this->repository->getOrder();
-        $this->load($order, $request);
+        if ($this->isNotDuplicateOrder($request)){
+            $order = $this->repository->getOrder();
+            $this->load($order, $request);
+        }
+
         //$this->repository->save($order);
         echo "OK; ";
+    }
+    
+    public function isNotDuplicateOrder (Request $request)
+    {
+        $order = $this->repository->getLastOrderByUniqueNumber($request->n);
+        return $this->checkDuplicate($request, $order);
+    }
+
+    public function checkDuplicate (Request $request, Order $order)
+    {
+        if ($this->isDifferentAmount($request, $order))
+            return true;
+        return $this->timeIsMoreThanSpecified($order);
+    }
+    
+    protected function isDifferentAmount (Request $request, Order $order)
+    {
+        return $order->put_amount != $request->sp || $order->sold_amount != $request->sn;
+    }
+    protected function timeIsMoreThanSpecified (Order $order)
+    {
+        return Carbon::now()->diffInMinutes(Carbon::parse($order->created_at)) > Order::WAIT_DUPLICATE_MIN;
     }
 
     public function load(Order $order, Request $request)

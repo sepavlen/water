@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+
+    const WAIT_DUPLICATE_MIN = 5;
     protected $guarded = [];
 
     protected $table = 'orders';

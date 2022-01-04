@@ -18,6 +18,11 @@ class OrderRepository
         return $this->getOrder()->where($params)->first();
     }
 
+    public function getLastOrderByUniqueNumber ($unique_number) : Order
+    {
+        return $this->getOrder()->where('machine_unique_number', $unique_number)->get()->last();
+    }
+
     public function getAllOrders ()
     {
         return $this->getOrder()->all();
