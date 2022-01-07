@@ -76,7 +76,7 @@ class MachineController extends Controller
 
     public function showStatistic (Machine $machine)
     {
-        if (Gate::denies('update', [$machine])){
+        if (Gate::denies('view', [$machine])){
             abort(403, "У Вас нет прав для просмотра статистики данного автомата!");
         }
 

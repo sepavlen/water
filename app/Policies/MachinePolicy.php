@@ -20,6 +20,24 @@ class MachinePolicy
         //
     }
 
+    public function view (User $user, Machine $machine)
+    {
+        if ($user->isDriver()){
+            return true;
+        }
+
+        if ($user->isAdmin()){
+            return true;
+        }
+        if ($user->id == $machine->user_id){
+            return true;
+        }
+        if ($user->isGeneralPartner() && ($machine->user->role == User::ROLE_PARTNER || $machine->user->role == User::ROLE_GENERAL_PARTNER)){
+            return true;
+        }
+        return false;
+    }
+
     public function update (User $user, Machine $machine)
     {
         if ($user->isDriver()){
