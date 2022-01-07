@@ -35,7 +35,8 @@ class UserController extends Controller
     {
         $user = $this->userService->getModel();
         $machines = $this->machineService->getMachines();
-        return view('backend.user.create', compact('user', 'machines'));
+        $selected_machines = (array)old('machines');
+        return view('backend.user.create', compact('user', 'machines', 'selected_machines'));
     }
 
     public function save (Request $request)
