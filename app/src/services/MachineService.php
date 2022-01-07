@@ -52,16 +52,32 @@ class MachineService
         if (Auth::user()->isAdmin()){
             return $this->repository->getAllMachines();
         }
+        if (Auth::user()->isDriver()){
+            return $this->repository->getAllDriverMachines();
+        }
         if (Auth::user()->isGeneralPartner()){
             return $this->repository->getAllMachinesForGeneralPartner();
         }
         return $this->repository->getAllMachinesByUserId( Auth::id());
     }
 
+    public function getWithoutAlreadySelectedDriverMachines ($user_id)
+    {
+        return $this->repository->getWithoutAlreadySelectedDriverMachines($user_id);
+    }
+
+    public function getSelectedUserMachines ($user_id)
+    {
+        return $this->repository->getSelectedUserMachines($user_id);
+    }
+
     public function getMachinesPaginate ()
     {
         if (Auth::user()->isAdmin()){
             return $this->repository->getAllMachinesPaginate();
+        }
+        if (Auth::user()->isDriver()){
+            return $this->repository->getAllDriverMachinesPaginate();
         }
         if (Auth::user()->isGeneralPartner()){
             return $this->repository->getAllMachinesForGeneralPartnerPaginate();

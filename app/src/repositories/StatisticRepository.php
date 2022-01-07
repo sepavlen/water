@@ -20,6 +20,12 @@ class StatisticRepository
     public function getSumOrdersForLastThirtyDays ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -44,6 +50,12 @@ class StatisticRepository
     public function getProfitToday ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -62,6 +74,12 @@ class StatisticRepository
     public function getCountOrdersToday ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -80,6 +98,12 @@ class StatisticRepository
     public function getProfitDailyIncomeWeekAgo ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -102,6 +126,12 @@ class StatisticRepository
     public function getProfitWeek ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -120,6 +150,12 @@ class StatisticRepository
     public function getProfitWeekAgo ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -142,6 +178,12 @@ class StatisticRepository
     public function getDailyCountOrdersWeekAgo ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -164,6 +206,12 @@ class StatisticRepository
     public function getTotalProfitMonth ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -183,6 +231,12 @@ class StatisticRepository
     public function getProfitMonthAgo ($user_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -206,6 +260,13 @@ class StatisticRepository
     public function getStatisticForCurrentDay ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
+
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -232,6 +293,12 @@ class StatisticRepository
     public function getStatisticOneMachineBetweenDates ($dateFrom, $dateTo, $user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -256,6 +323,12 @@ class StatisticRepository
     public function getStatisticForCurrentMonth ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -282,6 +355,12 @@ class StatisticRepository
     public function getStatisticForLastMonth ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -312,6 +391,12 @@ class StatisticRepository
     public function getStatisticForPeriod ($user_id, $period, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -338,6 +423,12 @@ class StatisticRepository
     public function getStatisticBetweenDates ($dateFrom, $dateTo, $machine_ids)
     {
         return $this->order->whereHas('machine', function ($query) use($machine_ids){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');
@@ -362,6 +453,12 @@ class StatisticRepository
     public function getStatisticForAllTime ($user_id, $machine_id)
     {
         return $this->order->whereHas('machine', function ($query) use($user_id, $machine_id){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');

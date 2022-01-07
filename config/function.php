@@ -9,6 +9,9 @@ function isAdmin(){
 function isGeneralPartner(){
     return Auth::user()->role == User::ROLE_GENERAL_PARTNER;
 }
+function isDriver(){
+    return Auth::user()->role == User::ROLE_DRIVER;
+}
 function isDefaultUser(){
     return Auth::user()->role == User::ROLE_MANAGER || Auth::user()->role == User::ROLE_PARTNER;
 }

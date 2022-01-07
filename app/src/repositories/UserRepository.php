@@ -26,7 +26,7 @@ class UserRepository
 
     public function getAllUsers ()
     {
-        return User::all();
+        return User::where('role', '!=', User::ROLE_DRIVER)->get();
     }
 
     public function getUserOrCreate ($id)
@@ -41,6 +41,7 @@ class UserRepository
     
     public function save ($user)
     {
-        return $user->save();
+        $user->save();
+        return $user;
     }
 }

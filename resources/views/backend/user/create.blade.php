@@ -1,5 +1,8 @@
 @extends('backend.layout.app')
-
+@push('css')
+    <link href="{{ asset('assets/global/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/global/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
     <div class="page-bar">
         <ul class="page-breadcrumb">
@@ -89,8 +92,20 @@
                             <div class="form-group form-group-custom custom-select">
                                 <label class="control-label"><span class="text-danger">*</span> Роль </label>
                                 {{ Form::select('role', \App\src\helpers\UserHelper::getRoles(), $user->role, [
-                                    'class' => 'bs-select form-control'
+                                    'class' => 'bs-select form-control',
+                                    'id' => 'user_role_select',
                                 ]) }}
+                            </div>
+{{--                        @dd(old('machines'))--}}
+                            <div class="form-group @if(!(old('machines') || $user->role == \App\User::ROLE_DRIVER)) hide @endif" id="driver_machines_block">
+                                <label for="multiple" class="control-label">Выберите автомат</label>
+                                <select id="machines_multiple_select" name="machines[]" class="form-control select2-multiples" multiple>
+                                    @if($machines)
+                                        @foreach($machines as $machine)
+                                            <option {{ in_array($machine->id, $selected_machines) ? 'selected' : ' ' }} value="{{ $machine->id }}">{{ '(' . $machine->unique_number . ') ' . $machine->address }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         @endcan
 
@@ -114,3 +129,25 @@
 
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user_role_select').change(function () {
+                if ($(this).val() === '{{ \App\User::ROLE_DRIVER }}'){
+                    $('#driver_machines_block').removeClass('hide')
+                } else {
+                    $('#driver_machines_block').addClass('hide')
+                }
+            })
+            $('#machines_multiple_select').select2({
+                placeholder: 'Выберите автомат',
+                "language": {
+                    "noResults": function(){
+                        return "Результатов не найдено";
+                    }
+                },
+            });
+        })
+    </script>
+@endpush

@@ -20,7 +20,7 @@ class UserHelper
             User::ROLE_MANAGER => 'Менеджер',
             User::ROLE_PARTNER => 'Партнер',
             User::ROLE_GENERAL_PARTNER => 'Главный партнер',
-//            User::ROLE_DRIVER => 'Водитель',
+            User::ROLE_DRIVER => 'Водитель',
         ];
     }
 

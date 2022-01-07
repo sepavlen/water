@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\src\entities\Machine;
+use App\src\services\MachineService;
 use App\src\services\UserService;
 use App\User;
 use Illuminate\Http\Request;
@@ -12,10 +14,12 @@ use Illuminate\Support\Facades\Gate;
 class UserController extends Controller
 {
     public $userService;
+    public $machineService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, MachineService $machineService)
     {
         $this->userService = $userService;
+        $this->machineService = $machineService;
     }
 
     public function index ()
@@ -30,7 +34,8 @@ class UserController extends Controller
     public function create ()
     {
         $user = $this->userService->getModel();
-        return view('backend.user.create', compact('user'));
+        $machines = $this->machineService->getMachines();
+        return view('backend.user.create', compact('user', 'machines'));
     }
 
     public function save (Request $request)
@@ -44,7 +49,9 @@ class UserController extends Controller
 
     public function edit (User $user)
     {
-        return view('backend.user.create', compact('user'));
+        $machines = $this->machineService->getWithoutAlreadySelectedDriverMachines($user->id);
+        $selected_machines = array_merge($this->machineService->getSelectedUserMachines($user->id)->toArray(), (array)old('machines'));
+        return view('backend.user.create', compact('user', 'machines', 'selected_machines'));
     }
 
     public function update (Request $request)

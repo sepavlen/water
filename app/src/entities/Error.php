@@ -34,6 +34,12 @@ class Error extends Model
             ->orderBy('id', 'desc');
 
         return $model->whereHas('machine', function ($query){
+            if (isDriver()){
+                $query->leftJoin('users_machines', function ($join){
+                    $join->on('users_machines.machine_id', '=', 'machines.id');
+                })
+                    ->where('users_machines.user_id', \Auth::id());
+            }
             if (isGeneralPartner()){
                 $query->join('users', function ($join) {
                     $join->on('user_id', '=', 'users.id');

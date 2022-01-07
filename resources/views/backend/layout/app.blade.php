@@ -26,7 +26,9 @@
     <link rel="stylesheet" href="/assets/global/bootstrap/css/bootstrap-multiselect.min.css" type="text/css">
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
 
-    <link rel="shortcut icon" href="/favicon.ico" /> </head>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    @stack('css')
+</head>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
 
@@ -248,6 +250,8 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/themes/high-contrast-light.js"></script>
+<script src="{{ asset('assets/global/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/select2/js/components-select2.min.js') }}" type="text/javascript"></script>
 <script>
     $('.dropdown-menu').bind('mousewheel DOMMouseScroll', function(e) {
         var scrollTo = null;

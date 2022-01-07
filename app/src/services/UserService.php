@@ -3,7 +3,9 @@
 
 namespace App\src\services;
 
+use App\src\entities\UsersMachines;
 use App\src\repositories\UserRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,11 +35,15 @@ class UserService
 
     public function save (Request $request)
     {
+
         $user = $this->repository->getUserOrCreate(['id' => $request->user_id]);
         $user->fill($request->except(['password']));
         if ($request->password)
             $user->password = Hash::make($request->password);
-        return $this->repository->save($user);
+        $user =  $this->repository->save($user);
+
+        $this->updateDriverMachines($request, $user);
+        return $user;
     }
 
     public function getUsers ()
@@ -86,6 +92,17 @@ class UserService
             'email.required' => 'Поле Email обязательно для заполнения!',
             'email.email' => 'Поле Email введено неправильно!',
         ];
+    }
+
+    public function updateDriverMachines (Request $request, User $user)
+    {
+        UsersMachines::where('user_id', $user->id)->delete();
+        if ($request->machines && $user->role == User::ROLE_DRIVER){
+            $machines = array_map(function ($machine) use ($user){
+                return ['user_id' => $user->id, "machine_id" => $machine];
+            }, $request->machines);
+            UsersMachines::insert($machines);
+        }
     }
     
 }

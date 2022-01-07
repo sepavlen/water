@@ -70,9 +70,12 @@
                                            onclick="return confirm('Вы уверены?')"><span
                                                     class="fa fa-times" title="Удалить"> </span></a>
                                     @endcan
-                                    <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
+                                    @can('update', $machine)
+
+                                        <a href="{{ route('dashboard.machine.edit', ['machine' => $machine->id]) }}"><span
                                                 class="fa fa-edit" title="Редактировать"> </span></a>
-                                    <a href="{{ route('dashboard.machine.show-statistic', ['machine' => $machine->id]) }}"><span
+                                    @endcan
+                                        <a href="{{ route('dashboard.machine.show-statistic', ['machine' => $machine->id]) }}"><span
                                                 class="fa fa-pie-chart" title="Показать статистику продаж"> </span></a>
                                 </td>
                                 <td> {{ $machine->user->email }} ({{ $machine->user->name }})</td>

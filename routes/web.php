@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,8 +20,8 @@ Route::prefix('dashboard')
 
         Route::middleware('check.admin')->group(function (){
             Route::get('/users', 'backend\UserController@index')->name('dashboard.users');
-            Route::get('/users/create', 'backend\UserController@create')->name('dashboard.user.create');
-            Route::post('/users/create', 'backend\UserController@save')->name('dashboard.user.create');
+            Route::get('/users/create', [UserController::class, 'create'])->name('dashboard.user.create');
+            Route::post('/users/create', [UserController::class, 'save'])->name('dashboard.user.create');
             Route::get('/users/edit/{user}', 'backend\UserController@edit')->name('dashboard.user.edit');
             Route::get('/users/delete/{user}', 'backend\UserController@destroy')->name('dashboard.user.delete');
             Route::get('/errors-unknown', 'backend\DashboardController@errors')->name('dashboard.unknownErrors');

@@ -2,7 +2,8 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\src\entities\Machine;
+use App\src\entities\UsersMachines;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,6 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function machines ()
+    {
+        return $this->belongsToMany(Machine::class, 'users_machines');
+    }
+
     public function isAdmin ()
     {
         return $this->role == self::ROLE_ADMIN;
@@ -55,5 +61,10 @@ class User extends Authenticatable
     public function isGeneralPartner ()
     {
         return $this->role == self::ROLE_GENERAL_PARTNER;
+    }
+
+    public function isDriver ()
+    {
+        return $this->role == self::ROLE_DRIVER;
     }
 }

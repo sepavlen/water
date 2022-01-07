@@ -25,9 +25,28 @@ class MachineRepository
         return $this->getMachine()->all();
     }
 
+    public function getAllDriverMachines ()
+    {
+        return $this->getMachine()
+            ->leftJoin('users_machines', function ($join){
+            $join->on('users_machines.machine_id', '=', 'machines.id');
+        })
+            ->where('users_machines.user_id', \Auth::id())
+            ->get();
+    }
+
     public function getAllMachinesPaginate ()
     {
         return $this->getMachine()->paginate(10);
+    }
+
+    public function getAllDriverMachinesPaginate ()
+    {
+        return $this->getMachine()
+            ->leftJoin('users_machines', function ($join){
+            $join->on('users_machines.machine_id', '=', 'machines.id');
+        })
+            ->where('users_machines.user_id', \Auth::id())->paginate(10);
     }
 
     public function getAllMachinesForGeneralPartner ()
@@ -47,6 +66,41 @@ class MachineRepository
     public function getAllMachinesByUserId ($user_id)
     {
         return $this->getMachine()->where('user_id', $user_id)->get();
+    }
+
+    public function getWithoutAlreadySelectedDriverMachines ($user_id)
+    {
+        return $this->getMachine()
+            ->select([
+                'machines.id',
+                'machines.unique_number',
+                'machines.address',
+                'users_machines.machine_id',
+                'users_machines.user_id',
+            ])
+            ->leftJoin('users_machines', function ($join){
+                $join->on('users_machines.machine_id', '=', 'machines.id');
+            })
+            ->where('users_machines.user_id', $user_id)
+            ->orWhereNull('machine_id')
+            ->get();
+    }
+
+    public function getSelectedUserMachines ($user_id)
+    {
+        return $this->getMachine()
+            ->select([
+                'machines.id',
+                'machines.unique_number',
+                'machines.address',
+                'users_machines.machine_id',
+                'users_machines.user_id',
+            ])
+            ->leftJoin('users_machines', function ($join){
+                $join->on('users_machines.machine_id', '=', 'machines.id');
+            })
+            ->where('users_machines.user_id', $user_id)
+            ->pluck('id');
     }
 
     public function getAllMachinesByUserIdPaginate ($user_id)

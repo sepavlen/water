@@ -22,7 +22,10 @@ class MachinePolicy
 
     public function update (User $user, Machine $machine)
     {
-//        dd($machine->user->role == $user->role);
+        if ($user->isDriver()){
+            return false;
+        }
+
         if ($user->isAdmin()){
             return true;
         }

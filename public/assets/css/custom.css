@@ -217,6 +217,14 @@ th.text-center {
 /*    }*/
 /*}*/
 
+#driver_machines_block{
+    width: 100%;
+    max-width: 500px;
+}
+#driver_machines_block .select2, #driver_machines_block .select2-search__field{
+    width: 100% !important;
+}
+
 
 @media screen and (max-width: 900px) {
     form#searchForm{
