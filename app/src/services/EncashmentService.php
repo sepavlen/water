@@ -4,6 +4,7 @@
 namespace App\src\services;
 
 use App\src\entities\Encashment;
+use App\src\helpers\CollectionHelper;
 use App\src\repositories\EncashmentRepository;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\False_;
@@ -25,8 +26,12 @@ class EncashmentService
         $encashment = $this->repository->getEncashment();
         $this->load($encashment, $request);
         if ($encashment->getAttributes()){
-            $this->repository->save($encashment);
-            echo "Инкасация произведена";
+            if (!$this->todayAlreadyAdded($request)){
+                $this->repository->save($encashment);
+                echo "Инкасация произведена";
+            } else {
+                echo "Дублирование";
+            }
         } else {
             echo "Инкасация не произведена";
         }
@@ -45,6 +50,24 @@ class EncashmentService
             $encashment->total = array_sum($fields);
         }
 
+    }
+
+    protected function todayAlreadyAdded (Request $request)
+    {
+        if ($encashments = $this->getEncashmentTodayByMachineNumber($request->n)){
+            $request_total = CollectionHelper::getTotalSum($request);
+            foreach ($encashments as $encashment) {
+                if (CollectionHelper::getTotalSum($encashment) == $request_total){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    protected function getEncashmentTodayByMachineNumber ($machine_number)
+    {
+        return $this->repository->getEncashmentTodayByMachineNumber($machine_number);
     }
 
     public function getEncashments ()

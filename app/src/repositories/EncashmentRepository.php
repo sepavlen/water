@@ -29,4 +29,12 @@ class EncashmentRepository
         return $encashment;
     }
 
+    public function getEncashmentTodayByMachineNumber ($machine_number)
+    {
+        return $this->getEncashment()
+            ->where('machine_unique_number', $machine_number)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00'))
+            ->get();
+    }
+
 }

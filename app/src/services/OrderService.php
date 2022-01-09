@@ -27,6 +27,7 @@ class OrderService
         if ($this->isNotDuplicateOrder($request)){
             $order = $this->repository->getOrder();
             $this->load($order, $request);
+            $this->repository->save($order);
         }
 
         //$this->repository->save($order);
@@ -55,7 +56,7 @@ class OrderService
         return Carbon::now()->diffInMinutes(Carbon::parse($order->created_at)) > Order::WAIT_DUPLICATE_MIN;
     }
 
-    public function load(Order $order, Request $request)
+    public function load(Order &$order, Request $request)
     {
         if (!$machine = $this->machineService->getMachineByUniqueNumber($request->n)){
             $machine = $this->machineService->createDefaultMachine($request);
@@ -66,7 +67,6 @@ class OrderService
         $order->sold_amount = $request->sn;
         $order->water_paid = $request->kp;
         $order->water_given = $request->kn;
-        return $this->repository->save($order);
     }
 
     public function getOrders ()
