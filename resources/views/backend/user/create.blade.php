@@ -142,6 +142,7 @@
             })
             $('#machines_multiple_select').select2({
                 placeholder: 'Выберите автомат',
+                closeOnSelect: false,
                 "language": {
                     "noResults": function(){
                         return "Результатов не найдено";
