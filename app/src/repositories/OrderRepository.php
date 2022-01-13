@@ -18,7 +18,7 @@ class OrderRepository
         return $this->getOrder()->where($params)->first();
     }
 
-    public function getLastOrderByUniqueNumber ($unique_number) : Order
+    public function getLastOrderByUniqueNumber ($unique_number) : ?Order
     {
         return $this->getOrder()->where('machine_unique_number', $unique_number)->orderBy('id', 'desc')->first();
     }

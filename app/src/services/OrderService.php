@@ -37,6 +37,12 @@ class OrderService
     public function isNotDuplicateOrder (Request $request)
     {
         $order = $this->repository->getLastOrderByUniqueNumber($request->n);
+        if (!$order){
+            if (!$this->machineService->getMachineByUniqueNumber($request->n)){
+                $this->machineService->createDefaultMachine($request);
+            }
+            return true;
+        }
         return $this->checkDuplicate($request, $order);
     }
 
