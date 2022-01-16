@@ -88,23 +88,23 @@
                                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_4" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th>Номер автомата</th>
                                             <th>Адрес</th>
-                                            <th>Среднесуточные продажи за 30 дней</th>
-                                            <th>Продажи за вчера</th>
-                                            <th>Продажи за сегодня</th>
                                             <th>Остаток воды (л)</th>
+                                            <th>Продажи за сегодня</th>
+                                            <th>Продажи за вчера</th>
+                                            <th>Среднесуточные продажи за 30 дней</th>
+                                            <th>Номер автомата</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($machines_statistic as $machine)
                                                 <tr>
-                                                    <td>{{ $machine['unique_number'] }}</td>
                                                     <td>{{ $machine['address'] }}</td>
-                                                    <td>{{ $machine['orders_sum_month'] }}грн / {{ $machine['water_given_month'] }}л</td>
-                                                    <td>{{ $machine['orders_sum_yesterday'] }}грн / {{ $machine['water_given_yesterday'] }}л</td>
-                                                    <td>{{ $machine['orders_sum_today'] }}грн / {{ $machine['water_given_today'] }}л</td>
                                                     <td>{{ $machine['water_amount'] }}</td>
+                                                    <td>{{ $machine['orders_sum_today'] }}грн / {{ $machine['water_given_today'] }}л</td>
+                                                    <td>{{ $machine['orders_sum_yesterday'] }}грн / {{ $machine['water_given_yesterday'] }}л</td>
+                                                    <td>{{ $machine['orders_sum_month'] }}грн / {{ $machine['water_given_month'] }}л</td>
+                                                    <td>{{ $machine['unique_number'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
