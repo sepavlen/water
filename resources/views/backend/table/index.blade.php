@@ -85,7 +85,7 @@
                                     <div class="tools"> </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_4" cellspacing="0" width="100%">
+                                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="statistics_table" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
                                             <th>Адрес</th>
@@ -123,5 +123,39 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="/assets/global/table-datatables-responsive.min.js" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/table-datatables-responsive.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var e = $("#statistics_table");
+        e.dataTable({
+            "language": {
+                "aria": {
+                    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                    "sortDescending": ": активировать для сортировки столбца по убыванию"
+                },
+                "emptyTable": "Данные отсутствуют в таблице",
+                "info": "Показано от _START_ до _END_ из _TOTAL_ автоматов",
+                "infoEmpty": "Записей не найдено",
+                "infoFiltered": " ",
+                "lengthMenu": "Показать:   _MENU_",
+                "search": "Поиск: ",
+                "zeroRecords": "Совпадающих записей не найдено",
+                "paginate": {
+                    "previous":"Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            buttons: [{extend: "print", className: "btn default"}, {
+                extend: "pdf",
+                className: "btn default"
+            }, {extend: "csv", className: "btn default"}],
+            responsive: {details: {
+                }},
+            order: [[5, "asc"]],
+            lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            pageLength: 10,
+            dom: "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>"
+        })
+    </script>
 @endpush

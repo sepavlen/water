@@ -30,8 +30,6 @@ class OrderHelper
     
     public static function displayDiffPercent ($curr_number, $past_number)
     {
-        $curr_number = $curr_number ?: 1;
-        $past_number = $past_number ?: 1;
         if ($past_number > $curr_number){
             return  self::getDiffPercent($curr_number, $past_number);
         }
@@ -41,6 +39,9 @@ class OrderHelper
 
     public static function getDiffPercent ($num1, $num2)
     {
+        if (!$num2){
+            return 0;
+        }
         return round(100 - ($num1 / $num2 * 100), 1);
     }
 }
