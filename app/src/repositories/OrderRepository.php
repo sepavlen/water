@@ -4,6 +4,7 @@
 namespace App\src\repositories;
 
 use App\src\entities\Order;
+use App\User;
 use Carbon\Carbon;
 
 class OrderRepository
@@ -75,6 +76,32 @@ class OrderRepository
     {
         $order->save();
         return $order;
+    }
+
+    public function getPnl ($date, $is_partners = false)
+    {
+        $query = $this->getOrder()
+            ->join('machines', function ($join) {
+                $join->on('machine_id', '=', 'machines.id');
+            })->join('users', function ($join) {
+                $join->on('users.id', '=', 'machines.user_id');
+            });
+        if ($is_partners){
+            $query->where('users.role', User::ROLE_PARTNER);
+        } else {
+            $query->where('users.id', \Auth::id());
+        }
+        return $query->whereRaw('date_format(orders.created_at, "%Y-%m") = ?', $date)
+            ->selectRaw('machine_id, 
+                machine_unique_number,
+                machines.lender_price, 
+                machines.address, 
+                users.name, 
+                sum(put_amount) as put_amount, 
+                sum(sold_amount) as sold_amount'
+            )
+            ->groupBy('orders.machine_id', 'orders.machine_unique_number')
+            ->get();
     }
 
 }

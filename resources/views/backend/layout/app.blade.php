@@ -21,6 +21,7 @@
     <link href="/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
 
     <link href="/assets/global/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/global/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/assets/global/bootstrap/css/bootstrap-multiselect.min.css" type="text/css">
@@ -149,7 +150,7 @@
                         <span class="title">Автоматы</span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs(['dashboard.table', 'dashboard.statistic']) ? 'active' : ''  }}">
+                <li class="nav-item {{ request()->routeIs(['dashboard.table', 'dashboard.statistic', 'pnl']) ? 'active' : ''  }}">
                     <a href="" class="nav-link nav-toggle">
                         <i class="fa fa-line-chart"></i>
                         <span class="title">Статистика</span>
@@ -175,6 +176,14 @@
                                 <span class="title">Графики</span>
                             </a>
                         </li>
+                        @if (isGeneralPartner())
+                            <li class="nav-item  {{ request()->routeIs(['pnl']) ? 'selected' : ''  }}">
+                                <a href="{{ request()->routeIs('pnl') ? 'javascript:void(0)' : route('pnl')  }}" class="nav-link ">
+                                    <i class="fa fa-archive"></i>
+                                    <span class="title">Pnl за месяц</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
 {{--                @if (isAdmin())--}}
@@ -252,6 +261,7 @@
 <script src="https://code.highcharts.com/themes/high-contrast-light.js"></script>
 <script src="{{ asset('assets/global/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/select2/js/components-select2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
 <script>
     $('.dropdown-menu').bind('mousewheel DOMMouseScroll', function(e) {
         var scrollTo = null;

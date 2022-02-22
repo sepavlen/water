@@ -39,6 +39,7 @@ Route::prefix('dashboard')
 
         Route::get('/statistic', 'backend\StatisticController@index')->name('dashboard.statistic');
         Route::get('/table', 'backend\TableController@index')->name('dashboard.table');
+        Route::get('/pnl', 'backend\TableController@pnl')->name('pnl');
         Route::get('/mobile-table', 'backend\TableController@mobileTable')->name('dashboard.mobile-table');
 
         Route::get('/collection', 'backend\CollectionController@index')->name('dashboard.collection');

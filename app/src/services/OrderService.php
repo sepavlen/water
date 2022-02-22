@@ -30,7 +30,6 @@ class OrderService
             $this->repository->save($order);
         }
 
-        //$this->repository->save($order);
         echo "OK; ";
     }
     
@@ -113,6 +112,47 @@ class OrderService
         $last_water_added = $this->getLostWaterAdded();
 
         return OrderHelper::getOrderStatisticArray($machines, $order_month, $order_yesterday, $order_today, $last_water_added);
+    }
+
+    public function getPnl (Request $request)
+    {
+        if ($request->has('date')){
+            $selfPnl = $this->calculatePnl($request, $this->repository->getPnl($request->get('date')));
+            $partnerPnl = $this->calculatePnl($request, $this->repository->getPnl($request->get('date'), true), true);
+            return $selfPnl + $partnerPnl;
+        }
+        return [];
+    }
+
+    public function calculatePnl (Request $request, $machines, $is_partners = false)
+    {
+        $data = [];
+        if ($machines){
+            foreach ($machines as $k => $machine){
+                $amount_dividends = ($machine->put_amount - $machine->sold_amount * $request->get('water_price')) -
+                    ($request->get('water_price') - ($request->get('water_price')*$machine->sold_amount)) -
+                    $request->get('communication_price') -
+                    $request->get('fuel_price') -
+                    $machine->lender_price;
+                $data[$k]['address'] = $machine->address;
+                $data[$k]['machine_unique_number'] = $machine->machine_unique_number;
+                $data[$k]['put_amount'] = number_format($machine->put_amount, 2, '.', ' '); //ПРОДАЖИ
+                $data[$k]['sold_amount'] = number_format($machine->sold_amount, 2, '.', ' ');//ПРОДАЖИ литраж
+                $data[$k]['userName'] = $machine->name;
+                $data[$k]['pricing'] = number_format($machine->put_amount / $machine->sold_amount, 2, '.', ' ');//ЦЕННОБРАЗОВАНИЕ
+                $data[$k]['gross_profit'] = number_format($machine->put_amount - $machine->sold_amount * $request->get('water_price'), 2, '.', ' ');//ВАЛОВАЯ ПРИБЫЛЬ
+                $data[$k]['rental'] = $machine->lender_price;//Аренда места
+                $data[$k]['water_price'] = $request->get('water_price');//Цена закупочная воды
+                $data[$k]['wage'] = number_format($request->get('delivery_price') * $machine->sold_amount, 2, '.', ' ');//Зп
+                $data[$k]['water_purchase_amount'] = number_format($request->get('water_price') * $machine->sold_amount, 2, '.', ' ');//Сумма закупки воды
+                $data[$k]['communication_price'] = $request->get('communication_price');//Связь GSM
+                $data[$k]['fuel_price'] = number_format($request->get('fuel_price') * $machine->sold_amount, 2, '.', ' ');//ГСМ
+                if ($is_partners)
+                    $amount_dividends /= 2;
+                $data[$k]['amount_dividends'] = number_format($amount_dividends, 2, '.', ' '); //Сумма дивидентов
+            }
+        }
+        return $data;
     }
 
 }
