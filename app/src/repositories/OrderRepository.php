@@ -98,6 +98,7 @@ class OrderRepository
                 machines.address, 
                 users.name, 
                 sum(put_amount) as put_amount, 
+                sum(water_paid) as water_paid, 
                 sum(sold_amount) as sold_amount'
             )
             ->groupBy('orders.machine_id', 'orders.machine_unique_number')

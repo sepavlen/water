@@ -29,22 +29,22 @@
             <div class="form-group form-group-custom custom-select-medium">
                 <span class="text-danger">*</span>
                 {{ Form::label('water_price', 'Цена закупочная воды', ['class' => 'control-label']) }}
-                {{ Form::number('water_price', request()->get('water_price'), ['class' => 'form-control', 'placeholder' => '',]) }}
+                {{ Form::number('water_price', request()->get('water_price'), ['class' => 'form-control', 'placeholder' => '', 'step' => '0.001']) }}
             </div>
             <div class="form-group form-group-custom custom-select-medium">
                 <span class="text-danger">*</span>
                 {{ Form::label('delivery_price', 'Стоимость доставки', ['class' => 'control-label']) }}
-                {{ Form::number('delivery_price', request()->get('delivery_price'), ['class' => 'form-control', 'placeholder' => '',]) }}
+                {{ Form::number('delivery_price', request()->get('delivery_price'), ['class' => 'form-control', 'placeholder' => '', 'step' => '0.001']) }}
             </div>
             <div class="form-group form-group-custom custom-select-medium">
                 <span class="text-danger">*</span>
                 {{ Form::label('fuel_price', 'Стоимость ГСМ', ['class' => 'control-label']) }}
-                {{ Form::number('fuel_price', request()->get('fuel_price'), ['class' => 'form-control', 'placeholder' => '',]) }}
+                {{ Form::number('fuel_price', request()->get('fuel_price'), ['class' => 'form-control', 'placeholder' => '', 'step' => '0.001']) }}
             </div>
             <div class="form-group form-group-custom custom-select-medium">
                 <span class="text-danger">*</span>
                 {{ Form::label('communication_price', 'Стоимость связи', ['class' => 'control-label']) }}
-                {{ Form::number('communication_price', request()->get('communication_price'), ['class' => 'form-control', 'placeholder' => '',]) }}
+                {{ Form::number('communication_price', request()->get('communication_price'), ['class' => 'form-control', 'placeholder' => '', 'step' => '0.001']) }}
             </div>
             <div class="form-group form-group-custom custom-select-medium">
                 <button type="submit" id="pnl_submit">Поиск</button>
@@ -132,6 +132,7 @@
                                     <td> {{ $machine['amount_dividends'] }}</td>
                                 </tr>
                             @endforeach
+                        </tbody>
                         <tr>
                             <td> Всего </td>
                             <td> - </td>
@@ -149,7 +150,6 @@
                             <td> {{ $total['fuel_price'] }} </td>
                             <td> {{ $total['amount_dividends'] }} </td>
                         </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
