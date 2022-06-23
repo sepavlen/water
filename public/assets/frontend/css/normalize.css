@@ -1,0 +1,342 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+a {
+    list-style: none;
+    text-decoration: none;
+    /* color: #ffffff; */
+  }
+  a:hover {
+    text-decoration: none;
+    /* color: #ffffff; */
+  }
+  a:active,
+  a:focus {
+    outline: none;
+  }
+  input,
+  textarea {
+    outline: none;
+  }
+  input:active,
+  textarea:active {
+    outline: none;
+  }
+  :focus {
+    outline: none;
+  }
+  textarea {
+    resize: none;
+  }
+  textarea {
+    resize: vertical;
+  }
+  textarea {
+    resize: horizontal;
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+    outline: none;
+    -moz-appearance: none;
+    /* border: 1px solid #ffffff; */
+  }
+  textarea {
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+  }
+  textarea::-webkit-input-placeholder {
+    /* color: #ffffff; */
+  }
+  textarea::-moz-placeholder {
+    /* color: #ffffff; */
+  }
+  textarea:-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  textarea::-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  textarea::placeholder {
+    /* color: #ffffff; */
+    opacity: 1;
+  }
+  p {
+    /* color: #ffffff; */
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    list-style: none;
+  }
+  button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  button:active,
+  button:focus {
+    outline: none;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:active,
+  input:-webkit-autofill:focus {
+    background-color: transparent !important;
+    /* color: #ffffff !important; */
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    /* -webkit-text-fill-color: #ffffff !important; */
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+    /* border-color: #ffffff; */
+  }
+  input:-webkit-autofill{
+    /* border-color: #ffffff; */
+  
+  }
+  input {
+    outline: none;
+  }
+  input[type="search"] {
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+  }
+  input[type="search"]::-moz-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="search"]::-webkit-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="search"]:-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="search"]::-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="search"]::placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="text"] {
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+  }
+  input[type="text"]::-moz-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="text"]::-webkit-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="text"]:-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="text"]::-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="text"]::placeholder {
+    /* color: #ffffff; */
+    opacity: 1;
+  }
+  input[type="email"] {
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-moz-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-webkit-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]:-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::placeholder {
+    /* color: #ffffff; */
+    opacity: 1;
+  }
+  
+  input[type="email"] {
+    border: 0px solid;
+    background: transparent;
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-moz-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-webkit-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]:-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::-ms-input-placeholder {
+    /* color: #ffffff; */
+  }
+  input[type="email"]::placeholder {
+    /* color: #ffffff; */
+  }
+  input:focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+  input:focus:-moz-placeholder {
+    color: transparent;
+  } /* FF 4-18 */
+  input:focus::-moz-placeholder {
+    color: transparent;
+  } /* FF 19+ */
+  input:focus:-ms-input-placeholder {
+    color: transparent;
+  } /* IE 10+ */
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 19 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.24414 9.87793L17.4883 18.4052' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M9.24414 9.87783L1 1.35059' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M9.24414 9.87793L1 18.4052' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M9.24414 9.87783L17.4883 1.35059' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+  
+  /* http://meyerweb.com/eric/tools/css/reset/ 
+       v2.0 | 20110126
+       License: none (public domain)
+    */
+  
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    /* font: inherit; */
+    vertical-align: baseline;
+    /* color: #ffffff; */
+  }
+  /* HTML5 display-role reset for older browsers */
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol,
+  ul {
+    list-style: none;
+  }
+  blockquote,
+  q {
+    quotes: none;
+  }
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+    content: "";
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  

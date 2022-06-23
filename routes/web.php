@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return redirect('dashboard');
-})->middleware('auth');
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@authenticate');
