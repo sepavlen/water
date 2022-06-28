@@ -24,6 +24,11 @@ class Machine extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function errors ()
+    {
+        return $this->hasMany(Error::class, 'machine_number', 'machine_number');
+    }
+
     public function orders ()
     {
         return $this->hasMany(Order::class, 'id', 'machine_id');

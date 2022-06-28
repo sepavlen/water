@@ -24,8 +24,13 @@
                                     <h3 class="mb-1">Номер: <span class="sp-1">{{ $machine->unique_number }}</span></h3>
                                     <h3 class="mb-1">Адрес: <span class="sp-1">{{ $machine->address }}</span></h3>
                                     <h3 class="mb-1">Статус автомата: <span class="sp-1">Online</span></h3>
-                                    <h3 class="mb-1">Наявність води: <span
-                                                class="sp-1">{{ $machine->water_amount }}л</span></h3>
+                                    <h3 class="mb-1">Наявність води:
+                                    @if ($machine->water_amount > 100)
+                                        <span class="sp-1">Більше 100 літрів</span>
+                                    @else
+                                        <span class="sp-1">Меньше 100 літрів</span>
+                                    @endif
+                                    </h3>
                                     <h3 class="mb-1">Система наливу: <span class="sp-1">Ок</span></h3>
                                 </div>
                             </div>

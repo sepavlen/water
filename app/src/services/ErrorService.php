@@ -21,7 +21,7 @@ class ErrorService
     {
         if ($request->has('st') && $request->st){
             $error = $this->repository->getErrorByParams([
-                'machine_number' => $request->n,
+                'machine_number' => trim($request->n) ,
                 'code' => $request->st,
                 'status' => Error::STATUS_ACTIVE,
             ]);
@@ -50,7 +50,7 @@ class ErrorService
 
     public function load (Error &$error, $request)
     {
-        $error->machine_number = $request->n;
+        $error->machine_number = trim($request->n);
         $error->code = $request->st;
         $error->status = Error::STATUS_ACTIVE;
         $error->description = ErrorHelper::getRequestErrors($request->st);

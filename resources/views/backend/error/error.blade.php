@@ -57,6 +57,9 @@
                                 </thead>
                                 <tbody>
                                 @foreach($errors as $item)
+                                    @if (!$item->machine)
+                                        @dd($item)
+                                    @endif
                                     <tr class="odd gradeX">
                                         <td>
                                             {{ $item->machine->unique_number }}

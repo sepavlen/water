@@ -23,7 +23,7 @@ class Error extends Model
 
     public function machine ()
     {
-        return $this->belongsTo(Machine::class, 'machine_number', 'unique_number');
+        return $this->belongsTo(Machine::class, 'machine_number', 'unique_number', 'machine_number');
     }
 
     public function getBySearch (Request $request) : Builder

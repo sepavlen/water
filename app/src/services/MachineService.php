@@ -35,6 +35,7 @@ class MachineService
         $machine = $this->repository->getMachine();
         $machine->fill($request->all());
         $machine->contact_time = date("Y-m-d H:i:s");
+        $machine->unique_number = trim($request->n);
         return $this->repository->save($machine);
     }
 
