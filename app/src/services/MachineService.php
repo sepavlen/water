@@ -102,13 +102,10 @@ class MachineService
             if (!$machine){
                 if ($machine = $this->createDefaultMachine($request)){
                     $this->repository->updateAmountWater($machine, $request);
-                    echo "Автомат создан";
                 }
             } else {
                 $this->waterAdditionService->createIfWaterAddition($machine, $request);
-                if ($this->repository->updateContactTimeAndAmountCount($machine, $request)){
-                    echo "Автомат обновлен";
-                }
+                $this->repository->updateContactTimeAndAmountCount($machine, $request);
             }
         }
     }

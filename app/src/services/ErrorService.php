@@ -3,6 +3,7 @@
 namespace App\src\services;
 
 use App\src\entities\Error;
+use App\src\entities\Machine;
 use App\src\helpers\ErrorHelper;
 use App\src\repositories\ErrorRepository;
 use Illuminate\Http\Request;
@@ -58,6 +59,20 @@ class ErrorService
     public function getActiveErrors () 
     {
         return $this->repository->getActiveErrors();
+    }
+
+    public static function machineHaveErrors (Machine $machine)
+    {
+        $error = (new ErrorRepository)->error()->newQuery()
+            ->where('machine_number', $machine->unique_number)
+            ->where('status', Error::STATUS_ACTIVE)
+            ->orderBy('created_at', 'desc')->first();
+        if ($error && ErrorHelper::checkErrorsForPay($error->code))
+            return 'Вибачте, автомат не працює!';
+        if (ErrorHelper::checkMachineTimingErrors([$machine]))
+            return 'Немає зв\'язку!';
+        return false;
+
     }
     
 }

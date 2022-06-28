@@ -75,6 +75,14 @@ class ErrorHelper
         }
         return $errors ? serialize($errors) : false;
     }
+
+    public static function checkErrorsForPay ($error_code)
+    {
+        if (0x00000001 & $error_code) return true;
+        if (0x00100000 & $error_code) return true;
+        if (0x00010000 & $error_code) return true;
+        return false;
+    }
     
     public static function checkMachineTimingErrors ($machines)
     {

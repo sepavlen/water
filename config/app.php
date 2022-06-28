@@ -176,6 +176,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Maksa988\WayForPay\WayForPayServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'WayForPay' => Maksa988\WayForPay\Facades\WayForPay::class,
     ],
 
 ];

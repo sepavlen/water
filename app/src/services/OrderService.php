@@ -29,8 +29,6 @@ class OrderService
             $this->load($order, $request);
             $this->repository->save($order);
         }
-
-        echo "OK; ";
     }
     
     public function isNotDuplicateOrder (Request $request)

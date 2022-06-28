@@ -25,16 +25,9 @@ class EncashmentService
     {
         $encashment = $this->repository->getEncashment();
         $this->load($encashment, $request);
-        if ($encashment->getAttributes()){
-            if (!$this->todayAlreadyAdded($request)){
+        if ($encashment->getAttributes())
+            if (!$this->todayAlreadyAdded($request))
                 $this->repository->save($encashment);
-                echo "Инкасация произведена";
-            } else {
-                echo "Дублирование";
-            }
-        } else {
-            echo "Инкасация не произведена";
-        }
     }
 
     public function load(Encashment &$encashment, Request $request)
