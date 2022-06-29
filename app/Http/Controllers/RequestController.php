@@ -104,7 +104,7 @@ class RequestController extends Controller
             return response()->json([
                 'success' => 'Ok',
                 'order_id' => $refill->order_id,
-                'amount' => $refill->amount,
+                'amount' => (float)$refill->amount * 100,
             ]);
         }
         return response()->json(['success' => 'Ok']);
