@@ -37,6 +37,7 @@ class RefillManager
     {
         return self::query()
             ->where('machine_id', $machine_id)
+            ->where('status', Refill::STATUS_PAYED)
             ->where('status_payed', Refill::STATUS_NEW)
             ->first() ?: self::model();
     }
