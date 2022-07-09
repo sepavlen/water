@@ -47,7 +47,7 @@ class RefillManager
         if (!$request->orderReference || !$refill = self::getByOrderId($request->orderReference))
             abort(404, 'Виникла помилка');
         $refill->status = Refill::STATUS_PAYED;
-        $refill->datetime_payed = now();
+        $refill->datetime_payed = date('Y-m-d H:i:s', time());
         $refill->callback = json_encode($request->all());
         $refill->save();
     }
@@ -57,7 +57,7 @@ class RefillManager
         if (!$refill = self::getNotPayedByMachineId($request->n))
             throw new \Exception('Refill not found', '404');
         $refill->status_payed = Refill::STATUS_PAYED;
-        $refill->datetime_st_payed = now();
+        $refill->datetime_st_payed = date('Y-m-d H:i:s', time());
         $refill->save();
     }
 }
