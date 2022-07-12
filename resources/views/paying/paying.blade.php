@@ -41,7 +41,7 @@
                                 'url' => route('paying.pay')
                             ]) }}
                             <div class="form-group mt-3">
-                                {{ Form::number('amount', null, ['class' => 'form-control', 'required' => true, 'min' => '0.01', 'step' => '0.01']) }}
+                                {{ Form::number('amount', null, ['class' => 'form-control', 'required' => true, 'min' => '1.00', 'step' => '0.01', 'max' => '60.00']) }}
                                 {{ Form::label('amount', 'Сумма поповнення', ['class' => 'form-control-placeholder']) }}
                             </div>
                             <div class="form-group">

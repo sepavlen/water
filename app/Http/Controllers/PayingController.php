@@ -48,7 +48,11 @@ class PayingController extends Controller
 
     public function success(Request $request)
     {
-        RefillManager::success($request);
-        return view('paying.success');
+        if ($request->transactionStatus != 'Approved'){
+            return view('paying.error');
+        } else {
+            RefillManager::success($request);
+            return view('paying.success');
+        }
     }
 }
