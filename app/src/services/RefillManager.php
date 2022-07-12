@@ -26,10 +26,11 @@ class RefillManager
         return $model;
     }
 
-    public static function getByOrderId ($order_id)
+    public static function getByOrderIdAndStatusNew ($order_id)
     {
         return self::query()
             ->where('order_id', $order_id)
+            ->where('status', Refill::STATUS_NEW)
             ->first();
     }
 
@@ -44,7 +45,7 @@ class RefillManager
 
     public static function success (Request $request)
     {
-        if (!$request->orderReference || !$refill = self::getByOrderId($request->orderReference))
+        if (!$request->orderReference || !$refill = self::getByOrderIdAndStatusNew($request->orderReference))
             abort(404, 'Виникла помилка');
         $refill->status = Refill::STATUS_PAYED;
         $refill->datetime_payed = date('Y-m-d H:i:s', time());
@@ -52,9 +53,19 @@ class RefillManager
         $refill->save();
     }
 
+    public static function update (Request $request)
+    {
+        $refill = Refill::whereOrderId($request->orderReference)->first();
+        if ($refill){
+            $refill->callback = json_encode($request->all());
+            $refill->save();
+        }
+    }
+
     public static function paid (Request $request)
     {
-        if (!$refill = self::getNotPayedByMachineId($request->n))
+        $refill = self::getNotPayedByMachineId($request->n);
+        if (!$refill || (is_object($refill) && !$refill->exists))
             throw new \Exception('Refill not found', '404');
         $refill->status_payed = Refill::STATUS_PAYED;
         $refill->datetime_st_payed = date('Y-m-d H:i:s', time());
