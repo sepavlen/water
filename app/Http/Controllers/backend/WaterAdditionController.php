@@ -17,6 +17,9 @@ class WaterAdditionController extends Controller
 
     public function index (Request $request, WaterAddition $water)
     {
+        if (isDriver()){
+            abort(403, "У Вас нет прав для просмотра данной страницы!");
+        }
         $waterAddition = $water->getBySearch($request)->paginate(50);
         $machines = $this->machineService->getMachines();
         return view('backend.water-addition.index', compact('waterAddition', 'machines'));

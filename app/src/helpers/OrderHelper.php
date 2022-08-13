@@ -4,6 +4,8 @@
 namespace App\src\helpers;
 
 
+use App\src\entities\Machine;
+
 class OrderHelper
 {
     public static function getOrderStatisticArray ($machines, $order_month, $order_yesterday, $order_today, $last_water_added)
@@ -11,9 +13,13 @@ class OrderHelper
 //        dd($machines[0]);
         $return = [];
         foreach ($machines as $machine) {
+            /**
+             * @var $machine Machine
+             */
             $return[] = [
                 'unique_number' => $machine->unique_number,
                 'address' => $machine->address,
+                'address_full' => $machine->address_full,
                 'waterAddition' => isset($last_water_added[$machine->id]) ? $last_water_added[$machine->id]->created_at . ' / ' . $last_water_added[$machine->id]->water_given . 'л' : 0,
                 'contact_time' => $machine->contact_time,
                 'water_amount' => $machine->water_amount,

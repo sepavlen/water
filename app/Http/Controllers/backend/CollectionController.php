@@ -21,6 +21,9 @@ class CollectionController extends Controller
 
     public function index (Request $request, Encashment $encashment)
     {
+        if (isDriver()){
+            abort(403, "У Вас нет прав для просмотра данной страницы!");
+        }
         $encashments = $encashment->getBySearch($request)->paginate(50);
         $machines = $this->machineService->getMachines();
 

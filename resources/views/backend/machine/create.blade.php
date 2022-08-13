@@ -72,6 +72,17 @@
                             'rows' => '5',
                         ]) }}
                     </div>
+                    @can('seeFullAddress', Auth::user())
+                        <div class="form-group form-group-custom">
+                            {{ Form::label('address', 'Полный адрес:', ['class' => 'control-label']) }}
+                            {{ Form::textarea('address', $machine->address_full, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Полный адрес',
+                                'disabled' => !Auth::user()->isAdmin(),
+                                'rows' => '5',
+                            ]) }}
+                        </div>
+                    @endcan
                     @can('change', $machine)
                         <div class="form-group form-group-custom custom-select-medium">
                             <span class="text-danger">*</span>

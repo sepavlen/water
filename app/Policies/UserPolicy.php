@@ -24,4 +24,9 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
+
+    public function seeFullAddress (User $user)
+    {
+        return $user->role != User::ROLE_PARTNER && $user->role != User::ROLE_MANAGER;
+    }
 }

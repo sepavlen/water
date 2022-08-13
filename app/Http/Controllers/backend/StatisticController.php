@@ -22,6 +22,9 @@ class StatisticController extends Controller
 
     public function index () 
     {
+        if (isDriver()){
+            abort(403, "У Вас нет прав для просмотра данной страницы!");
+        }
         $machines = $this->machineService->getMachines();
         $statisticCurrentDay = $this->statisticService->getStatisticForCurrentDay();
         $statisticCurrentMonth = $this->statisticService->getStatisticForCurrentMonth();

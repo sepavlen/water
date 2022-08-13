@@ -32,6 +32,9 @@ class MachineController extends Controller
 
     public function machine () 
     {
+        if (isDriver()){
+            abort(403, "У Вас нет прав для просмотра данной страницы!");
+        }
         $machines = $this->service->getMachines();
         return view('backend.machine.machine', compact('machines'));
     }

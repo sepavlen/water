@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Zdorovenka | Dashboard</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <link href="/assets/global/bootstrap/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="/assets/global/bootstrap/css/plugins.min.css" rel="stylesheet" type="text/css"/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700" media="all">    <link href="/assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700"
+          media="all">
+    <link href="/assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/global/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/global/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css"/>
 
 
-    <link href="/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/assets/global/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/global/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/datatables/datatables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" href="/assets/global/bootstrap/css/bootstrap-multiselect.min.css" type="text/css">
-    <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
 
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico"/>
     @stack('css')
 </head>
 
@@ -39,35 +42,38 @@
 
         <div class="page-logo">
             <a href="{{ route('dashboard') }}">
-                <img src="/assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
-            <div class="menu-toggler sidebar-toggler"> </div>
+                <img src="/assets/layouts/layout/img/logo.png" alt="logo" class="logo-default"/> </a>
+            <div class="menu-toggler sidebar-toggler"></div>
         </div>
 
 
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+           data-target=".navbar-collapse"> </a>
 
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     @if (\App\src\helpers\ErrorHelper::checkErrors($machines) || $errors)
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <i class="icon-bell"></i>
-                        @if ($errors)
-                            <span class="badge badge-danger badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
-                        @else
-                            @if (\App\src\helpers\ErrorHelper::checkMachineTimingErrors($machines))
-                                <span class="badge badge-warning badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <i class="icon-bell"></i>
+                            @if ($errors)
+                                <span class="badge badge-danger badge-danger-custom"> <i class="fa fa-bolt"></i> </span>
+                            @else
+                                @if (\App\src\helpers\ErrorHelper::checkMachineTimingErrors($machines))
+                                    <span class="badge badge-warning badge-danger-custom"> <i
+                                                class="fa fa-bolt"></i> </span>
+                                @endif
                             @endif
-                        @endif
-                    </a>
-                    <ul class="dropdown-menu">
-{{--                        <li class="external">--}}
-{{--                            <h3>--}}
-{{--                                <span class="bold">12 pending</span> notifications</h3>--}}
-{{--                            <a href="page_user_profile_1.html">view all</a>--}}
-{{--                        </li>--}}
-                        <li>
-                            <ul class="dropdown-menu-list" data-handle-color="#637283">
+                        </a>
+                        <ul class="dropdown-menu">
+                            {{--                        <li class="external">--}}
+                            {{--                            <h3>--}}
+                            {{--                                <span class="bold">12 pending</span> notifications</h3>--}}
+                            {{--                            <a href="page_user_profile_1.html">view all</a>--}}
+                            {{--                        </li>--}}
+                            <li>
+                                <ul class="dropdown-menu-list" data-handle-color="#637283">
                                     <li>
                                         <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table') }}">
                                     <span class="details">
@@ -75,24 +81,24 @@
                                             <span class="label label-sm label-icon label-danger">
                                                     <i class="fa fa-bell-o"></i>
                                                 </span> Есть проблемы с автоматами </span>
-                                        @else
-                                            <span class="label label-sm label-icon label-warning">
+                                            @else
+                                                <span class="label label-sm label-icon label-warning">
                                                     <i class="fa fa-bell-o"></i>
                                                 </span> Есть проблемы со связью </span>
-                                        @endif
+                                            @endif
                                         </a>
                                     </li>
-                            </ul>
-                        </li>
-                    </ul>
+                                </ul>
+                            </li>
+                        </ul>
                     @endif
                 </li>
 
 
-
                 <li class="dropdown dropdown-user">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="/assets/layouts/layout/img/avatar.png" />
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
+                        <img alt="" class="img-circle" src="/assets/layouts/layout/img/avatar.png"/>
                         <span class="username username-hide-on-mobile"> {{ \Illuminate\Support\Facades\Auth::user()->name }} </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -121,35 +127,43 @@
         </div>
     </div>
 </div>
-<div class="clearfix"> </div>
+<div class="clearfix"></div>
 <div class="page-container">
 
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
-            <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+            <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true"
+                data-slide-speed="200" style="padding-top: 20px">
                 <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler"> </div>
+                    <div class="sidebar-toggler"></div>
                 </li>
                 <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : ''  }}">
-                    <a href="{{ request()->routeIs('dashboard') ? 'javascript:void(0)' : route('dashboard')  }}" class="nav-link">
+                    <a href="{{ request()->routeIs('dashboard') ? 'javascript:void(0)' : route('dashboard')  }}"
+                       class="nav-link">
                         <i class="fa fa-home"></i>
                         <span class="title">Главная</span>
                     </a>
                 </li>
                 @if (isAdmin())
                     <li class="nav-item {{ request()->routeIs('dashboard.users') ? 'active' : ''  }}">
-                        <a href="{{ request()->routeIs('dashboard.users') ? 'javascript:void(0)' : route('dashboard.users')  }}" class="nav-link">
+                        <a href="{{ request()->routeIs('dashboard.users') ? 'javascript:void(0)' : route('dashboard.users')  }}"
+                           class="nav-link">
                             <i class="icon-user"></i>
                             <span class="title">Пользователи</span>
                         </a>
                     </li>
                 @endif
-                <li class="nav-item {{ request()->routeIs('dashboard.machine') ? 'active' : ''  }}">
-                    <a href="{{ request()->routeIs('dashboard.machine') ? 'javascript:void(0)' : route('dashboard.machine')  }}" class="nav-link">
-                        <i class="fa fa-cog"></i>
-                        <span class="title">Автоматы</span>
-                    </a>
-                </li>
+                @if (!isDriver())
+
+                    <li class="nav-item {{ request()->routeIs('dashboard.machine') ? 'active' : ''  }}">
+                        <a href="{{ request()->routeIs('dashboard.machine') ? 'javascript:void(0)' : route('dashboard.machine')  }}"
+                           class="nav-link">
+                            <i class="fa fa-cog"></i>
+                            <span class="title">Автоматы</span>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-item {{ request()->routeIs(['dashboard.table', 'dashboard.statistic', 'pnl']) ? 'active' : ''  }}">
                     <a href="" class="nav-link nav-toggle">
                         <i class="fa fa-line-chart"></i>
@@ -158,27 +172,33 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item desktop-none {{ request()->routeIs(['dashboard.mobile-table']) ? 'selected' : ''  }}">
-                            <a href="{{ request()->routeIs('dashboard.mobile-table') ? 'javascript:void(0)' : route('dashboard.mobile-table')  }}" class="nav-link ">
+                            <a href="{{ request()->routeIs('dashboard.mobile-table') ? 'javascript:void(0)' : route('dashboard.mobile-table')  }}"
+                               class="nav-link ">
                                 <i class="fa fa-mobile-phone"></i>
                                 <span class="title">Таблицы (мобильная версия)</span>
                             </a>
                         </li>
                         <li class="nav-item  {{ request()->routeIs(['dashboard.table']) ? 'selected' : ''  }}">
-                            <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table')  }}" class="nav-link ">
+                            <a href="{{ request()->routeIs('dashboard.table') ? 'javascript:void(0)' : route('dashboard.table')  }}"
+                               class="nav-link ">
                                 <i class="fa fa-table"></i>
                                 <span class="title">Таблицы</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs(['dashboard.statistic']) ? 'selected' : ''  }} ">
+                        @if (!isDriver())
+                            <li class="nav-item {{ request()->routeIs(['dashboard.statistic']) ? 'selected' : ''  }} ">
+                                <a href="{{ request()->routeIs('dashboard.statistic') ? 'javascript:void(0)' : route('dashboard.statistic')  }}"
+                                   class="nav-link ">
+                                    <i class="fa fa-bar-chart"></i>
+                                    <span class="title">Графики</span>
+                                </a>
+                            </li>
+                        @endif
 
-                            <a href="{{ request()->routeIs('dashboard.statistic') ? 'javascript:void(0)' : route('dashboard.statistic')  }}" class="nav-link ">
-                                <i class="fa fa-bar-chart"></i>
-                                <span class="title">Графики</span>
-                            </a>
-                        </li>
                         @if (isGeneralPartner())
                             <li class="nav-item  {{ request()->routeIs(['pnl']) ? 'selected' : ''  }}">
-                                <a href="{{ request()->routeIs('pnl') ? 'javascript:void(0)' : route('pnl')  }}" class="nav-link ">
+                                <a href="{{ request()->routeIs('pnl') ? 'javascript:void(0)' : route('pnl')  }}"
+                                   class="nav-link ">
                                     <i class="fa fa-archive"></i>
                                     <span class="title">Pnl за месяц</span>
                                 </a>
@@ -186,26 +206,31 @@
                         @endif
                     </ul>
                 </li>
-{{--                @if (isAdmin())--}}
+                @if (!isDriver())
                     <li class="nav-item {{ request()->routeIs('dashboard.collection') ? 'active' : ''  }}">
-                        <a href="{{ request()->routeIs('dashboard.collection') ? 'javascript:void(0)' : route('dashboard.collection')  }}" class="nav-link">
+                        <a href="{{ request()->routeIs('dashboard.collection') ? 'javascript:void(0)' : route('dashboard.collection')  }}"
+                           class="nav-link">
                             <i class="fa fa-money"></i>
                             <span class="title">Инкассация</span>
                         </a>
                     </li>
-{{--                @endif--}}
+                @endif
+                @if (!isDriver())
 
-                <li class="nav-item {{ request()->routeIs(['dashboard.water-addition']) ? 'selected' : ''  }} ">
+                    <li class="nav-item {{ request()->routeIs(['dashboard.water-addition']) ? 'selected' : ''  }} ">
 
-                    <a href="{{ request()->routeIs('dashboard.water-addition') ? 'javascript:void(0)' : route('dashboard.water-addition')  }}" class="nav-link ">
-                        <i class="fa fa-plus-circle"></i>
-                        <span class="title">Долив</span>
-                    </a>
-                </li>
+                        <a href="{{ request()->routeIs('dashboard.water-addition') ? 'javascript:void(0)' : route('dashboard.water-addition')  }}"
+                           class="nav-link ">
+                            <i class="fa fa-plus-circle"></i>
+                            <span class="title">Долив</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item {{ request()->routeIs(['dashboard.error']) ? 'selected' : ''  }} ">
 
-                    <a href="{{ request()->routeIs('dashboard.error') ? 'javascript:void(0)' : route('dashboard.error')  }}" class="nav-link ">
+                    <a href="{{ request()->routeIs('dashboard.error') ? 'javascript:void(0)' : route('dashboard.error')  }}"
+                       class="nav-link ">
                         <i class="fa fa-exclamation-circle"></i>
                         <span class="title">Ошибки</span>
                     </a>
@@ -228,7 +253,9 @@
 
 <div class="page-footer">
     <div class="page-footer-inner"> 2014 &copy; Metronic by keenthemes.
-        <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+        <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes"
+           title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase
+            Metronic!</a>
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
@@ -263,12 +290,11 @@
 <script src="{{ asset('assets/global/select2/js/components-select2.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
 <script>
-    $('.dropdown-menu').bind('mousewheel DOMMouseScroll', function(e) {
+    $('.dropdown-menu').bind('mousewheel DOMMouseScroll', function (e) {
         var scrollTo = null;
         if (e.type == 'mousewheel') {
             scrollTo = (e.originalEvent.wheelDelta * -1);
-        }
-        else if (e.type == 'DOMMouseScroll') {
+        } else if (e.type == 'DOMMouseScroll') {
             scrollTo = 40 * e.originalEvent.detail;
         }
         if (scrollTo) {

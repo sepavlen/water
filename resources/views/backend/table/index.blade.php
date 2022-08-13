@@ -57,7 +57,11 @@
                                                 <tr>
                                                     <td>{{ $machine->unique_number }}</td>
                                                     <td>{!! \App\src\helpers\MachineHelper::getStatusForTable($machine, $errors) !!}</td>
-                                                    <td>{{ $machine->address }}</td>
+                                                    @if (isDriver())
+                                                        <td>{{ $machine->address_full }}</td>
+                                                    @else
+                                                        <td>{{ $machine->address }}</td>
+                                                    @endif
                                                     <td>{{ $machine->contact_time }}</td>
                                                     <td>
                                                         @foreach(\App\src\helpers\MachineHelper::getProblems($machine, $errors) as $problem)
@@ -99,7 +103,11 @@
                                         <tbody>
                                             @foreach($machines_statistic as $machine)
                                                 <tr>
-                                                    <td>{{ $machine['address'] }}</td>
+                                                    @if (isDriver())
+                                                        <td>{{ $machine['address_full'] }}</td>
+                                                    @else
+                                                        <td>{{ $machine['address'] }}</td>
+                                                    @endif
                                                     <td>{{ $machine['water_amount'] }}</td>
                                                     <td>{{ $machine['orders_sum_today'] }}грн / {{ $machine['water_given_today'] }}л</td>
                                                     <td>{{ $machine['orders_sum_yesterday'] }}грн / {{ $machine['water_given_yesterday'] }}л</td>

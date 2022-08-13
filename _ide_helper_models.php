@@ -101,6 +101,7 @@ namespace App\src\entities{
  * @property string|null $price
  * @property int $status 1 - Active, 2 - Blocked
  * @property string|null $address
+ * @property string|null $address_full
  * @property int $water_up
  * @property int $water_down
  * @property int $max_banknotes

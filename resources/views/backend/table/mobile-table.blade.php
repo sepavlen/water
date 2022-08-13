@@ -36,7 +36,11 @@
                                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th colspan="2" class="text-center">{{ "({$machine['unique_number']})" . $machine['address'] }}</th>
+                                            @if (isDriver())
+                                                <th colspan="2" class="text-center">{{ "({$machine['unique_number']})" . $machine['address_full'] }}</th>
+                                            @else
+                                                <th colspan="2" class="text-center">{{ "({$machine['unique_number']})" . $machine['address'] }}</th>
+                                            @endif
                                         </tr>
                                         </thead>
                                     <tbody>

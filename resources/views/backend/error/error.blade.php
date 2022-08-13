@@ -65,7 +65,11 @@
                                             {{ $item->machine->unique_number }}
                                         </td>
                                         <td>
-                                            {{ $item->machine->address ?: '-' }}
+                                            @if (isDriver())
+                                                {{ $item->machine->address_full ?: '-' }}
+                                            @else
+                                                {{ $item->machine->address ?: '-' }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $item->machine->user->name }}
