@@ -75,7 +75,7 @@
                     @can('seeFullAddress', Auth::user())
                         <div class="form-group form-group-custom">
                             {{ Form::label('address', 'Полный адрес:', ['class' => 'control-label']) }}
-                            {{ Form::textarea('address', $machine->address_full, [
+                            {{ Form::textarea('address_full', $machine->address_full, [
                                 'class' => 'form-control',
                                 'placeholder' => 'Полный адрес',
                                 'disabled' => !Auth::user()->isAdmin(),
