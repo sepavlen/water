@@ -45,6 +45,7 @@ class RequestController extends Controller
 
     public function index(Request $request)
     {
+        \Config::set('session.driver', 'cookie');
         if (!$request->has('com') || !$request->has('n')) {
             abort(404);
         }
