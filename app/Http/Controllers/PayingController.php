@@ -48,7 +48,7 @@ class PayingController extends Controller
 
     public function success(Request $request)
     {
-        if ($request->transactionStatus == 'Declined'){
+        if (!$request->transactionStatus || $request->transactionStatus == 'Declined'){
             RefillManager::update($request);
             return view('paying.error');
         } else {
