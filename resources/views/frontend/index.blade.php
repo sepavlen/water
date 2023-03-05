@@ -512,13 +512,13 @@
                     </div>
                     <div class="support-wrap__data">
                         <p class="support-wrap_data__text">Станом на</p>
-                        <p class="support-wrap_data__value">01.06.2022</p>
+                        <p class="support-wrap_data__value">01.02.2023</p>
                         <p class="support-wrap_data__text">вже передано</p>
                     </div>
                     <div class="support-wrap__list">
 
                         <div class="support-list__box">
-                            <p class="support-list__figure">1000</p>
+                            <p class="support-list__figure">32450</p>
                             <p class="support-list__description">літрів води</p>
                         </div>
 

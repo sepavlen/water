@@ -18,7 +18,7 @@
                     <div class="login-wrap p-4 p-md-5">
                         <hr width="100%">
                         <h2 class="text-center">Оплата пройшла успiшно</h2>
-                        <h3 class="text-center">Поповнення автомата займе не більше 30 секунд</h3>
+                        <h3 class="text-center">Поповнення автомата займе не більше 3 хвилин</h3>
                     </div>
                 </div>
             </div>
